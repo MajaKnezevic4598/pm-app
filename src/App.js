@@ -6,6 +6,7 @@ import AdminRoutes from './routes/AdminRoutes';
 import PublicRoutes from './routes/PublicRoutes';
 
 function App() {
+  //vercel
   const { loggedIn } = useContext(AuthContext);
   useEffect(() => {
     console.log(loggedIn);
