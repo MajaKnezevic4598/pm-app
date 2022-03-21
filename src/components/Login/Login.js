@@ -36,16 +36,6 @@ const Login = () => {
         reset: resetPasswordInput,
     } = useInput((value) => +value.length > 5);
 
-
-    const loginHandler = () => {
-        if (emailIsValid && passwordIsValid) {
-            console.log(enteredEmail);
-            console.log(enteredPassword);
-        } else {
-            setHasError(true);
-        }
-    };
-
   const loginHandler = async () => {
     if (emailIsValid && passwordIsValid) {
       setIsLoading(true);
