@@ -8,6 +8,7 @@ const AuthContextProvider = (props) => {
 
   const checkJwtValid = (exp) => {
     if (Date.now() >= exp * 1000) {
+      //refresh tokena
       return false;
     }
     return true;
@@ -19,6 +20,8 @@ const AuthContextProvider = (props) => {
     if (checkJwtValid(decoded.exp)) {
       setLoggedIn(true);
     } else {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
       setLoggedIn(false);
     }
   }

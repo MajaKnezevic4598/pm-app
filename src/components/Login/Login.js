@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useInput from '../../hooks/use-input';
 import axiosInstance from '../../helpers/axiosInstance';
 import AuthContext from '../../context/AuthContext';
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../Spinner.js/Spinner';
 const Login = () => {
   const navigate = useNavigate();
   const [hasError, setHasError] = useState(false);
