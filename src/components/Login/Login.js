@@ -7,8 +7,7 @@ import AuthContext from '../../context/AuthContext';
 import Spinner from '../Spinner/Spinner';
 const Login = () => {
 
-    const navigate = useNavigate();
-    const [hasError, setHasError] = useState(false);
+
 
   const navigate = useNavigate();
   const [hasError, setHasError] = useState(false);
