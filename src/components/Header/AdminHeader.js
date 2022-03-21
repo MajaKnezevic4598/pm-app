@@ -7,52 +7,47 @@ import { BiMenuAltRight } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const AdminHeader = () => {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const menuToggler = () => setMenuOpen((p) => !p);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuToggler = () => setMenuOpen((p) => !p);
 
-    const Button = () => {
-        return <button className={styles.button}>Logout</button>;
-    };
+  const Button = () => {
+    return <button className={styles.button}>Logout</button>;
+  };
 
-    return (
-        <header className={styles.header}>
-            <div className={styles.header__content}>
-                <div>
-                    <span className={styles.logo}>
-                        <a href="/">Q Project Info</a>
-                    </span>
-                </div>
-                <div>
-                    <nav
-                        className={`${styles.nav} ${
-                            menuOpen ? styles[`nav--open`] : {}
-                        }`}
-                    >
-                        <Link className={styles.nav__item} to="/my-projects">
-                            Users
-                        </Link>
-                        <Link className={styles.nav__item} to="/account">
-                            Projects
-                        </Link>
-                        <div className={styles.nav__button__container}>
-                            <Button />
-                        </div>
-                    </nav>
-                </div>
-                <div>
-                    <div className={styles.header__button__container}>
-                        <Button />
-                    </div>
-                    <button
-                        className={styles.header__toggler}
-                        onClick={menuToggler}
-                    >
-                        {!menuOpen ? <BiMenuAltRight /> : <AiOutlineClose />}
-                    </button>
-                </div>
+  return (
+    <header className={styles.header}>
+      <div className={styles.header__content}>
+        <div>
+          <span className={styles.logo}>
+            <a href="/">Q Project Info</a>
+          </span>
+        </div>
+        <div>
+          <nav
+            className={`${styles.nav} ${menuOpen ? styles[`nav--open`] : {}}`}
+          >
+            <Link className={styles.nav__item} to="/">
+              Users
+            </Link>
+            <Link className={styles.nav__item} to="/categories">
+              Categories
+            </Link>
+            <div className={styles.nav__button__container}>
+              <Button />
             </div>
-        </header>
-    );
+          </nav>
+        </div>
+        <div>
+          <div className={styles.header__button__container}>
+            <Button />
+          </div>
+          <button className={styles.header__toggler} onClick={menuToggler}>
+            {!menuOpen ? <BiMenuAltRight /> : <AiOutlineClose />}
+          </button>
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default AdminHeader;
