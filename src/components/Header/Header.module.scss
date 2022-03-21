@@ -1,0 +1,159 @@
+@import './../../styles/variables';
+
+.header {
+    height: $headerHeight;
+    background: $backGround2;
+    color: $text2;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+
+    &__content {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 0 $spacing-medium;
+        @include breakpoint(md) {
+            padding: 0 $spacing-large;
+        }
+        transition: 0.3s ease padding;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        & > div {
+            flex: 1;
+            white-space: nowrap;
+
+            &:nth-child(2) {
+                display: flex;
+                justify-content: flex-end;
+                height: 100%;
+
+                margin-right: $spacing-medium;
+            }
+            &:last-of-type {
+                display: flex;
+                justify-content: flex-end;
+                flex: 0;
+            }
+        }
+    }
+
+    &__button__container {
+        display: none;
+        @include breakpoint(md) {
+            display: initial;
+        }
+    }
+    &__toggler {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        @include breakpoint(md) {
+            display: none;
+        }
+        & > svg {
+            display: block;
+            font-size: 2rem;
+        }
+    }
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text2;
+    padding-left: 1rem;
+    letter-spacing: 1px;
+    background: linear-gradient(-45deg, #6355a4, #b7b1ce, #fbb440, #fbb440);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animated_text 5s ease-in-out infinite;
+    -moz-animation: animated_text 5s ease-in-out infinite;
+    -webkit-animation: animated_text 5s ease-in-out infinite;
+}
+
+@keyframes animated_text {
+    0% {
+        background-position: 0px 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0px 50%;
+    }
+}
+
+.icon {
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.nav {
+    width: 100%;
+    position: fixed;
+    top: $headerHeight;
+    right: -100%;
+    background: rgba($backGround2, 0.5);
+    text-align: center;
+    padding: $spacing-medium 0;
+
+    &--open {
+        transition: 0.5s ease right;
+        right: 0;
+    }
+
+    &__item {
+        display: block;
+        padding: $spacing-medium;
+
+        text-decoration: none;
+        color: inherit;
+
+        height: 100%;
+
+        transition: 0.3s ease color;
+        &:hover {
+            color: $primaryColor;
+        }
+    }
+
+    @include breakpoint(md) {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        background: initial;
+        width: auto;
+        padding: 0;
+
+        &__item {
+            padding: 0 $spacing-large;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &__button__container {
+        @include breakpoint(md) {
+            display: none;
+        }
+        padding: $spacing-medium;
+    }
+}
+
+.button {
+    font-weight: 500;
+    padding: $spacing-small $spacing-large;
+    cursor: pointer;
+    border-radius: 3rem;
+    &:active {
+        transform: scale(0.98);
+    }
+    &:hover {
+        color: $primaryColor;
+    }
+}
