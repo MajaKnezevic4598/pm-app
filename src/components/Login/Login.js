@@ -43,6 +43,10 @@ const Login = () => {
         if (data) {
           localStorage.setItem('token', data.data.jwt);
           localStorage.setItem('userId', data.data.user.id);
+          const profileData = await axiosInstance.get(
+            '/users/' + data.data.user.id
+          );
+          localStorage.setItem('role', profileData.data.role.name);
 
           getLoggedIn();
         }
