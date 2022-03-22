@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
+import './styles/index.scss';
+
+// import './index.css';
 import App from './App';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import AuthContext, { AuthContextProvider } from './context/AuthContext';
@@ -15,4 +18,5 @@ ReactDOM.render(
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
+
 );
