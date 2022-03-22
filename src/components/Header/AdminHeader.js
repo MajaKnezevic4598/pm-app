@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 
@@ -7,11 +7,22 @@ import { BiMenuAltRight } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const AdminHeader = () => {
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuToggler = () => setMenuOpen((p) => !p);
 
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    window.location.href = '/';
+  };
+
   const Button = () => {
-    return <button className={styles.button}>Logout</button>;
+    return (
+      <button className={styles.button} onClick={logout}>
+        Logout
+      </button>
+    );
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useQuery } from 'react-query';
 import axiosInstance from '../../helpers/axiosInstance';
 import Spinner from '../Spinner.js/Spinner';
@@ -26,17 +26,20 @@ const AdminUsers = () => {
   const [searching, setSearching] = useState(false);
   const [nameFilter, setNameFilter] = useState('');
   const [filteredUsers, setFilteredUsers] = useState([]);
+
   const { data, status, refetch } = useQuery(['users'], () => fetchUsers());
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   const toggleApprove = async (id, confirmed) => {
     const shouldConfirm = confirmed === true ? true : false;
-    console.log(shouldConfirm);
     if (storageId != id) {
       await axiosInstance.put(`/users/${id}`, { confirmed: !shouldConfirm });
     }
+
+    if (searching === true) {
+      const foundUser = filteredUsers.find((user) => user.id === id);
+      foundUser.confirmed = !shouldConfirm;
+    }
+
     refetch();
   };
 
@@ -49,10 +52,9 @@ const AdminUsers = () => {
         }
       });
       setFilteredUsers(newProfiles);
-      if (newProfiles.length === 0) {
-      }
     } else {
       setFilteredUsers(data ? data : []);
+      setSearching(false);
     }
   }, [nameFilter]);
 
@@ -75,6 +77,25 @@ const AdminUsers = () => {
     return <Spinner />;
   }
 
+  const FilteredProfiles = () => {
+    return filteredUsers?.map((user) => {
+      if (user.id != storageId) {
+        return (
+          <UserBox
+            key={user.id}
+            name={user.name}
+            email={user.email}
+            role={user.role.description}
+            confirmed={user.confirmed}
+            id={user.id}
+            toggleApprove={toggleApprove}
+            deleteProfile={deleteProfile}
+          />
+        );
+      }
+    });
+  };
+
   return (
     <div className="users">
       <div className="users__description">
@@ -87,45 +108,32 @@ const AdminUsers = () => {
             value={nameFilter}
             onChange={searchByName}
             type={'text'}
-            placeholder="search"
+            placeholder="Search"
           />
         </div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div className="users__content">
-          {data && !searching
-            ? data?.map((user) => {
-                if (user.id != storageId) {
-                  return (
-                    <UserBox
-                      key={user.id}
-                      name={user.name}
-                      email={user.email}
-                      role={user.role.description}
-                      confirmed={user.confirmed}
-                      id={user.id}
-                      toggleApprove={toggleApprove}
-                      deleteProfile={deleteProfile}
-                    />
-                  );
-                }
-              })
-            : filteredUsers?.map((user) => {
-                if (user.id != storageId) {
-                  return (
-                    <UserBox
-                      key={user.id}
-                      name={user.name}
-                      email={user.email}
-                      role={user.role.description}
-                      confirmed={user.confirmed}
-                      id={user.id}
-                      toggleApprove={toggleApprove}
-                      deleteProfile={deleteProfile}
-                    />
-                  );
-                }
-              })}
+          {data && !searching ? (
+            data?.map((user) => {
+              if (user.id != storageId) {
+                return (
+                  <UserBox
+                    key={user.id}
+                    name={user.name}
+                    email={user.email}
+                    role={user.role.description}
+                    confirmed={user.confirmed}
+                    id={user.id}
+                    toggleApprove={toggleApprove}
+                    deleteProfile={deleteProfile}
+                  />
+                );
+              }
+            })
+          ) : (
+            <FilteredProfiles />
+          )}
         </div>
       </div>
     </div>
