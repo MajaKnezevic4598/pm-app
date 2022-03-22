@@ -1,0 +1,70 @@
+@import '../../styles/variables';
+.categories {
+  &__description {
+    background-color: #e7fdfd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 4rem;
+    font-family: $roboto-font;
+
+    @media screen and (max-width: 650px) {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    &__left div:first-of-type {
+      font-size: 28px;
+      line-height: 33px;
+      font-weight: 600;
+    }
+
+    &__left div:last-of-type {
+      font-size: 22px;
+      line-height: 26px;
+      color: #5c5c5c;
+
+      @media screen and (max-width: 650px) {
+        margin-bottom: 20px;
+      }
+    }
+
+    input {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 18px;
+      padding: 0.5rem 1rem;
+      font-family: $roboto-font;
+      margin-bottom: 10px;
+    }
+    input:focus {
+      outline: none;
+    }
+
+    button {
+      cursor: pointer;
+      color: white;
+      margin-left: 10px;
+      padding: 10px 24px;
+      background: #319795;
+      border-radius: 6px;
+    }
+  }
+  &__content {
+    padding: 0 8rem;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 80%;
+    justify-content: center;
+
+    @media screen and (max-width: 650px) {
+      padding: 0;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}
