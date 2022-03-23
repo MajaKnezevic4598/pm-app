@@ -47,7 +47,10 @@ const Login = () => {
             '/users/' + data.data.user.id
           );
           localStorage.setItem('role', profileData.data.role.name);
-
+          const profile = await axiosInstance.get(
+            `https://pm-app-bek.herokuapp.com/api/profiles?filters[userId][id][$eq]=${data.data.user.id}&populate=*`
+          );
+          localStorage.setItem('profileId', profile.data.data[0].id);
           getLoggedIn();
         }
         setIsLoading(false);
