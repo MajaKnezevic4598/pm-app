@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./PMHome.scss";
 import DefalutPr from "../../assets/rocket2.png";
+import SingleProjectCard from "./SingleProjectCard";
 
 const PMHome = () => {
   const [selectedProject, setSelectedProject] = useState("");
@@ -31,7 +32,9 @@ const PMHome = () => {
           </div>
         </div>
       </section>
-      <section>Here goes other content!</section>
+      <section>
+        <SingleProjectCard />
+      </section>
     </div>
   );
 };
