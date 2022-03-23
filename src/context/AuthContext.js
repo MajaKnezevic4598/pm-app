@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import jwtDecode from 'jwt-decode';
+import axiosInstance from '../helpers/axiosInstance';
 
 const AuthContext = createContext();
 
@@ -16,6 +17,7 @@ const AuthContextProvider = (props) => {
 
   async function getLoggedIn() {
     const tokenStorage = localStorage.getItem('token');
+
     if (tokenStorage) {
       let decoded = jwtDecode(tokenStorage);
       if (checkJwtValid(decoded.exp)) {

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axiosInstance from '../../helpers/axiosInstance';
 
 const EmployeeHome = () => {
-  return <div>EmployeeHome</div>;
+  return <div>Employee Home</div>;
 };
 
 export default EmployeeHome;
