@@ -148,7 +148,7 @@ const Register = () => {
           }
 
           getLoggedIn();
-          // window.location.href = '/';
+          window.location.href = '/';
           console.log(data);
         }
         setIsLoading(false);

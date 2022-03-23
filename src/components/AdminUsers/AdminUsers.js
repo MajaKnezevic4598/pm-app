@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useQuery } from 'react-query';
 import axiosInstance from '../../helpers/axiosInstance';
+import Modal from '../Modal/Modal';
 import Spinner from '../Spinner.js/Spinner';
 import './AdminUsers.scss';
 import UserBox from './UserBox';
@@ -16,10 +17,10 @@ function compare(a, b) {
 }
 
 const fetchUsers = async () => {
-  const res = await axiosInstance.get('/profiles?populate=*');
-  console.log(res.data.data);
-  const sortedRes = res?.data.data.sort(compare);
-  return sortedRes;
+  const res = await axiosInstance.get(
+    '/profiles?sort=createdAt:DESC&populate=*'
+  );
+  return res?.data?.data;
 };
 
 const AdminUsers = () => {
@@ -28,6 +29,9 @@ const AdminUsers = () => {
   const [searching, setSearching] = useState(false);
   const [nameFilter, setNameFilter] = useState('');
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [futureId, setFutureId] = useState(null);
+  const [futureProfileId, setFutureProfileId] = useState(null);
 
   const { data, status, refetch } = useQuery(['users'], () => fetchUsers());
 
@@ -76,15 +80,30 @@ const AdminUsers = () => {
     setSearching(true);
   };
 
-  const deleteProfile = async (id, userId) => {
-    if (userId) {
-      await axiosInstance.delete('/users/' + userId);
+  const deleteProfile = async () => {
+    if (futureId) {
+      await axiosInstance.delete('/users/' + futureId);
     }
-    await axiosInstance.delete('/profiles/' + id);
+    await axiosInstance.delete('/profiles/' + futureProfileId);
     if (searching === true) {
-      setFilteredUsers(filteredUsers.filter((user) => user.id !== id));
+      setFilteredUsers(
+        filteredUsers.filter((user) => user.id !== futureProfileId)
+      );
     }
+    setShowModal(false);
+    setFutureId(null);
+    setFutureProfileId(null);
     refetch();
+  };
+
+  const modalOn = () => {
+    setShowModal(true);
+  };
+
+  const modallOff = () => {
+    setShowModal(false);
+    setFutureId(null);
+    setFutureProfileId(null);
   };
 
   if (status === 'loading') {
@@ -106,6 +125,9 @@ const AdminUsers = () => {
             userId={user.attributes?.userId?.data?.id}
             deleteProfile={deleteProfile}
             img={user.attributes?.profilePhoto?.data?.attributes?.url}
+            setId={setFutureId}
+            setProfileId={setFutureProfileId}
+            toggleModal={modalOn}
           />
         );
       }
@@ -147,7 +169,9 @@ const AdminUsers = () => {
                           user.attributes?.profilePhoto?.data?.attributes?.url
                         }
                         userId={user.attributes?.userId?.data?.id}
-                        deleteProfile={deleteProfile}
+                        setId={setFutureId}
+                        setProfileId={setFutureProfileId}
+                        toggleModal={modalOn}
                       />
                     );
                   }
@@ -157,6 +181,12 @@ const AdminUsers = () => {
           }
         </div>
       </div>
+      <Modal
+        show={showModal}
+        modalClosed={modallOff}
+        clickFirst={modallOff}
+        clickSecond={deleteProfile}
+      />
     </div>
   );
 };
