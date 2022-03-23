@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { useQuery } from 'react-query';
-import axiosInstance from '../../helpers/axiosInstance';
-import Spinner from '../Spinner.js/Spinner';
-import './AdminUsers.scss';
-import UserBox from './UserBox';
+import React, { useEffect, useState, useCallback } from "react";
+import { useQuery } from "react-query";
+import axiosInstance from "../../helpers/axiosInstance";
+import Spinner from "../Spinner.js/Spinner";
+import "./AdminUsers.scss";
+import UserBox from "./UserBox";
 
 function compare(a, b) {
   if (a.attributes.createdAt > b.attributes.createdAt) {
@@ -16,20 +16,23 @@ function compare(a, b) {
 }
 
 const fetchUsers = async () => {
-  const res = await axiosInstance.get('/profiles?populate=*');
+  const res = await axiosInstance.get("/profiles?populate=*");
   console.log(res.data.data);
   const sortedRes = res?.data.data.sort(compare);
   return sortedRes;
 };
+//compare na strapiju
 
 const AdminUsers = () => {
-  const storageId = localStorage.getItem('userId');
-  const profileId = localStorage.getItem('profileId');
+  const storageId = localStorage.getItem("userId");
+  const profileId = localStorage.getItem("profileId");
   const [searching, setSearching] = useState(false);
-  const [nameFilter, setNameFilter] = useState('');
+  const [nameFilter, setNameFilter] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
 
-  const { data, status, refetch } = useQuery(['users'], () => fetchUsers());
+  //filterUsers useri koji zadovaljavaju kriterijum pretrage
+
+  const { data, status, refetch } = useQuery(["users"], () => fetchUsers());
 
   const toggleApprove = async (id, confirmed) => {
     const shouldConfirm = confirmed === true ? true : false;
@@ -49,7 +52,7 @@ const AdminUsers = () => {
 
   useEffect(() => {
     let newProfiles = [];
-    if (nameFilter !== '') {
+    if (nameFilter !== "") {
       data?.map((profile) => {
         if (
           profile.attributes.name
@@ -67,7 +70,7 @@ const AdminUsers = () => {
   }, [nameFilter]);
 
   const searchByName = (e) => {
-    if (e.target.value === '') {
+    if (e.target.value === "") {
       setNameFilter(e.target.value);
       setSearching(false);
       return;
@@ -78,16 +81,16 @@ const AdminUsers = () => {
 
   const deleteProfile = async (id, userId) => {
     if (userId) {
-      await axiosInstance.delete('/users/' + userId);
+      await axiosInstance.delete("/users/" + userId);
     }
-    await axiosInstance.delete('/profiles/' + id);
+    await axiosInstance.delete("/profiles/" + id);
     if (searching === true) {
       setFilteredUsers(filteredUsers.filter((user) => user.id !== id));
     }
     refetch();
   };
 
-  if (status === 'loading') {
+  if (status === "loading") {
     return <Spinner />;
   }
 
@@ -123,12 +126,12 @@ const AdminUsers = () => {
           <input
             value={nameFilter}
             onChange={searchByName}
-            type={'text'}
+            type={"text"}
             placeholder="Search"
           />
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="users__content">
           {
             data && !searching
