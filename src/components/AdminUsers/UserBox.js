@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './UserBox.scss';
 import Default from '../../assets/no-image.png';
 import axiosInstance from '../../helpers/axiosInstance';
+
+const Image = React.memo(function Image({ src }) {
+  return (
+    <img
+      src={src}
+      className="user-box__left__picture"
+      onError={(e) => {
+        e.target.onerror = null;
+        e.target.src = Default;
+      }}
+    />
+  );
+});
 
 const UserBox = (props) => {
   return (
     <div className="user-box">
       <div className="user-box__left">
-        <img
-          src={props.img ? props.img : Default}
-          className="user-box__left__picture"
+        <Image
+          src={
+            props.img ? 'https://pm-app-bek.herokuapp.com' + props.img : Default
+          }
         />
+
         <div className="user-box__left__desc">
           <div>{props.name}</div>
           <div>{props.role}</div>
@@ -21,14 +36,15 @@ const UserBox = (props) => {
           style={{ cursor: 'pointer' }}
           onClick={() => props.toggleApprove(props.id, props.confirmed)}
         >
-          {props.confirmed
-            ? // <i style={{ color: 'red' }} className="fas fa-thumbs-down"></i>
-              'Unapprove'
-            : 'Approve'
-              // <i style={{ color: 'green' }} className="fas fa-thumbs-up"></i>
+          {
+            props.confirmed
+              ? // <i style={{ color: 'red' }} className="fas fa-thumbs-down"></i>
+                'Unapprove'
+              : 'Approve'
+            // <i style={{ color: 'green' }} className="fas fa-thumbs-up"></i>
           }
         </div>
-        <div onClick={() => props.deleteProfile(props.id)}>
+        <div onClick={() => props.deleteProfile(props.id, props.userId)}>
           <i
             style={{ color: '#8D0000', cursor: 'pointer' }}
             className="fas fa-trash-alt"
