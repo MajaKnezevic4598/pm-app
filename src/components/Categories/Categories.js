@@ -12,6 +12,8 @@ const fetchCategories = async () => {
 
 const Categories = () => {
   const [categoryName, setCategoryName] = useState('');
+  const [updateCategoryName, setUpdateCategoryName] = useState('');
+  const [shouldInput, setShouldInput] = useState(false);
 
   const { data, status, refetch } = useQuery(['categories'], () =>
     fetchCategories()
@@ -25,6 +27,13 @@ const Categories = () => {
   const publishNewCategory = async () => {
     await axiosInstance.post('/categories', { data: { name: categoryName } });
     refetch();
+  };
+
+  const editCategory = async (id) => {
+    // await axiosInstance.put('/categories/' + id, {
+    //   name: updateCategoryName,
+    // });
+    // setShouldInput(true);
   };
 
   if (status === 'loading') {
@@ -56,6 +65,10 @@ const Categories = () => {
               key={category.id}
               id={category.id}
               deleteCategory={deleteCategory}
+              // updateCategory={editCategory}
+              // inp={shouldInput}
+              // nameValue={updateCategoryName}
+              // onInputChange={(e) => setUpdateCategoryName(e.target.value)}
             />
           ))}
         </div>

@@ -6,23 +6,25 @@ import './AdminUsers.scss';
 import UserBox from './UserBox';
 
 function compare(a, b) {
-  if (a.createdAt > b.createdAt) {
+  if (a.attributes.createdAt > b.attributes.createdAt) {
     return -1;
   }
-  if (a.createdAt < b.createdAt) {
+  if (a.attributes.createdAt < b.attributes.createdAt) {
     return 1;
   }
   return 0;
 }
 
 const fetchUsers = async () => {
-  const res = await axiosInstance.get('/users');
-  const sortedRes = res?.data.sort(compare);
+  const res = await axiosInstance.get('/profiles?populate=*');
+  console.log(res.data.data);
+  const sortedRes = res?.data.data.sort(compare);
   return sortedRes;
 };
 
 const AdminUsers = () => {
   const storageId = localStorage.getItem('userId');
+  const profileId = localStorage.getItem('profileId');
   const [searching, setSearching] = useState(false);
   const [nameFilter, setNameFilter] = useState('');
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -31,13 +33,15 @@ const AdminUsers = () => {
 
   const toggleApprove = async (id, confirmed) => {
     const shouldConfirm = confirmed === true ? true : false;
-    if (storageId != id) {
-      await axiosInstance.put(`/users/${id}`, { confirmed: !shouldConfirm });
+    if (profileId != id) {
+      await axiosInstance.put(`/profiles/${id}`, {
+        data: { confirmed: !shouldConfirm },
+      });
     }
 
     if (searching === true) {
       const foundUser = filteredUsers.find((user) => user.id === id);
-      foundUser.confirmed = !shouldConfirm;
+      foundUser.attributes.confirmed = !shouldConfirm;
     }
 
     refetch();
@@ -47,7 +51,11 @@ const AdminUsers = () => {
     let newProfiles = [];
     if (nameFilter !== '') {
       data?.map((profile) => {
-        if (profile.name.toLowerCase().includes(nameFilter.toLowerCase())) {
+        if (
+          profile.attributes.name
+            .toLowerCase()
+            .includes(nameFilter.toLowerCase())
+        ) {
           newProfiles.push(profile);
         }
       });
@@ -68,8 +76,14 @@ const AdminUsers = () => {
     setSearching(true);
   };
 
-  const deleteProfile = async (id) => {
-    await axiosInstance.delete('/users/' + id);
+  const deleteProfile = async (id, userId) => {
+    if (userId) {
+      await axiosInstance.delete('/users/' + userId);
+    }
+    await axiosInstance.delete('/profiles/' + id);
+    if (searching === true) {
+      setFilteredUsers(filteredUsers.filter((user) => user.id !== id));
+    }
     refetch();
   };
 
@@ -79,17 +93,19 @@ const AdminUsers = () => {
 
   const FilteredProfiles = () => {
     return filteredUsers?.map((user) => {
-      if (user.id != storageId) {
+      if (user.id != profileId) {
         return (
           <UserBox
             key={user.id}
-            name={user.name}
-            email={user.email}
-            role={user.role.description}
-            confirmed={user.confirmed}
+            name={user.attributes.name}
+            email={user.attributes.email}
+            role={user.attributes.role}
+            confirmed={user.attributes.confirmed}
             id={user.id}
             toggleApprove={toggleApprove}
+            userId={user.attributes?.userId?.data?.id}
             deleteProfile={deleteProfile}
+            img={user.attributes?.profilePhoto?.data?.attributes?.url}
           />
         );
       }
@@ -114,26 +130,31 @@ const AdminUsers = () => {
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div className="users__content">
-          {data && !searching ? (
-            data?.map((user) => {
-              if (user.id != storageId) {
-                return (
-                  <UserBox
-                    key={user.id}
-                    name={user.name}
-                    email={user.email}
-                    role={user.role.description}
-                    confirmed={user.confirmed}
-                    id={user.id}
-                    toggleApprove={toggleApprove}
-                    deleteProfile={deleteProfile}
-                  />
-                );
-              }
-            })
-          ) : (
-            <FilteredProfiles />
-          )}
+          {
+            data && !searching
+              ? data?.map((user) => {
+                  if (user.id != profileId) {
+                    return (
+                      <UserBox
+                        key={user.id}
+                        name={user.attributes.name}
+                        email={user.attributes.email}
+                        role={user.attributes.role}
+                        confirmed={user.attributes.confirmed}
+                        id={user.id}
+                        toggleApprove={toggleApprove}
+                        img={
+                          user.attributes?.profilePhoto?.data?.attributes?.url
+                        }
+                        userId={user.attributes?.userId?.data?.id}
+                        deleteProfile={deleteProfile}
+                      />
+                    );
+                  }
+                })
+              : FilteredProfiles()
+            // <FilteredProfiles />
+          }
         </div>
       </div>
     </div>
