@@ -17,7 +17,6 @@ const AuthContextProvider = (props) => {
 
   async function getLoggedIn() {
     const tokenStorage = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
 
     if (tokenStorage) {
       let decoded = jwtDecode(tokenStorage);

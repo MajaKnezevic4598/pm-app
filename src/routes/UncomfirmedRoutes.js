@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import Uncomfirmed from '../components/Uncomfirmed/Uncomfirmed';
 
-const PMRoutes = (props) => {
+const UncomfirmedRoutes = (props) => {
   return (
     <>
       <BrowserRouter>
@@ -21,4 +21,4 @@ const PMRoutes = (props) => {
   );
 };
 
-export default PMRoutes;
+export default UncomfirmedRoutes;
