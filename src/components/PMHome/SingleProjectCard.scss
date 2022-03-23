@@ -1,4 +1,5 @@
 $font-color: #fff;
+$font-color-dark: #212427;
 $blue: #50ad91;
 $orange: #fbb440;
 
@@ -13,7 +14,7 @@ $button-width: 6vw;
 $card-width: 25rem;
 //padding
 
-$padding-modal: 3rem;
+$padding-modal: 3.5rem;
 
 .card {
   width: $card-width;
@@ -26,10 +27,10 @@ $padding-modal: 3rem;
   color: $font-color;
   box-shadow: $box-shadow;
   display: flex;
-  justify-content: space-between;
   position: relative;
   box-sizing: border-box;
-  //   align-items: center;
+  align-items: center;
+  justify-content: space-around;
 
   &__img-conteiner {
     align-self: center;
@@ -42,6 +43,16 @@ $padding-modal: 3rem;
     align-self: flex-start;
     h2 {
       font-size: 1.4rem;
+      letter-spacing: 0.1rem;
+    }
+    div:first-of-type {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin-top: 1.4rem;
+    }
+    img {
+      height: 8vh;
     }
   }
 
@@ -66,7 +77,7 @@ $padding-modal: 3rem;
 //using css classes to style react-modal
 .Modal {
   position: absolute;
-  top: 10vh;
+  top: 20vh;
   left: 20vw;
   right: 20vw;
   bottom: 10vh;
@@ -75,6 +86,8 @@ $padding-modal: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  outline: none;
+  border-radius: 4px;
   //   color: #fbb440;
   &__conteiner {
     box-sizing: border-box;
@@ -91,6 +104,7 @@ $padding-modal: 3rem;
     right: 15px;
     font-size: 2rem;
     cursor: pointer;
+    color: $font-color-dark;
   }
 }
 

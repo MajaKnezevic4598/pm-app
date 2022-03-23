@@ -15,7 +15,10 @@ const SingleProjectCard = () => {
       </div>
       <div className="card__info-1">
         <h2>Project Name</h2>
-        <div>PM name</div>
+        <div>
+          <img src={img} alt="" />
+          <span>PM name</span>
+        </div>
       </div>
       <div className="card__info-2">
         <MdOpenInNew

@@ -32,7 +32,7 @@ const PMHome = () => {
           </div>
         </div>
       </section>
-      <section>
+      <section className="main-section">
         <SingleProjectCard />
       </section>
     </div>
