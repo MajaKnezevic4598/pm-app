@@ -1,0 +1,85 @@
+@import "../../styles/variables";
+
+.add-project-conteiner {
+  width: 85vw;
+  height: 85vh;
+  margin: 2vh auto;
+  background-color: rgb(224, 219, 219);
+  border-radius: 4px;
+  padding: 2rem;
+  position: relative;
+
+  .project-info-section {
+    display: grid;
+    grid-template-columns: 15vw auto auto;
+    grid-template-rows: repeat(5, 50px);
+    margin: 0 auto;
+
+    h3 {
+      grid-column: 1/2;
+      grid-row: 1/5;
+      //   background-color: blue;
+    }
+    .project-input {
+      grid-column: 2/3;
+      grid-row: 1/3;
+      //   background-color: yellow;
+    }
+    .chose-logo {
+      grid-column: 3/4;
+      grid-row: 1/3;
+      //   background-color: pink;
+    }
+    .project-description {
+      grid-column: 2/4;
+      grid-row: 3/5;
+      //   background-color: gray;
+
+      textarea {
+        width: 100%;
+        height: 50%;
+      }
+    }
+  }
+
+  .project-members-section {
+    display: grid;
+    grid-template-columns: 15vw auto auto;
+    grid-template-rows: repeat(3, 50px);
+
+    &__title {
+      grid-column: 1/2;
+      grid-row: 1/4;
+      //   background-color: red;
+    }
+
+    &__find-emp {
+      grid-column: 2/3;
+      grid-row: 1/2;
+      //   background-color: green;
+
+      button {
+        border: 1px solid gray;
+        padding: 0.5rem;
+        border-radius: 4px;
+        margin-left: 3vw;
+      }
+    }
+
+    &__employees-conteiner {
+      grid-column: 2/3;
+      grid-row: 2/4;
+      //   background-color: grey;
+    }
+  }
+
+  .save-new-project {
+    border: 1px solid gray;
+    padding: 0.5rem;
+    background-color: aquamarine;
+    border-radius: 4px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+}

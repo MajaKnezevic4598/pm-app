@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./PMHome.scss";
 import DefalutPr from "../../assets/rocket2.png";
 import SingleProjectCard from "./SingleProjectCard";
+import { useNavigate } from "react-router-dom";
 
 const PMHome = () => {
   const [selectedProject, setSelectedProject] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(selectedProject);
@@ -28,7 +31,14 @@ const PMHome = () => {
               onChange={(e) => setSelectedProject(e.target.value)}
             />
 
-            <button className="right-side__btn">Add new project</button>
+            <button
+              className="right-side__btn"
+              onClick={() => {
+                navigate("add-project");
+              }}
+            >
+              Add new project
+            </button>
           </div>
         </div>
       </section>

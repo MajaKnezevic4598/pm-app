@@ -141,6 +141,11 @@
 
     .right-side {
       margin: auto;
+      margin-top: 2vh;
+
+      input {
+        width: 31vw;
+      }
     }
   }
 
@@ -161,7 +166,7 @@
 }
 
 .main-section {
-  padding: 3vh;
+  padding: 4vh;
 }
 
 @media screen and (max-width: 650px) {
