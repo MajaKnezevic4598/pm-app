@@ -22,21 +22,12 @@ const fetchConfirmed = async (userId) => {
 };
 
 function App() {
-  //vercel
   const { loggedIn } = useContext(AuthContext);
   const [uncomfirmed, setUncomfirmed] = useState(false);
   const [loading, setLoading] = useState(false);
   const userId = localStorage.getItem('userId');
 
-  // const { data: confirmedStatus, status } = useQuery(['confirmed-status'], () =>
-  //   fetchConfirmed(userId)
-  // );
-
   const userRole = localStorage.getItem('role');
-
-  // useEffect(() => {
-  //   console.log(confirmedStatus);
-  // }, [confirmedStatus]);
 
   useEffect(() => {
     const checkUncomfirmed = async () => {
