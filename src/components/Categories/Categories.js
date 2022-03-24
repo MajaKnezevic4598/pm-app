@@ -1,44 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import axiosInstance from '../../helpers/axiosInstance';
+import Modal from '../Modal/Modal';
 import Spinner from '../Spinner.js/Spinner';
 import './Categories.scss';
 import SingleCategory from './SingleCategory';
 
 const fetchCategories = async () => {
-  const res = await axiosInstance.get('/categories');
-  return res?.data.data;
+  const res = await axiosInstance.get('/categories?sort=createdAt:DESC');
+  return res?.data?.data;
 };
 
 const Categories = () => {
   const [categoryName, setCategoryName] = useState('');
-  const [updateCategoryName, setUpdateCategoryName] = useState('');
-  const [shouldInput, setShouldInput] = useState(false);
+  const [categoryId, setCategoryId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const { data, status, refetch } = useQuery(['categories'], () =>
     fetchCategories()
   );
 
-  const deleteCategory = async (id) => {
-    await axiosInstance.delete('/categories/' + id);
+  const deleteCategory = async () => {
+    await axiosInstance.delete('/categories/' + categoryId);
+    setCategoryId(null);
+    setShowModal(false);
     refetch();
   };
 
   const publishNewCategory = async () => {
-    await axiosInstance.post('/categories', { data: { name: categoryName } });
+    if (categoryName !== '') {
+      await axiosInstance.post('/categories', { data: { name: categoryName } });
+    }
+    setCategoryName('');
     refetch();
-  };
-
-  const editCategory = async (id) => {
-    // await axiosInstance.put('/categories/' + id, {
-    //   name: updateCategoryName,
-    // });
-    // setShouldInput(true);
   };
 
   if (status === 'loading') {
     return <Spinner />;
   }
+
+  const onUpdateFinish = () => {
+    refetch();
+  };
+
+  const modalOn = () => {
+    setShowModal(true);
+  };
+
+  const modallOff = () => {
+    setShowModal(false);
+    setCategoryId(null);
+  };
 
   return (
     <div className="categories">
@@ -64,15 +76,19 @@ const Categories = () => {
               name={category.attributes.name}
               key={category.id}
               id={category.id}
-              deleteCategory={deleteCategory}
-              // updateCategory={editCategory}
-              // inp={shouldInput}
-              // nameValue={updateCategoryName}
-              // onInputChange={(e) => setUpdateCategoryName(e.target.value)}
+              onFinish={onUpdateFinish}
+              toggleModal={modalOn}
+              setCategoryId={setCategoryId}
             />
           ))}
         </div>
       </div>
+      <Modal
+        show={showModal}
+        modalClosed={modallOff}
+        clickFirst={modallOff}
+        clickSecond={deleteCategory}
+      />
     </div>
   );
 };

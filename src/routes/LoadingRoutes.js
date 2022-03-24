@@ -7,7 +7,6 @@ const LoadingRoutes = (props) => {
   return (
     <>
       <BrowserRouter>
-        <Header />
         <div
           style={{ width: '100%', height: '4.5em' }}
           className="spacer"
