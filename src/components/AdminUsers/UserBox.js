@@ -44,7 +44,14 @@ const UserBox = (props) => {
             // <i style={{ color: 'green' }} className="fas fa-thumbs-up"></i>
           }
         </div>
-        <div onClick={() => props.deleteProfile(props.id, props.userId)}>
+        <div
+          onClick={() => {
+            console.log(props.userId, props.id);
+            props.toggleModal();
+            props.setId(props.userId);
+            props.setProfileId(props.id);
+          }}
+        >
           <i
             style={{ color: '#8D0000', cursor: 'pointer' }}
             className="fas fa-trash-alt"
