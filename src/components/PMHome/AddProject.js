@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./AddProject.scss";
+import { postProject } from "../../services/projects";
 
 const AddProject = () => {
+  const userId = window.localStorage.getItem("userId");
   const [projectDetails, setProjectDetails] = useState({
     name: "",
     logo: "",
@@ -12,11 +14,12 @@ const AddProject = () => {
     setProjectDetails((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
-  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("form submited");
     console.log(projectDetails);
+    postProject({ ...projectDetails, id: userId });
     setProjectDetails({
       name: "",
       logo: "",
