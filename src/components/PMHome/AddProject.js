@@ -3,6 +3,7 @@ import "./AddProject.scss";
 import { postProject } from "../../services/projects";
 
 const AddProject = () => {
+    //kad postujem prosledim id ProfileId
   const userId = window.localStorage.getItem("userId");
   const [projectDetails, setProjectDetails] = useState({
     name: "",
