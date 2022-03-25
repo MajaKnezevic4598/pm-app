@@ -46,7 +46,6 @@ const UserBox = (props) => {
         </div>
         <div
           onClick={() => {
-            console.log(props.userId, props.id);
             props.toggleModal();
             props.setId(props.userId);
             props.setProfileId(props.id);
