@@ -25,6 +25,7 @@ const SingleCategory = (props) => {
       setShouldUpdate(false);
       props.onFinish();
     } else {
+      console.log('empty category');
       setHasError(true);
     }
   };

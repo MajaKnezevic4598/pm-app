@@ -55,9 +55,9 @@ const Login = () => {
           getLoggedIn();
         }
         setIsLoading(false);
-      } catch (e) {
+      } catch (err) {
+        console.log(err);
         setIsLoading(false);
-        console.log(e);
       }
     } else {
       setHasError(true);
@@ -76,6 +76,10 @@ const Login = () => {
       setHasError(false);
     };
   }, [enteredEmail, enteredPassword]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="login">
