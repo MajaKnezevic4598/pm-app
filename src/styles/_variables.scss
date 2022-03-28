@@ -33,6 +33,11 @@ $md: 48em;
 $lg: 64em;
 $xl: 75em;
 
+//RESPONSIVNES
+$small: 40.625rem;
+$medium: 50rem;
+$large: 78.125rem;
+
 @mixin breakpoint($point) {
   @if $point == md {
     @media (min-width: $md) {
