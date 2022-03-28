@@ -16,7 +16,6 @@ const AdminHeader = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('role');
     localStorage.removeItem('profileId');
-    localStorage.removeItem('loggedIn');
     window.location.href = '/';
   };
 
@@ -50,6 +49,9 @@ const AdminHeader = () => {
               <Button />
             </div>
           </nav>
+          <Link className={styles.nav__item} to="/my-account">
+            Account
+          </Link>
         </div>
         <div>
           <div className={styles.header__button__container}>
