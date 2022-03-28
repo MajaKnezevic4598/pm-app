@@ -22,13 +22,16 @@ const AuthContextProvider = (props) => {
       let decoded = jwtDecode(tokenStorage);
       if (checkJwtValid(decoded.exp)) {
         setLoggedIn(true);
+        localStorage.setItem('loggedIn', 'true');
       } else {
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
+        localStorage.removeItem('loggedIn');
         setLoggedIn(false);
       }
     } else {
       setLoggedIn(false);
+      localStorage.removeItem('loggedIn');
     }
   }
 
