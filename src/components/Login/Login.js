@@ -119,11 +119,6 @@ const Login = () => {
               deleteSpeed={50}
               delaySpeed={15000}
             />
-
-//             <span>Welcome</span>
-
-//             <span style={{ marginTop: '-10px' }}>Back</span>
-
           </div>
         </div>
       </div>
