@@ -6,6 +6,7 @@ import axiosInstance from "../../helpers/axiosInstance";
 import AuthContext from "../../context/AuthContext";
 import Spinner from "../Spinner.js/Spinner";
 import { Typewriter } from "react-simple-typewriter";
+
 const Login = () => {
   const navigate = useNavigate();
   const [hasError, setHasError] = useState(false);
@@ -55,9 +56,9 @@ const Login = () => {
           getLoggedIn();
         }
         setIsLoading(false);
-      } catch (e) {
+      } catch (err) {
+        console.log(err);
         setIsLoading(false);
-        console.log(e);
       }
     } else {
       setHasError(true);
@@ -77,6 +78,10 @@ const Login = () => {
     };
   }, [enteredEmail, enteredPassword]);
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="login">
       <div className="login__top">
@@ -89,6 +94,7 @@ const Login = () => {
               flexDirection: "column",
             }}
           >
+
             <Typewriter
               words={["Welcome Back"]}
               loop={1}
@@ -113,6 +119,11 @@ const Login = () => {
               deleteSpeed={50}
               delaySpeed={15000}
             />
+
+//             <span>Welcome</span>
+
+//             <span style={{ marginTop: '-10px' }}>Back</span>
+
           </div>
         </div>
       </div>

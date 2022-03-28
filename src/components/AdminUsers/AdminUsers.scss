@@ -50,6 +50,12 @@
     width: 80%;
     justify-content: center;
 
+    @media screen and (max-width: 1250px) {
+      padding: 0 2rem;
+      justify-content: center;
+      width: 100%;
+    }
+
     @media screen and (max-width: 650px) {
       padding: 0;
       justify-content: center;
