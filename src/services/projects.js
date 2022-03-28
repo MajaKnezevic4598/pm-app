@@ -1,12 +1,13 @@
 import axiosInstance from "../helpers/axiosInstance";
 
-export const postProject = async ({ name, description, id }) => {
+export const postProject = async ({ name, description, id,logo }) => {
   try {
     const response = await axiosInstance.post("/projects", {
       data: {
-        projectManager: id,
+        project_manager: id,
         name,
         description,
+        logo
       },
     });
     return response;

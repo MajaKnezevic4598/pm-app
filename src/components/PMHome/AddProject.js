@@ -1,29 +1,40 @@
 import React, { useState } from "react";
 import "./AddProject.scss";
 import { postProject } from "../../services/projects";
+import { uploadFiles } from "../../services/uploadFiles";
 
 const AddProject = () => {
-    //kad postujem prosledim id ProfileId
-  const userId = window.localStorage.getItem("userId");
+  //kad postujem prosledim id ProfileId
+  const profileId = window.localStorage.getItem("profileId");
   const [projectDetails, setProjectDetails] = useState({
     name: "",
-    logo: "",
     description: "",
   });
+  const [selectedFile, setSelectedFile] = useState();
 
   const handleChange = (e) => {
     setProjectDetails((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
     });
-  
-  const handleSubmit = (e) => {
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("form submited");
     console.log(projectDetails);
-    postProject({ ...projectDetails, id: userId });
+    console.log(selectedFile);
+    const uploadFileResponse = await uploadFiles(selectedFile);
+    console.log("respnse from upload");
+    console.log(uploadFileResponse);
+    await postProject({
+      ...projectDetails,
+      id: profileId,
+      logo: uploadFileResponse.data[0].id,
+    });
     setProjectDetails({
       name: "",
-      logo: "",
       description: "",
     });
   };
@@ -47,7 +58,9 @@ const AddProject = () => {
               type="file"
               placeholder="chose Logo"
               name="logo"
-              onChange={handleChange}
+              onChange={(e) => {
+                setSelectedFile(e.target.files[0]);
+              }}
             />
           </div>
           <div className="project-description">
