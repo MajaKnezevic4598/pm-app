@@ -26,14 +26,15 @@ function App() {
   const [uncomfirmed, setUncomfirmed] = useState(false);
   const [loading, setLoading] = useState(false);
   const userId = localStorage.getItem('userId');
+  const isLoggedIn = localStorage.getItem('loggedIn');
 
   const userRole = localStorage.getItem('role');
 
   useEffect(() => {
+    setLoading(true);
     const checkUncomfirmed = async () => {
       let profile;
       if (userId) {
-        setLoading(true);
         profile = await axiosInstance.get(
           `/profiles?filters[userId][id][$eq]=${userId}&populate=*`
         );
@@ -77,7 +78,7 @@ function App() {
       ) : loggedIn && userRole === 'project_manager' ? (
         <PMRoutes />
       ) : (
-        <PublicRoutes />
+        !isLoggedIn && <PublicRoutes />
       )}
     </div>
   );
