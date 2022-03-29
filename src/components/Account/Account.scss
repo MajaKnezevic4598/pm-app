@@ -1,29 +1,48 @@
 .acc-container {
   margin: 0 auto;
   min-height: calc(100vh - 4.5em);
-  width: fit-content;
+  width: 60%;
+
+  @media screen and (max-width: 1200px) {
+    width: 70%;
+    min-height: fit-content;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 85%;
+    min-height: fit-content;
+  }
 
   &__my-account {
     margin-top: 5rem;
+    width: 100%;
     padding: 2rem;
-    border: 1px solid black;
+    border: 1px solid #c0d6ff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 4px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
 
     &__image-container {
       position: relative;
+      align-self: center;
       img {
-        border: 0.2px solid #252525;
+        border: 1px solid #c0d6ff;
+
         border-radius: 50%;
         width: 100px;
         height: 100px;
         object-fit: cover;
       }
 
+      input[type='file'] {
+        display: none;
+      }
+
       &__edit-icon {
         cursor: pointer;
-        background-color: blue;
+        background-color: #0464fc;
         position: absolute;
         top: 65%;
         left: 65%;
@@ -35,5 +54,39 @@
         }
       }
     }
+
+    button {
+      background-color: #0464fc;
+      padding: 8px 16px;
+      color: white;
+      border-radius: 5px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+  }
+}
+
+.inputs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  span:first-of-type {
+    color: #8e9296;
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+
+    background-color: #fcfdff;
+    border: 1px solid #e2ecfe;
+    border-radius: 4px;
+    padding: 14px;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+
+  input:focus {
+    outline: none;
   }
 }
