@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./AddProject.scss";
-import { postProject } from "../../services/projects";
+// import { postProject } from "../../services/projects";
 import { uploadFiles } from "../../services/uploadFiles";
+import { useAddSingleProject } from "../../hooks/useProjectData";
 
 const AddProject = () => {
   //kad postujem prosledim id ProfileId
@@ -20,19 +21,27 @@ const AddProject = () => {
       };
     });
   };
+
+  const { mutate } = useAddSingleProject();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form submited");
-    console.log(projectDetails);
-    console.log(selectedFile);
+
     const uploadFileResponse = await uploadFiles(selectedFile);
-    console.log("respnse from upload");
-    console.log(uploadFileResponse);
-    await postProject({
+    // console.log("respnse from upload");
+    // console.log(uploadFileResponse);
+    // await postProject({
+    //   ...projectDetails,
+    //   id: profileId,
+    //   logo: uploadFileResponse.data[0].id,
+    // });
+
+    const projectData = {
       ...projectDetails,
       id: profileId,
       logo: uploadFileResponse.data[0].id,
-    });
+    };
+    mutate(projectData);
+
     setProjectDetails({
       name: "",
       description: "",
