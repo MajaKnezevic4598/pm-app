@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import Account from '../components/Account/Account';
 import EmployeeHome from '../components/EmployeeHome/EmployeeHome';
 import Header from '../components/Header/Header';
 
@@ -14,6 +15,7 @@ const EmployeeRoutes = (props) => {
         ></div>
         <Routes>
           <Route path="/" element={<EmployeeHome />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
       </BrowserRouter>
     </>

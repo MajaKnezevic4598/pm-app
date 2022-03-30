@@ -10,21 +10,30 @@ import UncomfirmedRoutes from './routes/UncomfirmedRoutes';
 import Spinner from './components/Spinner.js/Spinner';
 import Header from './components/Header/Header';
 import LoadingRoutes from './routes/LoadingRoutes';
+import { useQuery } from 'react-query';
+
+const fetchConfirmed = async (userId) => {
+  if (userId) {
+    const res = await axiosInstance.get(
+      `/profiles?filters[userId][id][$eq]=${userId}&populate=*`
+    );
+    return res.data.data[0].attributes.confirmed;
+  }
+};
 
 function App() {
-  //vercel
   const { loggedIn } = useContext(AuthContext);
   const [uncomfirmed, setUncomfirmed] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const userRole = localStorage.getItem('role');
   const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+  const userRole = localStorage.getItem('role');
 
   useEffect(() => {
     const checkUncomfirmed = async () => {
       let profile;
+      setLoading(true);
       if (userId) {
-        setLoading(true);
         profile = await axiosInstance.get(
           `/profiles?filters[userId][id][$eq]=${userId}&populate=*`
         );
@@ -68,7 +77,7 @@ function App() {
       ) : loggedIn && userRole === 'project_manager' ? (
         <PMRoutes />
       ) : (
-        <PublicRoutes />
+        !token && <PublicRoutes />
       )}
     </div>
   );

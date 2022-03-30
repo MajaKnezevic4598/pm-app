@@ -1,23 +1,14 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import styles from './AdminHeader.module.scss';
+import styles from './Header.module.scss';
 
 import { BiMenuAltRight } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 
-const AdminHeader = () => {
-  const navigate = useNavigate();
+const CleanHeader = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuToggler = () => setMenuOpen((p) => !p);
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('role');
-    localStorage.removeItem('profileId');
-    window.location.href = '/';
-  };
 
   const Button = () => {
     return (
@@ -25,6 +16,14 @@ const AdminHeader = () => {
         Logout
       </button>
     );
+  };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('role');
+    localStorage.removeItem('profileId');
+    window.location.href = '/';
   };
 
   return (
@@ -39,15 +38,6 @@ const AdminHeader = () => {
           <nav
             className={`${styles.nav} ${menuOpen ? styles[`nav--open`] : {}}`}
           >
-            <Link className={styles.nav__item} to="/">
-              Users
-            </Link>
-            <Link className={styles.nav__item} to="/categories">
-              Categories
-            </Link>
-            <Link className={styles.nav__item} to="/my-account">
-              Account
-            </Link>
             <div className={styles.nav__button__container}>
               <Button />
             </div>
@@ -66,4 +56,4 @@ const AdminHeader = () => {
   );
 };
 
-export default AdminHeader;
+export default CleanHeader;

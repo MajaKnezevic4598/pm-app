@@ -14,6 +14,26 @@
     margin-right: 0;
     margin-left: 0;
     width: 80% !important;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  input {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 18px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 10px;
+  }
+  input:focus {
+    outline: none;
+  }
+
+  i {
+    font-size: 20px;
   }
 
   &__left {
@@ -34,10 +54,16 @@
       line-height: 28px;
     }
   }
+
   &__right {
     display: flex;
-    flex-direction: column;
     align-items: center;
+
+    i {
+      color: green;
+      margin-right: 8px;
+      cursor: pointer;
+    }
   }
   &__right div:first-of-type {
     margin-bottom: 5px;
