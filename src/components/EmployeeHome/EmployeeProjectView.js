@@ -18,6 +18,7 @@ const fetchProjects = async (id) => {
 
 const fetchCategories = async () => {
     const response = await axiosInstance.get('/categories');
+    console.log('neka izmena');
     return response.data.data;
 };
 
