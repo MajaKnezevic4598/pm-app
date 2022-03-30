@@ -13,74 +13,74 @@ import LoadingRoutes from './routes/LoadingRoutes';
 import { useQuery } from 'react-query';
 
 const fetchConfirmed = async (userId) => {
-  if (userId) {
-    const res = await axiosInstance.get(
-      `/profiles?filters[userId][id][$eq]=${userId}&populate=*`
-    );
-    return res.data.data[0].attributes.confirmed;
-  }
+    if (userId) {
+        const res = await axiosInstance.get(
+            `/profiles?filters[userId][id][$eq]=${userId}&populate=*`,
+        );
+        return res.data.data[0].attributes.confirmed;
+    }
 };
 
 function App() {
-  const { loggedIn } = useContext(AuthContext);
-  const [uncomfirmed, setUncomfirmed] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const userId = localStorage.getItem('userId');
+    const { loggedIn } = useContext(AuthContext);
+    const [uncomfirmed, setUncomfirmed] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const userId = localStorage.getItem('userId');
 
-  const userRole = localStorage.getItem('role');
+    const userRole = localStorage.getItem('role');
 
-  useEffect(() => {
-    const checkUncomfirmed = async () => {
-      let profile;
-      if (userId) {
-        setLoading(true);
-        profile = await axiosInstance.get(
-          `/profiles?filters[userId][id][$eq]=${userId}&populate=*`
+    useEffect(() => {
+        const checkUncomfirmed = async () => {
+            let profile;
+            if (userId) {
+                setLoading(true);
+                profile = await axiosInstance.get(
+                    `/profiles?filters[userId][id][$eq]=${userId}&populate=*`,
+                );
+                if (profile.data.data[0].attributes.confirmed === false) {
+                    setUncomfirmed(true);
+                    setLoading(false);
+                } else {
+                    setUncomfirmed(false);
+                    setLoading(false);
+                }
+            } else {
+                setLoading(false);
+            }
+        };
+
+        checkUncomfirmed();
+    }, [loggedIn]);
+
+    if (loading) {
+        return (
+            <div className="App">
+                <LoadingRoutes />
+            </div>
         );
-        if (profile.data.data[0].attributes.confirmed === false) {
-          setUncomfirmed(true);
-          setLoading(false);
-        } else {
-          setUncomfirmed(false);
-          setLoading(false);
-        }
-      } else {
-        setLoading(false);
-      }
-    };
+    }
 
-    checkUncomfirmed();
-  }, [loggedIn]);
+    if (uncomfirmed) {
+        return (
+            <div className="App">
+                <UncomfirmedRoutes />
+            </div>
+        );
+    }
 
-  if (loading) {
     return (
-      <div className="App">
-        <LoadingRoutes />
-      </div>
+        <div className="App">
+            {loggedIn && userRole === 'system_administrator' ? (
+                <AdminRoutes />
+            ) : loggedIn && userRole === 'employee' ? (
+                <EmployeeRoutes />
+            ) : loggedIn && userRole === 'project_manager' ? (
+                <PMRoutes />
+            ) : (
+                <PublicRoutes />
+            )}
+        </div>
     );
-  }
-
-  if (uncomfirmed) {
-    return (
-      <div className="App">
-        <UncomfirmedRoutes />
-      </div>
-    );
-  }
-
-  return (
-    <div className="App">
-      {loggedIn && userRole === 'system_administrator' ? (
-        <AdminRoutes />
-      ) : loggedIn && userRole === 'employee' ? (
-        <EmployeeRoutes />
-      ) : loggedIn && userRole === 'project_manager' ? (
-        <PMRoutes />
-      ) : (
-        <PublicRoutes />
-      )}
-    </div>
-  );
 }
 
 export default App;
