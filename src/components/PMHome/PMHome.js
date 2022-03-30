@@ -3,15 +3,27 @@ import "./PMHome.scss";
 import DefalutPr from "../../assets/rocket2.png";
 import SingleProjectCard from "./SingleProjectCard";
 import { useNavigate } from "react-router-dom";
+import { useAllProjectsForPM } from "../../hooks/useProjectData";
 
 const PMHome = () => {
   const [selectedProject, setSelectedProject] = useState("");
 
   const navigate = useNavigate();
+  const profileId = window.localStorage.getItem("profileId");
+  console.log(profileId);
+  console.log(typeof profileId);
 
-  useEffect(() => {
-    console.log(selectedProject);
-  }, [selectedProject]);
+  const { isLoading, data, isError, error } = useAllProjectsForPM(profileId);
+  //ovde treba pogledati sta je sa profileId
+
+  if (isLoading) {
+    return <div>Loading....</div>;
+  }
+
+  if (isError) {
+    return <div>{error.message}</div>;
+  }
+
   return (
     <div>
       <section className="top-section">

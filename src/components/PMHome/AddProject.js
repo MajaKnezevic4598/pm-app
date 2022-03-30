@@ -53,7 +53,7 @@ const AddProject = () => {
         <section className="project-info-section">
           <h3>Project Info</h3>
           <div className="project-input">
-            <p>Project Name</p>
+            <p>Project Name:</p>
             <input
               type="text"
               placeholder="Project name"
@@ -91,7 +91,7 @@ const AddProject = () => {
             <div className="singleEmployee">Single Employee</div>
           </div>
         </section>
-        <button className="save-new-project">Save</button>
+        <button className="save-new-project">Add Project</button>
       </form>
     </div>
   );
