@@ -1,12 +1,12 @@
-import "./SingleProjectCard.scss";
-import img from "../../assets/av.png";
-import img1 from "../../assets/av1.png";
-import { MdOpenInNew } from "react-icons/md";
-import Modal from "react-modal";
-import { useState } from "react";
-import { FiXSquare } from "react-icons/fi";
+import './SingleProjectCard.scss';
+import img from '../../assets/av.png';
+import img1 from '../../assets/av1.png';
+import { MdOpenInNew } from 'react-icons/md';
+import Modal from 'react-modal';
+import { useState } from 'react';
+import { FiXSquare } from 'react-icons/fi';
 
-Modal.setAppElement("#root");
+Modal.setAppElement('#root');
 const SingleProjectCard = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
