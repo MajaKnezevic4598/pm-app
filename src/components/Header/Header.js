@@ -23,6 +23,7 @@ const Header = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('role');
     localStorage.removeItem('profileId');
+
     window.location.href = '/';
   };
 
