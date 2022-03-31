@@ -7,18 +7,19 @@ import axiosInstance from '../../helpers/axiosInstance';
 import Spinner from '../Spinner.js/Spinner';
 import EmployeeProjectViewInfo from './EmployeeProjectViewInfo';
 
+import Pagination from '@mui/material/Pagination';
+
 const fetchProjects = async (id) => {
     const response = await axiosInstance.get(
-        '/projects/' +
+        `/projects/ ` +
             id +
-            '?populate=project_manager.profilePhoto&populate=employees.profilePhoto&populate=logo&populate=notes',
+            `?populate=project_manager.profilePhoto&populate=employees.profilePhoto&populate=logo&populate=notes`,
     );
     return response.data.data;
 };
 
 const fetchCategories = async () => {
     const response = await axiosInstance.get('/categories');
-
     return response.data.data;
 };
 
@@ -28,12 +29,14 @@ const fetchAllNotes = async (id, categoryName) => {
     );
     console.log(id, categoryName);
     return response.data.data;
+    // return response.data;
 };
 
 const EmployeeProjectView = (props) => {
     const storageId = localStorage.getItem('userId');
     const profileId = localStorage.getItem('profileId');
     const [categoryName, setCategoryName] = useState('');
+    const [page, setPage] = useState(1);
 
     const { id } = useParams();
 
@@ -44,7 +47,14 @@ const EmployeeProjectView = (props) => {
     const { data: notes, status: notesStatus } = useQuery(
         ['notesEmployee', categoryName],
         () => fetchAllNotes(id, categoryName),
+        { keepPreviousData: true },
     );
+
+    // const pageCount = data?.meta.pagination.pageCount;
+
+    // const handlePageChange = (event, value) => {
+    //     setPage(value);
+    // };
 
     const { data: categories, status: categoriesStatus } = useQuery(
         ['categoryEmployee'],
@@ -82,6 +92,11 @@ const EmployeeProjectView = (props) => {
                         status={notesStatus}
                     />
                 </div>
+                {/* <Pagination
+                    count={pageCount}
+                    page={page}
+                    onChange={handlePageChange}
+                /> */}
             </div>
         </>
     );

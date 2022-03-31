@@ -8,11 +8,12 @@ import EmployeeInfo from './EmployeeInfo';
 import Spinner from '../Spinner.js/Spinner';
 import './EmployeeHome.scss';
 import Rocket from '../../assets/rocket2.png';
+import Pagination from '@mui/material/Pagination';
 import { FiEdit } from 'react-icons/fi';
 
-//U employeedata treba da se ubaci paginacija u get req
-const fetchProjects = async (profileId, nameFilter) => {
-    const response = employee.employeeData(profileId, nameFilter);
+//U employeedata u servisu treba da se ubaci paginacija u get req
+const fetchProjects = async (profileId, nameFilter, page) => {
+    const response = employee.employeeData(profileId, nameFilter, page);
     return response;
 };
 
@@ -20,14 +21,21 @@ const EmployeeHome = () => {
     const storageId = localStorage.getItem('userId');
     const profileId = localStorage.getItem('profileId');
     const [nameFilter, setNameFilter] = useState('');
+    const [page, setPage] = useState(1);
 
     const { data, status } = useQuery(
-        ['projects', nameFilter],
-        () => fetchProjects(profileId, nameFilter),
+        ['projects', page, nameFilter],
+        () => fetchProjects(profileId, nameFilter, page),
         {
             keepPreviousData: true,
         },
     );
+
+    const pageCount = data?.meta.pagination.pageCount;
+
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
 
     const searchByName = (e) => {
         setNameFilter(e.target.value);
@@ -102,6 +110,17 @@ const EmployeeHome = () => {
                     })}
                 </div>
             </div>
+            <Pagination
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                }}
+                count={pageCount}
+                page={page}
+                onChange={handlePageChange}
+            />
         </div>
     );
 };

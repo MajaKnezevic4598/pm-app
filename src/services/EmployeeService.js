@@ -11,11 +11,11 @@ function compare(a, b) {
 }
 
 const employee = {
-    employeeData: async function (id, nameFilter) {
+    employeeData: async function (id, nameFilter, page) {
         try {
-            //na pocetku ? ubaciti paginaciju prihvatiti page gore u parametre
+            //na pocetku ? ubaciti paginaciju prihvatiti page gore u parametre, promeniti pageSize na veci broj
             const response = await axiosInstance.get(
-                `/projects?filters[employees][id][$eq]=${id}&filters[name][$containsi]=${nameFilter}&populate=project_manager.profilePhoto&populate=logo&populate=employees`,
+                `/projects?filters[employees][id][$eq]=${id}&filters[name][$containsi]=${nameFilter}&populate=project_manager.profilePhoto&populate=logo&populate=employees&pagination[pageSize]=2&pagination[page]=${page}`,
             );
             console.log(response.data);
             return response.data;
