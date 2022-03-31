@@ -60,14 +60,15 @@ const PMHome = () => {
         </div>
       </section>
       <section className="main-section">
-        {data?.data?.data?.attributes?.projectsManaging?.data.map((item) => {
+        {data?.data?.data?.map((item) => {
           return (
             <SingleProjectCard
               key={uuid()}
-              manager={data.data.data.attributes.name}
+              manager={item.attributes.project_manager.data.attributes.name}
               prName={item.attributes.name}
               pmImage={
-                data.data.data.attributes.profilePhoto.data.attributes.url
+                item.attributes.project_manager.data.attributes.profilePhoto
+                  .data.attributes.url
               }
               projectLogo={item?.attributes?.logo?.data?.attributes?.url}
               employees={item.attributes.employees.data.length}
