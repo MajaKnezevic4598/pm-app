@@ -4,6 +4,7 @@ import Default from '../../assets/no-image.png';
 import Spinner from '../Spinner.js/Spinner';
 import './EmployeeProjectView.scss';
 import SingleNote from './SingleNote';
+import EmptyNote from './EmptyNote';
 
 const EmployeeProjectViewInfo = (props) => {
     useEffect(() => {
@@ -107,12 +108,19 @@ const EmployeeProjectViewInfo = (props) => {
             <div>
                 {/* Ovo mozes ubaciti na kraju kad namestis sve. */}
                 {/* {props.status === 'loading' ? <Spinner /> : null} */}
-                {props.notes?.length < 1 ? 'No Notes' : null}
+                {props.notes?.length < 1 ? <EmptyNote /> : null}
                 {props.notes?.map((note) => {
                     return (
                         <SingleNote
                             name={note.attributes.title}
                             description={note.attributes.description}
+                            photo={
+                                note.attributes.profile.data?.attributes
+                                    .profilePhoto.data?.attributes.url
+                            }
+                            pmName={
+                                note.attributes.profile.data?.attributes.name
+                            }
                         />
                     );
                 })}

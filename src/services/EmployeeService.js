@@ -11,13 +11,14 @@ function compare(a, b) {
 }
 
 const employee = {
-    employeeData: async function (id) {
+    employeeData: async function (id, nameFilter) {
         try {
+            //na pocetku ? ubaciti paginaciju prihvatiti page gore u parametre
             const response = await axiosInstance.get(
-                `/profiles/${id}?populate=projectsEmployed.project_manager.profilePhoto&populate=projectsEmployed.logo&populate=projectsEmployed.employees`,
+                `/projects?filters[employees][id][$eq]=${id}&filters[name][$containsi]=${nameFilter}&populate=project_manager.profilePhoto&populate=logo&populate=employees`,
             );
-            console.log(response.data.data.attributes.projectsEmployed.data);
-            return response.data.data.attributes.projectsEmployed.data;
+            console.log(response.data);
+            return response.data;
         } catch (error) {
             console.error(error);
         }

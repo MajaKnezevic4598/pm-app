@@ -18,13 +18,13 @@ const fetchProjects = async (id) => {
 
 const fetchCategories = async () => {
     const response = await axiosInstance.get('/categories');
-    console.log('neka izmena');
+
     return response.data.data;
 };
 
 const fetchAllNotes = async (id, categoryName) => {
     const response = await axiosInstance.get(
-        `/notes?filters[category][name][$eq]=${categoryName}&filters[project][id][$eq]=${id}`,
+        `/notes?filters[category][name][$eq]=${categoryName}&filters[project][id][$eq]=${id}&populate=profile.profilePhoto`,
     );
     console.log(id, categoryName);
     return response.data.data;

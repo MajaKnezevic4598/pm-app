@@ -10,81 +10,32 @@ import './EmployeeHome.scss';
 import Rocket from '../../assets/rocket2.png';
 import { FiEdit } from 'react-icons/fi';
 
-const fetchProjects = async (profileId) => {
-    const response = employee.employeeData(profileId);
+//U employeedata treba da se ubaci paginacija u get req
+const fetchProjects = async (profileId, nameFilter) => {
+    const response = employee.employeeData(profileId, nameFilter);
     return response;
 };
 
 const EmployeeHome = () => {
     const storageId = localStorage.getItem('userId');
     const profileId = localStorage.getItem('profileId');
-    const [searching, setSearching] = useState(false);
     const [nameFilter, setNameFilter] = useState('');
-    const [filteredProjects, setFilteredProjects] = useState([]);
 
-    const { data, status } = useQuery(['projects'], () =>
-        fetchProjects(profileId),
+    const { data, status } = useQuery(
+        ['projects', nameFilter],
+        () => fetchProjects(profileId, nameFilter),
+        {
+            keepPreviousData: true,
+        },
     );
 
-    useEffect(() => {
-        let newProjects = [];
-        if (nameFilter !== '') {
-            data?.map((project) => {
-                if (
-                    project.attributes.name
-                        .toLowerCase()
-                        .includes(nameFilter.toLowerCase())
-                ) {
-                    newProjects.push(project);
-                }
-            });
-            setFilteredProjects(newProjects);
-        } else {
-            setFilteredProjects(data ? data : []);
-            setSearching(false);
-        }
-    }, [data, nameFilter]);
-
     const searchByName = (e) => {
-        if (e.target.value === '') {
-            setNameFilter(e.target.value);
-            setSearching(false);
-            return;
-        }
         setNameFilter(e.target.value);
-        setSearching(true);
     };
 
     if (status === 'loading') {
         return <Spinner />;
     }
-
-    const FilteredProjects = () => {
-        return filteredProjects?.map((project) => {
-            if (project.id !== profileId) {
-                return (
-                    <EmployeeInfo
-                        id={project.id}
-                        key={project.id}
-                        name={project.attributes.name}
-                        logo={project.attributes?.logo?.data?.attributes?.url}
-                        projectManagerName={
-                            project.attributes?.project_manager?.data
-                                ?.attributes?.name
-                        }
-                        projectManagerPhoto={
-                            project.attributes?.project_manager?.data
-                                ?.attributes?.profilePhoto?.data?.attributes
-                                ?.url
-                        }
-                        employeeNumber={
-                            project.attributes?.employees?.data?.length
-                        }
-                    />
-                );
-            }
-        });
-    };
 
     return (
         <div className="employee">
@@ -120,39 +71,35 @@ const EmployeeHome = () => {
                 }}
             >
                 <div className="employee__content">
-                    {data && !searching
-                        ? data.map((project, id) => {
-                              if (project.id != profileId) {
-                                  return (
-                                      <React.Fragment key={project.id}>
-                                          <EmployeeInfo
-                                              id={project.id}
-                                              name={project.attributes.name}
-                                              logo={
-                                                  project.attributes?.logo?.data
-                                                      ?.attributes?.url
-                                              }
-                                              projectManagerName={
-                                                  project.attributes
-                                                      ?.project_manager?.data
-                                                      ?.attributes?.name
-                                              }
-                                              projectManagerPhoto={
-                                                  project.attributes
-                                                      ?.project_manager?.data
-                                                      ?.attributes?.profilePhoto
-                                                      ?.data?.attributes?.url
-                                              }
-                                              employeeNumber={
-                                                  project.attributes?.employees
-                                                      ?.data?.length
-                                              }
-                                          />
-                                      </React.Fragment>
-                                  );
-                              }
-                          })
-                        : FilteredProjects()}
+                    {data?.data?.map((project, id) => {
+                        if (project.id != profileId) {
+                            return (
+                                <React.Fragment key={project.id}>
+                                    <EmployeeInfo
+                                        id={project.id}
+                                        name={project.attributes.name}
+                                        logo={
+                                            project.attributes?.logo?.data
+                                                ?.attributes?.url
+                                        }
+                                        projectManagerName={
+                                            project.attributes?.project_manager
+                                                ?.data?.attributes?.name
+                                        }
+                                        projectManagerPhoto={
+                                            project.attributes?.project_manager
+                                                ?.data?.attributes?.profilePhoto
+                                                ?.data?.attributes?.url
+                                        }
+                                        employeeNumber={
+                                            project.attributes?.employees?.data
+                                                ?.length
+                                        }
+                                    />
+                                </React.Fragment>
+                            );
+                        }
+                    })}
                 </div>
             </div>
         </div>
