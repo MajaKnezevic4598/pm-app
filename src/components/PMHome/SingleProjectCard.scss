@@ -29,12 +29,16 @@ $card-width: 22rem;
   box-sizing: border-box;
   align-items: center;
   justify-content: space-around;
+  margin-right: 2vw;
+  margin-bottom: 2vw;
 
   &__img-conteiner {
     align-self: center;
   }
-  &__image {
+  &__project-logo {
     height: 12vh;
+    width: 12vh;
+    border-radius: 50%;
   }
 
   &__info-1 {
@@ -49,8 +53,12 @@ $card-width: 22rem;
       justify-content: space-around;
       margin-top: 1.4rem;
     }
-    img {
-      height: 6.5vh;
+    .project-manager-image {
+      width: 4vw;
+      height: 4vw;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 1vw;
     }
   }
 
@@ -106,6 +114,8 @@ $card-width: 22rem;
       color: $font-color-dark;
       &__img {
         width: 12vh;
+        height: 12vh;
+        border-radius: 50%;
       }
 
       &__project-desc {

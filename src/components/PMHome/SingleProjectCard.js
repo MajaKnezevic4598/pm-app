@@ -1,24 +1,49 @@
-import './SingleProjectCard.scss';
-import img from '../../assets/av.png';
-import img1 from '../../assets/av1.png';
-import { MdOpenInNew } from 'react-icons/md';
-import Modal from 'react-modal';
-import { useState } from 'react';
-import { FiXSquare } from 'react-icons/fi';
+import "./SingleProjectCard.scss";
+import img from "../../assets/av.png";
+import img1 from "../../assets/av1.png";
+import { MdOpenInNew } from "react-icons/md";
+import Modal from "react-modal";
+import { useState } from "react";
+import { FiXSquare } from "react-icons/fi";
 
-Modal.setAppElement('#root');
-const SingleProjectCard = () => {
+Modal.setAppElement("#root");
+
+const SingleProjectCard = ({
+  manager,
+  prName,
+  pmImage,
+  projectLogo,
+  employees,
+  projectDescription,
+}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
     <div className="card">
       <div className="card__img-conteiner">
-        <img className="card__image" src={img} alt="slika" />
+        {projectLogo ? (
+          <img
+            className="card__project-logo"
+            src={`https://pm-app-bek.herokuapp.com${projectLogo}`}
+            alt="projectLogo"
+          />
+        ) : (
+          <img src={img} className="card__project-logo" alt="projectLogo" />
+        )}
       </div>
       <div className="card__info-1">
-        <h2>Project Name</h2>
+        <h2>{prName}</h2>
         <div>
-          <img src={img} alt="" />
-          <span>PM name</span>
+          {pmImage ? (
+            <img
+              src={`https://pm-app-bek.herokuapp.com${pmImage}`}
+              alt="neka"
+              className="project-manager-image"
+            />
+          ) : (
+            <img src={img} alt="default" />
+          )}
+
+          <span>{manager}</span>
         </div>
       </div>
       <div className="card__info-2">
@@ -28,7 +53,7 @@ const SingleProjectCard = () => {
             setModalIsOpen(true);
           }}
         />
-        <p>16 employees</p>
+        <p>{employees} employees</p>
       </div>
       <Modal
         isOpen={modalIsOpen}
@@ -41,18 +66,25 @@ const SingleProjectCard = () => {
         <div className="Modal__conteiner">
           <section className="modal-main-section">
             <div>
-              <img src={img} alt="" className="modal-main-section__img" />
+              {/* <img src={img} alt="" className="modal-main-section__img" /> */}
+
+              {projectLogo ? (
+                <img
+                  className="modal-main-section__img"
+                  src={`https://pm-app-bek.herokuapp.com${projectLogo}`}
+                  alt="projectLogo"
+                />
+              ) : (
+                <img
+                  src={img}
+                  className="modal-main-section__img"
+                  alt="projectLogo"
+                />
+              )}
             </div>
             <div className="modal-main-section__project-desc">
-              <h3>Name of project</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              </p>
+              <h3>{prName}</h3>
+              <p>{projectDescription}</p>
             </div>
             <div className="modal-main-section__manager-info">
               <h4>Project Manager</h4>

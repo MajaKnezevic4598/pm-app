@@ -166,7 +166,13 @@
 }
 
 .main-section {
+  box-sizing: border-box;
   padding: 4vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: yellow;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 650px) {
