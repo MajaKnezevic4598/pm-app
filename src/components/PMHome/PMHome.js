@@ -15,12 +15,21 @@ const PMHome = () => {
   console.log(profileId);
   console.log(typeof profileId);
 
-  const { isLoading, data, isError, error } = useAllProjectsForPM(
+  const { isLoading, data, isError, error, refetch } = useAllProjectsForPM(
     profileId,
     nameFilter
   );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      refetch();
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [nameFilter]);
   //ovde treba pogledati sta je sa profileId
-  console.log(data);
+  console.log(data?.data);
   if (isLoading) {
     return <div>Loading....</div>;
   }

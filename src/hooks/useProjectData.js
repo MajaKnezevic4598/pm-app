@@ -1,16 +1,16 @@
 import { useQuery, useMutation } from "react-query";
 import axiosInstance from "../helpers/axiosInstance";
 
-const fetchProjectsForSinglePM = ({ queryKey }) => {
-  const profileId = queryKey[1];
-  const nameFilter = queryKey[2];
+const fetchProjectsForSinglePM = async (profileId, nameFilter) => {
   //   return axiosInstance.get(
   //     `/profiles/${profileId}?populate=projectsManaging.logo&populate=projectsManaging.employees.profilePhoto&populate=profilePhoto&filters[name][$containsi]=${nameFilter}`
   //   );
 
-  return axiosInstance.get(
+  const res = await axiosInstance.get(
     `/projects?filters[project_manager][id][$eq]=${profileId}&filters[name][$containsi]=${nameFilter}&populate=logo&populate=employees.profilePhoto&populate=project_manager.profilePhoto`
   );
+
+  return res;
 };
 
 const addProject = ({ id, name, description, logo }) => {
@@ -26,8 +26,10 @@ const addProject = ({ id, name, description, logo }) => {
 
 export const useAllProjectsForPM = (profileId, nameFilter) => {
   return useQuery(
-    ["all-projects-for-single-PM", profileId, nameFilter],
-    fetchProjectsForSinglePM,
+    ["all-projects-for-single-PM", profileId],
+    () => {
+      return fetchProjectsForSinglePM(profileId, nameFilter);
+    },
     {
       keepPreviousData: true,
     }
