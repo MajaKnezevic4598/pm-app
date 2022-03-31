@@ -23,7 +23,7 @@ const addProject = ({ id, name, description, logo }) => {
     },
   });
 };
-//&filters[name][$containsi]=${nameFilter}
+
 export const useAllProjectsForPM = (profileId, nameFilter) => {
   return useQuery(
     ["all-projects-for-single-PM", profileId, nameFilter],
