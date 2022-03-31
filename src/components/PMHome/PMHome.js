@@ -8,14 +8,17 @@ import uuid from "react-uuid";
 import DefaultImg from "../../assets/av1.png";
 
 const PMHome = () => {
-  const [selectedProject, setSelectedProject] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
 
   const navigate = useNavigate();
   const profileId = window.localStorage.getItem("profileId");
   console.log(profileId);
   console.log(typeof profileId);
 
-  const { isLoading, data, isError, error } = useAllProjectsForPM(profileId);
+  const { isLoading, data, isError, error } = useAllProjectsForPM(
+    profileId,
+    nameFilter
+  );
   //ovde treba pogledati sta je sa profileId
   console.log(data);
   if (isLoading) {
@@ -41,8 +44,8 @@ const PMHome = () => {
             <input
               type="text"
               placeholder="Search project..."
-              value={selectedProject}
-              onChange={(e) => setSelectedProject(e.target.value)}
+              value={nameFilter}
+              onChange={(e) => setNameFilter(e.target.value)}
             />
 
             <button
