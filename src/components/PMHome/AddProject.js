@@ -1,17 +1,19 @@
-import React, { useState } from "react";
-import "./AddProject.scss";
+import React, { useState, useEffect } from 'react';
+import './AddProject.scss';
 // import { postProject } from "../../services/projects";
-import { uploadFiles } from "../../services/uploadFiles";
-import { useAddSingleProject } from "../../hooks/useProjectData";
+import { uploadFiles } from '../../services/uploadFiles';
+import { useAddSingleProject } from '../../hooks/useProjectData';
+import Select from './Select';
 
 const AddProject = () => {
   //kad postujem prosledim id ProfileId
-  const profileId = window.localStorage.getItem("profileId");
+  const profileId = window.localStorage.getItem('profileId');
   const [projectDetails, setProjectDetails] = useState({
-    name: "",
-    description: "",
+    name: '',
+    description: '',
   });
   const [selectedFile, setSelectedFile] = useState();
+  const [employees, setEmployees] = useState([]);
 
   const handleChange = (e) => {
     setProjectDetails((prev) => {
@@ -39,12 +41,13 @@ const AddProject = () => {
       ...projectDetails,
       id: profileId,
       logo: uploadFileResponse.data[0].id,
+      employees: employees,
     };
     mutate(projectData);
 
     setProjectDetails({
-      name: "",
-      description: "",
+      name: '',
+      description: '',
     });
   };
   return (
@@ -82,14 +85,15 @@ const AddProject = () => {
           </div>
         </section>
         <section className="project-members-section">
-          <h3 className="project-members-section__title">Members</h3>
+          <Select employees={employees} setEmployees={setEmployees} />
+          {/* <h3 className="project-members-section__title">Members</h3>
           <div className="project-members-section__find-emp">
             <input type="text" placeholder="find employee" />
             <button>Add</button>
           </div>
           <div className="project-members-section__employees-conteiner">
             <div className="singleEmployee">Single Employee</div>
-          </div>
+          </div> */}
         </section>
         <button className="save-new-project">Add Project</button>
       </form>
