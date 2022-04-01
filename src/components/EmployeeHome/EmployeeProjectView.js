@@ -23,9 +23,9 @@ const fetchCategories = async () => {
     return response.data.data;
 };
 
-const fetchAllNotes = async (id, categoryName) => {
+const fetchAllNotes = async (id, categoryName, nameFilter, SortValue) => {
     const response = await axiosInstance.get(
-        `/notes?filters[category][name][$eq]=${categoryName}&filters[project][id][$eq]=${id}&populate=profile.profilePhoto`,
+        `/notes?filters[category][name][$eq]=${categoryName}&filters[project][id][$eq]=${id}&filters[title][$containsi]=${nameFilter}&sort=createdAt:${SortValue}&populate=profile.profilePhoto`,
     );
     console.log(id, categoryName);
     return response.data.data;
@@ -36,6 +36,8 @@ const EmployeeProjectView = (props) => {
     const storageId = localStorage.getItem('userId');
     const profileId = localStorage.getItem('profileId');
     const [categoryName, setCategoryName] = useState('');
+    const [nameFilter, setNameFilter] = useState('');
+    const [sortValue, setSortValue] = useState('DESC');
     const [page, setPage] = useState(1);
 
     const { id } = useParams();
@@ -44,22 +46,34 @@ const EmployeeProjectView = (props) => {
         fetchProjects(id),
     );
 
-    const { data: notes, status: notesStatus } = useQuery(
-        ['notesEmployee', categoryName],
-        () => fetchAllNotes(id, categoryName),
+    const {
+        data: notes,
+        status: notesStatus,
+        refetch,
+    } = useQuery(
+        ['notesEmployee', sortValue, nameFilter, categoryName],
+        () => fetchAllNotes(id, categoryName, nameFilter, sortValue),
         { keepPreviousData: true },
     );
 
-    // const pageCount = data?.meta.pagination.pageCount;
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            refetch();
+        }, [300]);
 
-    // const handlePageChange = (event, value) => {
-    //     setPage(value);
-    // };
+        return () => {
+            clearInterval(timer);
+        };
+    }, [nameFilter]);
 
     const { data: categories, status: categoriesStatus } = useQuery(
         ['categoryEmployee'],
         () => fetchCategories(),
     );
+
+    const searchByName = (e) => {
+        setNameFilter(e.target.value);
+    };
 
     if (status === 'loading') {
         return <Spinner />;
@@ -68,6 +82,37 @@ const EmployeeProjectView = (props) => {
     return (
         <>
             <div>
+                <div
+                    style={{
+                        position: 'absolute',
+                        marginTop: '24rem',
+                        marginLeft: '52rem',
+                    }}
+                >
+                    <input
+                        style={{
+                            padding: '0.25rem',
+                        }}
+                        value={nameFilter}
+                        onChange={searchByName}
+                        type={'text'}
+                        placeholder="Search"
+                    />
+                    <select
+                        style={{
+                            marginLeft: '1rem',
+                            padding: '0.25rem',
+                        }}
+                        onChange={(e) => setSortValue(e.target.value)}
+                        name="value"
+                        id="value-select"
+                        className="dropdown"
+                    >
+                        <option value={''}>Sort by:</option>
+                        <option value={'ASC'}>Oldest</option>
+                        <option value={'DESC'}>Newest</option>
+                    </select>
+                </div>
                 <div>
                     <EmployeeProjectViewInfo
                         id={data?.id}
@@ -92,11 +137,6 @@ const EmployeeProjectView = (props) => {
                         status={notesStatus}
                     />
                 </div>
-                {/* <Pagination
-                    count={pageCount}
-                    page={page}
-                    onChange={handlePageChange}
-                /> */}
             </div>
         </>
     );
