@@ -32,7 +32,6 @@ const EmployeeInfo = (props) => {
                             : Default
                     }
                 />
-
                 <div className="employee-info__left__desc">
                     <div>{props.name}</div>
                     <div className="flex__container">

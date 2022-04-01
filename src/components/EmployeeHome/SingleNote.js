@@ -4,7 +4,7 @@ import './SingleNote.scss';
 
 const SingleNote = (props) => {
     return (
-        <div>
+        <div className="note">
             <div className="note__content">
                 <div className="employee__info">
                     <div className="employee-info__left">
@@ -37,7 +37,6 @@ const SingleNote = (props) => {
                             style={{
                                 position: 'absolute',
                                 paddingTop: '80px',
-
                                 width: '350px',
                                 display: 'flex',
                                 justifyContent: 'right',

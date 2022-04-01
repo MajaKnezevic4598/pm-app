@@ -1,8 +1,16 @@
+@import '../../styles/variables';
+
+@mixin mobile {
+    @media (max-width: #{$mobileLarge}) {
+        @content;
+    }
+}
+
 .note {
     &__content {
         background-color: #f8f8f8;
         border-radius: 1rem 1rem;
-        margin: 6rem auto;
+        margin: 4rem auto;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -14,6 +22,10 @@
             border: 1px solid rgb(192, 192, 192);
             cursor: pointer;
             transform: scale(1.01);
+        }
+
+        @include mobile {
+            width: 80%;
         }
     }
 

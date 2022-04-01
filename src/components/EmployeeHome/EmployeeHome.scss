@@ -18,6 +18,20 @@
     }
 }
 
+//VIEWS
+
+@mixin laptopStandard {
+    @media (max-width: #{$laptopStandard}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: #{$tablet}) {
+        @content;
+    }
+}
+
 .employee {
     &__description {
         background-color: #f5fde7;
@@ -102,7 +116,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        width: 80%;
+        width: 100%;
         justify-content: center;
 
         & header {
@@ -117,6 +131,7 @@
             margin: 0 1.5%;
             width: 30%;
             padding: 2rem 4rem;
+            font-family: $roboto-font;
 
             &:hover {
                 cursor: pointer;
@@ -126,6 +141,11 @@
             }
             &:target {
                 font-weight: 600;
+            }
+
+            @include tablet {
+                font-size: 1rem;
+                width: 25%;
             }
         }
 

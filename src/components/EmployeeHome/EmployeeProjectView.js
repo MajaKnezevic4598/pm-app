@@ -4,10 +4,9 @@ import { useQuery } from 'react-query';
 
 import axiosInstance from '../../helpers/axiosInstance';
 
+import './EmployeeProjectView.scss';
 import Spinner from '../Spinner.js/Spinner';
 import EmployeeProjectViewInfo from './EmployeeProjectViewInfo';
-
-import Pagination from '@mui/material/Pagination';
 
 const fetchProjects = async (id) => {
     const response = await axiosInstance.get(
@@ -82,33 +81,20 @@ const EmployeeProjectView = (props) => {
     return (
         <>
             <div>
-                <div
-                    style={{
-                        position: 'absolute',
-                        marginTop: '24rem',
-                        marginLeft: '52rem',
-                    }}
-                >
+                <div className="search__dropdown">
                     <input
-                        style={{
-                            padding: '0.25rem',
-                        }}
                         value={nameFilter}
                         onChange={searchByName}
                         type={'text'}
                         placeholder="Search"
                     />
                     <select
-                        style={{
-                            marginLeft: '1rem',
-                            padding: '0.25rem',
-                        }}
+                        className="search__dropdown__select__input"
                         onChange={(e) => setSortValue(e.target.value)}
                         name="value"
                         id="value-select"
-                        className="dropdown"
                     >
-                        <option value={''}>Sort by:</option>
+                        <option value={'ASC'}>Sort by:</option>
                         <option value={'ASC'}>Oldest</option>
                         <option value={'DESC'}>Newest</option>
                     </select>

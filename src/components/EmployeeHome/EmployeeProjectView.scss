@@ -1,5 +1,6 @@
 @import '../../styles/variables';
 
+//BREAKPOINTS
 @mixin small {
     @media (max-width: #{$small}) {
         @content;
@@ -14,6 +15,31 @@
 
 @mixin large {
     @media (max-width: #{$large}) {
+        @content;
+    }
+}
+
+//VIEWS
+@mixin laptopLarge {
+    @media (max-width: #{$laptopLarge}) {
+        @content;
+    }
+}
+
+@mixin laptopStandard {
+    @media (max-width: #{$laptopStandard}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: #{$tablet}) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (max-width: #{$mobileLarge}) {
         @content;
     }
 }
@@ -59,6 +85,10 @@
             font-size: 24px;
             line-height: 28px;
 
+            @include tablet {
+                margin-right: 2rem;
+            }
+
             &__pmlogo {
                 cursor: pointer;
                 padding-top: 1rem;
@@ -69,6 +99,11 @@
                     width: 48px;
                     height: 48px;
                     border-radius: 50%;
+
+                    @include tablet {
+                        width: 2rem;
+                        height: 2rem;
+                    }
                 }
             }
         }
@@ -76,8 +111,16 @@
         &__toright {
             font-style: normal;
             font-weight: 600;
-            font-size: 24px;
+            font-size: 1.5rem;
             line-height: 28px;
+
+            @include tablet {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 3.2rem;
+                font-size: 1rem;
+            }
 
             & img {
                 width: 48px;
@@ -88,6 +131,13 @@
                 &:hover {
                     cursor: pointer;
                     transform: scale(1.06);
+                }
+
+                @include tablet {
+                    margin-top: 6rem;
+                    margin-left: -4rem;
+                    width: 2rem;
+                    height: 2rem;
                 }
             }
         }
@@ -117,6 +167,89 @@
 .manager {
     font-style: normal;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 28px;
+
+    @include tablet {
+        font-size: 1rem;
+    }
+}
+
+.search__dropdown {
+    position: absolute;
+    margin-top: 22rem;
+    margin-left: 50rem;
+
+    & input {
+        padding: 0.25rem;
+    }
+
+    @include laptopLarge {
+        margin-left: 35rem;
+    }
+
+    @include laptopStandard {
+        margin-left: 21rem;
+    }
+
+    @include tablet {
+        margin-left: 13.5rem;
+        margin-top: 25.5rem;
+    }
+
+    &__select__input {
+        margin-left: 1rem;
+        padding: 0.6rem 0;
+        cursor: pointer;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 14px;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        & option {
+            color: #8e8e8e;
+        }
+
+        @include laptopStandard {
+            position: absolute;
+        }
+    }
+
+    & input {
+        cursor: pointer;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 18px;
+        padding: 0.5rem 0.5rem;
+        padding-left: 2rem;
+        font-family: $roboto-font;
+        background-image: url('../../assets/settingsIcon.png');
+        background-position: 5px 12px;
+        background-repeat: no-repeat;
+
+        &:hover {
+            transform: scale(1.04);
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        @include large {
+            width: 80%;
+            margin-bottom: 1rem;
+            margin-right: 2.25rem;
+        }
+
+        @include medium {
+            width: 80%;
+            margin-bottom: 1rem;
+            margin-right: 2.25rem;
+        }
+    }
 }
