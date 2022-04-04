@@ -177,6 +177,11 @@
 
 .search__dropdown {
     position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
     margin-top: 22rem;
     margin-left: 50rem;
 
@@ -184,18 +189,23 @@
         padding: 0.25rem;
     }
 
-    @include laptopLarge {
-        margin-left: 35rem;
-    }
+    // @include laptopLarge {
+    //     margin-left: 35rem;
+    // }
 
-    @include laptopStandard {
-        margin-left: 21rem;
-    }
+    // @include laptopStandard {
+    //     margin-left: 21rem;
+    // }
 
-    @include tablet {
-        margin-left: 13.5rem;
-        margin-top: 25.5rem;
-    }
+    // @include tablet {
+    //     margin-left: 13.5rem;
+    //     margin-top: 25.5rem;
+    // }
+
+    // @include mobile {
+    //     margin-left: 2rem;
+    //     margin-top: 36rem;
+    // }
 
     &__select__input {
         margin-left: 1rem;

@@ -106,8 +106,6 @@ const EmployeeProjectViewInfo = (props) => {
                 </div>
             </div>
             <div>
-                {/* Ovo mozes ubaciti na kraju kad namestis sve. */}
-                {/* {props.status === 'loading' ? <Spinner /> : null} */}
                 {props.notes?.length < 1 ? <EmptyNote /> : null}
                 {props.notes?.map((note) => {
                     return (
