@@ -1,13 +1,43 @@
 import React, { useState, useEffect } from "react";
 import "./PMHome.scss";
 import DefalutPr from "../../assets/rocket2.png";
+import SingleProjectCard from "./SingleProjectCard";
+import { useNavigate } from "react-router-dom";
+import { useAllProjectsForPM } from "../../hooks/useProjectData";
+import uuid from "react-uuid";
+import DefaultImg from "../../assets/av1.png";
 
 const PMHome = () => {
-  const [selectedProject, setSelectedProject] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
+
+  const navigate = useNavigate();
+  const profileId = window.localStorage.getItem("profileId");
+  console.log(profileId);
+  console.log(typeof profileId);
+
+  const { isLoading, data, isError, error, refetch } = useAllProjectsForPM(
+    profileId,
+    nameFilter
+  );
 
   useEffect(() => {
-    console.log(selectedProject);
-  }, [selectedProject]);
+    const timer = setTimeout(() => {
+      refetch();
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [nameFilter]);
+  //ovde treba pogledati sta je sa profileId
+  console.log(data?.data);
+  if (isLoading) {
+    return <div>Loading....</div>;
+  }
+
+  if (isError) {
+    return <div>{error.message}</div>;
+  }
+
   return (
     <div>
       <section className="top-section">
@@ -23,15 +53,39 @@ const PMHome = () => {
             <input
               type="text"
               placeholder="Search project..."
-              value={selectedProject}
-              onChange={(e) => setSelectedProject(e.target.value)}
+              value={nameFilter}
+              onChange={(e) => setNameFilter(e.target.value)}
             />
 
-            <button className="right-side__btn">Add new project</button>
+            <button
+              className="right-side__btn"
+              onClick={() => {
+                navigate("add-project");
+              }}
+            >
+              Add new project
+            </button>
           </div>
         </div>
       </section>
-      <section>Here goes other content!</section>
+      <section className="main-section">
+        {data?.data?.data?.map((item) => {
+          return (
+            <SingleProjectCard
+              key={uuid()}
+              manager={item.attributes.project_manager.data.attributes.name}
+              prName={item.attributes.name}
+              pmImage={
+                item.attributes.project_manager.data.attributes.profilePhoto
+                  .data.attributes.url
+              }
+              projectLogo={item?.attributes?.logo?.data?.attributes?.url}
+              employees={item.attributes.employees.data.length}
+              projectDescription={item.attributes.description}
+            />
+          );
+        })}
+      </section>
     </div>
   );
 };
