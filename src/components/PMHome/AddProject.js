@@ -3,9 +3,12 @@ import "./AddProject.scss";
 // import { postProject } from "../../services/projects";
 import { uploadFiles } from "../../services/uploadFiles";
 import { useAddSingleProject } from "../../hooks/useProjectData";
+import Select from "./Select.js"
+
 
 const AddProject = () => {
   //kad postujem prosledim id ProfileId
+  const [employees, setEmployees] = useState([]);
   const profileId = window.localStorage.getItem("profileId");
   const [projectDetails, setProjectDetails] = useState({
     name: "",
@@ -82,14 +85,19 @@ const AddProject = () => {
           </div>
         </section>
         <section className="project-members-section">
-          <h3 className="project-members-section__title">Members</h3>
+        <section className="project-members-section">
+          <Select employees={employees} setEmployees={setEmployees} />
+          {/* <h3 className="project-members-section__title">Members</h3>
           <div className="project-members-section__find-emp">
             <input type="text" placeholder="find employee" />
             <button>Add</button>
           </div>
           <div className="project-members-section__employees-conteiner">
             <div className="singleEmployee">Single Employee</div>
-          </div>
+          </div> */}
+        </section>
+
+  
         </section>
         <button className="save-new-project">Add Project</button>
       </form>
