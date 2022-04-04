@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useCallback } from 'react';
 import { useQuery } from 'react-query';
 import axiosInstance from '../../helpers/axiosInstance';
@@ -18,6 +19,7 @@ function compare(a, b) {
   return 0;
 }
 
+
 const fetchUsers = async (page, profileId, nameFilter) => {
   //PODICI LIMIT NA 25
   const res = await axiosInstance.get(
@@ -26,17 +28,19 @@ const fetchUsers = async (page, profileId, nameFilter) => {
   console.log(res?.data);
   return res?.data;
 };
+//compare na strapiju
 
 const AdminUsers = () => {
-  const storageId = localStorage.getItem('userId');
-  const profileId = localStorage.getItem('profileId');
+  const storageId = localStorage.getItem("userId");
+  const profileId = localStorage.getItem("profileId");
   const [searching, setSearching] = useState(false);
-  const [nameFilter, setNameFilter] = useState('');
+  const [nameFilter, setNameFilter] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [futureId, setFutureId] = useState(null);
   const [futureProfileId, setFutureProfileId] = useState(null);
   const [page, setPage] = useState(1);
+
 
   const { data, status, refetch } = useQuery(
     ['users', page, nameFilter],
@@ -71,34 +75,14 @@ const AdminUsers = () => {
     refetch();
   };
 
-  // useEffect(() => {
-  //   let newProfiles = [];
-  //   if (nameFilter !== '') {
-  //     data?.data?.map((profile) => {
-  //       if (
-  //         profile.attributes.name
-  //           .toLowerCase()
-  //           .includes(nameFilter.toLowerCase())
-  //       ) {
-  //         newProfiles.push(profile);
-  //       }
-  //     });
-  //     setFilteredUsers(newProfiles);
-  //   } else {
-  //     setFilteredUsers(data?.data ? data?.data : []);
-  //     setSearching(false);
-  //   }
-  // }, [nameFilter]);
+
 
   const searchByName = (e) => {
-    // if (e.target.value === '') {
-    //   setNameFilter(e.target.value);
-    //   setSearching(false);
-    //   return;
-    // }
+
     setNameFilter(e.target.value);
     // setSearching(true);
   };
+
 
   const deleteProfile = async () => {
     if (futureId) {
@@ -115,6 +99,7 @@ const AdminUsers = () => {
     setFutureProfileId(null);
     refetch();
   };
+
 
   const modalOn = () => {
     setShowModal(true);
@@ -165,12 +150,12 @@ const AdminUsers = () => {
           <input
             value={nameFilter}
             onChange={searchByName}
-            type={'text'}
+            type={"text"}
             placeholder="Search"
           />
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="users__content">
           {
             // data.data && !searching ?
