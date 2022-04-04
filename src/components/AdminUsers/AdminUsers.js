@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useCallback } from 'react';
 import { useQuery } from 'react-query';
 import axiosInstance from '../../helpers/axiosInstance';
@@ -7,6 +8,7 @@ import './AdminUsers.scss';
 import UserBox from './UserBox';
 import Pagination from '@mui/material/Pagination';
 
+
 const fetchUsers = async (page, profileId, nameFilter) => {
   //PODICI LIMIT NA 25
   const res = await axiosInstance.get(
@@ -15,14 +17,20 @@ const fetchUsers = async (page, profileId, nameFilter) => {
   // console.log(res?.data);
   return res?.data;
 };
+//compare na strapiju
 
 const AdminUsers = () => {
-  const profileId = localStorage.getItem('profileId');
-  const [nameFilter, setNameFilter] = useState('');
+
+  const storageId = localStorage.getItem("userId");
+  const profileId = localStorage.getItem("profileId");
+  const [searching, setSearching] = useState(false);
+  const [nameFilter, setNameFilter] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [futureId, setFutureId] = useState(null);
   const [futureProfileId, setFutureProfileId] = useState(null);
   const [page, setPage] = useState(1);
+
 
   const { data, status, refetch } = useQuery(
     ['users', page],
@@ -58,9 +66,11 @@ const AdminUsers = () => {
     refetch();
   };
 
+
   const searchByName = (e) => {
     setNameFilter(e.target.value);
   };
+
 
   const deleteProfile = async () => {
     if (futureId) {
@@ -73,6 +83,7 @@ const AdminUsers = () => {
     setFutureProfileId(null);
     refetch();
   };
+
 
   const modalOn = () => {
     setShowModal(true);
@@ -99,12 +110,12 @@ const AdminUsers = () => {
           <input
             value={nameFilter}
             onChange={searchByName}
-            type={'text'}
+            type={"text"}
             placeholder="Search"
           />
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="users__content">
           {data?.data?.length !== 0 ? (
             data?.data?.map((user) => {
