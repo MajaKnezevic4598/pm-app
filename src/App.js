@@ -22,33 +22,33 @@ const fetchConfirmed = async (userId) => {
 };
 
 function App() {
-    const { loggedIn } = useContext(AuthContext);
-    const [uncomfirmed, setUncomfirmed] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const userId = localStorage.getItem('userId');
 
-    const userRole = localStorage.getItem('role');
+  const { loggedIn } = useContext(AuthContext);
+  const [uncomfirmed, setUncomfirmed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+  const userRole = localStorage.getItem('role');
 
-    useEffect(() => {
-        const checkUncomfirmed = async () => {
-            let profile;
-            if (userId) {
-                setLoading(true);
-                profile = await axiosInstance.get(
-                    `/profiles?filters[userId][id][$eq]=${userId}&populate=*`,
-                );
-                if (profile.data.data[0].attributes.confirmed === false) {
-                    setUncomfirmed(true);
-                    setLoading(false);
-                } else {
-                    setUncomfirmed(false);
-                    setLoading(false);
-                }
-            } else {
-                setLoading(false);
-            }
-        };
-
+  useEffect(() => {
+    const checkUncomfirmed = async () => {
+      let profile;
+      setLoading(true);
+      if (userId) {
+        profile = await axiosInstance.get(
+          `/profiles?filters[userId][id][$eq]=${userId}&populate=*`
+        );
+        if (profile.data.data[0].attributes.confirmed === false) {
+          setUncomfirmed(true);
+          setLoading(false);
+        } else {
+          setUncomfirmed(false);
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
         checkUncomfirmed();
     }, [loggedIn]);
 
@@ -68,19 +68,21 @@ function App() {
         );
     }
 
-    return (
-        <div className="App">
-            {loggedIn && userRole === 'system_administrator' ? (
-                <AdminRoutes />
-            ) : loggedIn && userRole === 'employee' ? (
-                <EmployeeRoutes />
-            ) : loggedIn && userRole === 'project_manager' ? (
-                <PMRoutes />
-            ) : (
-                <PublicRoutes />
-            )}
-        </div>
-    );
+
+
+  return (
+    <div className="App">
+      {loggedIn && userRole === 'system_administrator' ? (
+        <AdminRoutes />
+      ) : loggedIn && userRole === 'employee' ? (
+        <EmployeeRoutes />
+      ) : loggedIn && userRole === 'project_manager' ? (
+        <PMRoutes />
+      ) : (
+        !token && <PublicRoutes />
+      )}
+    </div>
+  );
 }
 
 export default App;

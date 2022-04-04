@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import styles from './Header.module.scss';
+import styles from './AdminHeader.module.scss';
 
 import { BiMenuAltRight } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -44,6 +44,9 @@ const AdminHeader = () => {
             </Link>
             <Link className={styles.nav__item} to="/categories">
               Categories
+            </Link>
+            <Link className={styles.nav__item} to="/my-account">
+              Account
             </Link>
             <div className={styles.nav__button__container}>
               <Button />
