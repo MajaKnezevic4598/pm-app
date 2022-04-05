@@ -5,6 +5,7 @@ import PMHome from '../components/PMHome/PMHome';
 import AddProject from '../components/PMHome/AddProject';
 import Account from '../components/Account/Account';
 import NotesView from '../components/PMHome/NotesView';
+import EditNote from '../components/PMHome/EditNote';
 
 const PMRoutes = (props) => {
     return (
@@ -21,6 +22,7 @@ const PMRoutes = (props) => {
                     <Route path="add-project" element={<AddProject />} />
                     <Route path="/account" element={<Account />} />
                     <Route path="/:id/notes" element={<NotesView />} />
+                    <Route path="/edit-note/:id" element={<EditNote />} />
                 </Routes>
             </BrowserRouter>
         </>

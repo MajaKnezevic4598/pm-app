@@ -191,12 +191,12 @@ const NotesView = (props) => {
                         </div>
                     </div>
                     <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            flexWrap: 'wrap',
-                        }}
+                    // style={{
+                    //     display: 'flex',
+                    //     justifyContent: 'center',
+                    //     alignItems: 'center',
+                    //     flexWrap: 'wrap',
+                    // }}
                     >
                         <div className="employee__content">
                             <input
@@ -221,6 +221,8 @@ const NotesView = (props) => {
                         {notes?.map((note) => {
                             return (
                                 <SingleNote
+                                    id={note.id}
+                                    refetch={refetch}
                                     name={note.attributes.title}
                                     description={note.attributes.description}
                                     photo={
