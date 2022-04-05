@@ -15,10 +15,11 @@ const SingleProjectCard = ({
   projectLogo,
   employees,
   projectDescription,
+  projectId,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
-    <div className="card">
+    <div className="card" id={`${projectId}`}>
       <div className="card__img-conteiner">
         {projectLogo ? (
           <img
@@ -51,6 +52,7 @@ const SingleProjectCard = ({
           className="card__info-2__icon"
           onClick={() => {
             setModalIsOpen(true);
+            window.localStorage.setItem("projectId", projectId);
           }}
         />
         <p>{employees} employees</p>

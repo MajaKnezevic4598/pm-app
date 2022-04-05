@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AddProject.scss";
-// import { postProject } from "../../services/projects";
 import { uploadFiles } from "../../services/uploadFiles";
 import { useAddSingleProject } from "../../hooks/useProjectData";
-import Select from "./Select.js"
-
+import Select from "./Select.js";
+import SingleEmployee from "./SingleEmployee";
+import { useNavigate } from "react-router";
 
 const AddProject = () => {
-  //kad postujem prosledim id ProfileId
   const [employees, setEmployees] = useState([]);
   const profileId = window.localStorage.getItem("profileId");
+  const navigate = useNavigate();
+
   const [projectDetails, setProjectDetails] = useState({
     name: "",
     description: "",
@@ -25,23 +26,26 @@ const AddProject = () => {
     });
   };
 
-  const { mutate } = useAddSingleProject();
+  useEffect(() => {
+    console.log(employees);
+  }, [employees]);
+
+  const onSuccess = () => {
+    alert("uspesan post");
+    navigate("/");
+  };
+
+  const { mutate } = useAddSingleProject(onSuccess);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const uploadFileResponse = await uploadFiles(selectedFile);
-    // console.log("respnse from upload");
-    // console.log(uploadFileResponse);
-    // await postProject({
-    //   ...projectDetails,
-    //   id: profileId,
-    //   logo: uploadFileResponse.data[0].id,
-    // });
 
     const projectData = {
       ...projectDetails,
       id: profileId,
       logo: uploadFileResponse.data[0].id,
+      employees: [...employees, employees.id],
     };
     mutate(projectData);
 
@@ -85,19 +89,12 @@ const AddProject = () => {
           </div>
         </section>
         <section className="project-members-section">
-        <section className="project-members-section">
-          <Select employees={employees} setEmployees={setEmployees} />
-          {/* <h3 className="project-members-section__title">Members</h3>
-          <div className="project-members-section__find-emp">
-            <input type="text" placeholder="find employee" />
-            <button>Add</button>
-          </div>
-          <div className="project-members-section__employees-conteiner">
-            <div className="singleEmployee">Single Employee</div>
-          </div> */}
-        </section>
-
-  
+          <section className="project-members-section">
+            <Select employees={employees} setEmployees={setEmployees} />
+            {employees.map((employee) => {
+              return <SingleEmployee name={employee.attributes.name} />;
+            })}
+          </section>
         </section>
         <button className="save-new-project">Add Project</button>
       </form>

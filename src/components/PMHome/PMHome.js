@@ -82,6 +82,7 @@ const PMHome = () => {
               projectLogo={item?.attributes?.logo?.data?.attributes?.url}
               employees={item.attributes.employees.data.length}
               projectDescription={item.attributes.description}
+              projectId={item.id}
             />
           );
         })}

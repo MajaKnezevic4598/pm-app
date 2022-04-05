@@ -1,9 +1,9 @@
-import React, { Component, useEffect, useState } from 'react';
-import Select from 'react-select';
-import { components } from 'react-select';
-import { useInView } from 'react-intersection-observer';
-import { useInfiniteQuery } from 'react-query';
-import axiosInstance from '../../helpers/axiosInstance';
+import React, { Component, useEffect, useState } from "react";
+import Select from "react-select";
+import { components } from "react-select";
+import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from "react-query";
+import axiosInstance from "../../helpers/axiosInstance";
 
 const SelectMenuButton = (props) => {
   const onButtonClick = () => {
@@ -14,15 +14,15 @@ const SelectMenuButton = (props) => {
       {props.children}
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          cursor: 'pointer',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          cursor: "pointer",
         }}
         ref={props.selectProps.refProp}
         onClick={onButtonClick}
       >
-        {props.selectProps.hasNextPage? "Load more..." : "no employees"}
+        {props.selectProps.hasNextPage ? "Load more..." : "no employees"}
       </div>
     </components.MenuList>
   );
@@ -31,7 +31,7 @@ const SelectMenuButton = (props) => {
 const SelectComponent = (props) => {
   const [options, setOptions] = useState([]);
   const [shouldFetch, setShouldFetch] = useState(false);
-  const [nameFilter, setNameFilter] = useState('');
+  const [nameFilter, setNameFilter] = useState("");
 
   const {
     status,
@@ -45,10 +45,11 @@ const SelectComponent = (props) => {
     hasNextPage,
     hasPreviousPage,
   } = useInfiniteQuery(
-    ['projects-inf', nameFilter],
+    ["projects-inf", nameFilter],
     async ({ pageParam = 0 }) => {
+      //ovde sam stavila da filtrira samo sa ulogom employee
       const res = await axiosInstance.get(
-        `/profiles?filters[name][$containsi]=${nameFilter}&pagination[pageSize]=2&pagination[page]=` +
+        `/profiles?filters[role][$eq]=employee&filters[name][$containsi]=${nameFilter}&pagination[pageSize]=2&pagination[page]=` +
           pageParam
       );
       return res.data;
@@ -81,13 +82,17 @@ const SelectComponent = (props) => {
 
   useEffect(() => {
     if (data?.pages) {
+      console.log(data.pages);
       let newArray = [];
       data.pages.map((page) => {
         page.data.map((item) => {
+          console.log(item);
+          console.log("item iz selecta");
           newArray.push({
-            value: item.id,
+            value: item,
+            //da value bude objekat
             label: item.attributes.name,
-            color: '#00B8D9',
+            color: "#00B8D9",
             isFixed: true,
           });
         });
@@ -106,7 +111,12 @@ const SelectComponent = (props) => {
       value="Select"
       onInputChange={(val) => setNameFilter(val)}
       onChange={(item) => {
-        props.setEmployees([...props.employees, item.value]);
+        if (props.employees.indexOf(item.value) === -1) {
+          props.setEmployees([...props.employees, item.value]);
+        } else {
+          alert(`item with id of ${item.value} is in the array`);
+          //ovde cemo dodati neku funkcionalnost da prikazuje poruku ako je vec u
+        }
       }}
       isRtl={false}
       isSearchable={true}
@@ -116,7 +126,7 @@ const SelectComponent = (props) => {
       refProp={ref}
       getMore={fetchNextPage}
       hasNextPage={hasNextPage}
-      components={{ MenuList: SelectMenuButton  }}
+      components={{ MenuList: SelectMenuButton }}
     />
   );
 };
