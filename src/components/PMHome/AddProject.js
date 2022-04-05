@@ -5,6 +5,7 @@ import { useAddSingleProject } from "../../hooks/useProjectData";
 import Select from "./Select.js";
 import SingleEmployee from "./SingleEmployee";
 import { useNavigate } from "react-router";
+import uuid from "react-uuid";
 
 const AddProject = () => {
   const [employees, setEmployees] = useState([]);
@@ -38,13 +39,22 @@ const AddProject = () => {
   const { mutate } = useAddSingleProject(onSuccess);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const uploadFileResponse = await uploadFiles(selectedFile);
+    if (
+      projectDetails.name === "" ||
+      projectDetails.description === "" ||
+      employees.length === 0
+    ) {
+      return;
+    }
+    let uploadFileResponse;
+    if (selectedFile) {
+      uploadFileResponse = await uploadFiles(selectedFile);
+    }
 
     const projectData = {
       ...projectDetails,
       id: profileId,
-      logo: uploadFileResponse.data[0].id,
+      logo: uploadFileResponse ? uploadFileResponse.data[0].id : null,
       employees: [...employees, employees.id],
     };
     mutate(projectData);
@@ -88,14 +98,23 @@ const AddProject = () => {
             />
           </div>
         </section>
+
         <section className="project-members-section">
-          <section className="project-members-section">
-            <Select employees={employees} setEmployees={setEmployees} />
-            {employees.map((employee) => {
-              return <SingleEmployee name={employee.attributes.name} />;
-            })}
-          </section>
+          <div>Add Employee</div>
+          <Select employees={employees} setEmployees={setEmployees} />
+          {employees.map((employee) => {
+            return (
+              <SingleEmployee
+                key={uuid()}
+                name={employee.attributes.name}
+                setEmployees={setEmployees}
+                employees={employees}
+                id={employee.id}
+              />
+            );
+          })}
         </section>
+
         <button className="save-new-project">Add Project</button>
       </form>
     </div>

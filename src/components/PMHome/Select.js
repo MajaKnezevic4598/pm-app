@@ -50,7 +50,8 @@ const SelectComponent = (props) => {
       //ovde sam stavila da filtrira samo sa ulogom employee
       const res = await axiosInstance.get(
         `/profiles?filters[role][$eq]=employee&filters[name][$containsi]=${nameFilter}&pagination[pageSize]=2&pagination[page]=` +
-          pageParam
+          pageParam +
+          `&populate=profilePhoto`
       );
       return res.data;
     },

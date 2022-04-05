@@ -78,58 +78,58 @@
   }
 
   .project-members-section {
-    display: grid;
+    // display: grid;
+    display: flex;
     grid-template-columns: 15vw auto auto;
     grid-template-rows: repeat(3, 1fr);
     background-color: #fff;
     border-radius: 6px;
 
-    &__title {
-      grid-column: 1/2;
-      grid-row: 1/4;
-      //   background-color: red;
-      padding: 1rem 2rem;
+    // &__title {
+    //   grid-column: 1/2;
+    //   grid-row: 1/4;
+    //   //   background-color: red;
+    //   padding: 1rem 2rem;
+    // }
+
+    // &__find-emp {
+    //   grid-column: 2/3;
+    //   grid-row: 1/2;
+    //   //   background-color: green;
+    //   padding: 1rem 2rem;
+
+    input {
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid rgb(133, 129, 129);
+      box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+      width: 70%;
+      outline: none;
+      margin-bottom: 2vh;
     }
 
-    &__find-emp {
-      grid-column: 2/3;
-      grid-row: 1/2;
-      //   background-color: green;
-      padding: 1rem 2rem;
-
-      input {
-        padding: 0.5rem;
-        border-radius: 4px;
-        border: 1px solid rgb(133, 129, 129);
-        box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
-        width: 70%;
-        outline: none;
-        margin-bottom: 2vh;
-      }
-
-      button {
-        border: 1px solid gray;
-        padding: 0.5rem;
-        border-radius: 4px;
-        margin-left: 3vw;
-      }
-    }
-
-    &__employees-conteiner {
-      grid-column: 2/3;
-      grid-row: 2/4;
-      //   background-color: grey;
-      padding: 1rem 2rem;
+    button {
+      border: 1px solid gray;
+      padding: 0.5rem;
+      border-radius: 4px;
+      margin-left: 3vw;
     }
   }
 
-  .save-new-project {
-    border: 1px solid gray;
-    padding: 0.5rem;
-    background-color: aquamarine;
-    border-radius: 4px;
-    position: absolute;
-    bottom: 30px;
-    right: 40px;
+  &__employees-conteiner {
+    grid-column: 2/3;
+    grid-row: 2/4;
+    //   background-color: grey;
+    padding: 1rem 2rem;
   }
+}
+
+.save-new-project {
+  border: 1px solid gray;
+  padding: 0.5rem;
+  background-color: aquamarine;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 30px;
+  right: 40px;
 }
