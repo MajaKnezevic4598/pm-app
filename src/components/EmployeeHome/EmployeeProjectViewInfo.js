@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
 import Default from '../../assets/no-image.png';
 import Spinner from '../Spinner.js/Spinner';
 import './EmployeeProjectView.scss';
 import SingleNote from './SingleNote';
 import EmptyNote from './EmptyNote';
+import axiosInstance from '../../helpers/axiosInstance';
+import { useParams } from 'react-router-dom';
 
 const EmployeeProjectViewInfo = (props) => {
     useEffect(() => {
@@ -62,7 +65,6 @@ const EmployeeProjectViewInfo = (props) => {
                     </div>
                     <div className="emp__description__toright">
                         <p>Employees</p>
-                        {/* slice for +nesto employees */}
                         {props.employees.map((employee) => {
                             return (
                                 <Image
@@ -103,6 +105,7 @@ const EmployeeProjectViewInfo = (props) => {
                             })}
                         </header>
                     </div>
+                    {/* PROBATI SEARCH PREBACITI */}
                 </div>
             </div>
             <div>

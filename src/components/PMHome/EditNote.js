@@ -84,7 +84,6 @@ const EditNote = (props) => {
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                     >
-                        {/* <option value={0}>Select Category</option> */}
                         {categories?.map((category) => {
                             return (
                                 <option value={category.id} key={category.id}>

@@ -16,13 +16,11 @@ const fetchProject = async (id) => {
             id +
             '?populate=logo&populate=employees.profilePhoto&populate=project_manager.profilePhoto',
     );
-    console.log(response.data);
     return response.data;
 };
 
 const fetchCategories = async () => {
     const response = await axiosInstance.get('/categories');
-    console.log(response.data.data);
     return response.data.data;
 };
 
@@ -30,9 +28,7 @@ const fetchAllNotes = async (id, categoryName, nameFilter, SortValue) => {
     const response = await axiosInstance.get(
         `/notes?filters[category][name][$eq]=${categoryName}&filters[project][id][$eq]=${id}&filters[title][$containsi]=${nameFilter}&sort=createdAt:${SortValue}&populate=profile.profilePhoto`,
     );
-    console.log(id, categoryName);
     return response.data.data;
-    // return response.data;
 };
 
 const NotesView = (props) => {
@@ -135,7 +131,6 @@ const NotesView = (props) => {
                     </div>
                     <div className="emp__description__toright">
                         <p>Employees</p>
-                        {/* slice for +nesto employees */}
                         {data?.data.attributes.employees?.data.map(
                             (employee) => {
                                 return (
@@ -190,14 +185,7 @@ const NotesView = (props) => {
                             <button>ADD NOTE</button>
                         </div>
                     </div>
-                    <div
-                    // style={{
-                    //     display: 'flex',
-                    //     justifyContent: 'center',
-                    //     alignItems: 'center',
-                    //     flexWrap: 'wrap',
-                    // }}
-                    >
+                    <div>
                         <div className="employee__content">
                             <input
                                 value={nameFilter}
