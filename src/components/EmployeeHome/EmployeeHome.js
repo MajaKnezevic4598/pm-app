@@ -11,7 +11,6 @@ import Rocket from '../../assets/rocket2.png';
 import Pagination from '@mui/material/Pagination';
 import { FiEdit } from 'react-icons/fi';
 
-//U employeedata u servisu treba da se ubaci paginacija u get req
 const fetchProjects = async (profileId, nameFilter, page) => {
     const response = employee.employeeData(profileId, nameFilter, page);
     return response;

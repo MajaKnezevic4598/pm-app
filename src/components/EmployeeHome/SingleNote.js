@@ -1,11 +1,61 @@
 import React from 'react';
 
 import './SingleNote.scss';
+import { MdDelete } from 'react-icons/md';
+import { BiEdit } from 'react-icons/bi';
+import axiosInstance from '../../helpers/axiosInstance';
+import { useNavigate } from 'react-router-dom';
+import './SingleNote.scss';
 
 const SingleNote = (props) => {
+    const navigate = useNavigate();
+
+    const deleteNote = async () => {
+        await axiosInstance.delete('/notes/' + props.id);
+        props.refetch();
+        console.log('mozda brise');
+    };
+
+    const editNote = () => {
+        navigate('/edit-note/' + props.id);
+    };
+
     return (
         <div className="note">
             <div className="note__content">
+                <p
+                    className="edit"
+                    style={{
+                        position: 'absolute',
+                        paddingBottom: '80px',
+                        width: '350px',
+                        display: 'flex',
+                        justifyContent: 'right',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        zIndex: 1000,
+                    }}
+                    onClick={editNote}
+                >
+                    <BiEdit /> Edit
+                </p>
+                <p
+                    className="delete"
+                    style={{
+                        position: 'absolute',
+                        paddingBottom: '40px',
+                        width: '350px',
+                        display: 'flex',
+                        justifyContent: 'right',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        zIndex: 1000,
+                    }}
+                    onClick={deleteNote}
+                >
+                    <MdDelete />
+                </p>
+
                 <div className="employee__info">
                     <div className="employee-info__left">
                         <div
@@ -21,6 +71,7 @@ const SingleNote = (props) => {
                             >
                                 {props.name}
                             </p>
+
                             <p
                                 style={{
                                     paddingTop: '16px',
