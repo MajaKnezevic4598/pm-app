@@ -5,6 +5,7 @@ import { MdDelete } from 'react-icons/md';
 import { BiEdit } from 'react-icons/bi';
 import axiosInstance from '../../helpers/axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import './SingleNote.scss';
 
 const SingleNote = (props) => {
     const navigate = useNavigate();
@@ -23,9 +24,26 @@ const SingleNote = (props) => {
         <div className="note">
             <div className="note__content">
                 <p
+                    className="edit"
                     style={{
                         position: 'absolute',
                         paddingBottom: '80px',
+                        width: '350px',
+                        display: 'flex',
+                        justifyContent: 'right',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        zIndex: 1000,
+                    }}
+                    onClick={editNote}
+                >
+                    <BiEdit /> Edit
+                </p>
+                <p
+                    className="delete"
+                    style={{
+                        position: 'absolute',
+                        paddingBottom: '40px',
                         width: '350px',
                         display: 'flex',
                         justifyContent: 'right',
@@ -37,22 +55,7 @@ const SingleNote = (props) => {
                 >
                     <MdDelete />
                 </p>
-                <p
-                    style={{
-                        position: 'absolute',
-                        paddingBottom: '80px',
-                        paddingLeft: '240px',
-                        width: '350px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flexWrap: 'wrap',
-                        zIndex: 1000,
-                    }}
-                    onClick={editNote}
-                >
-                    <BiEdit /> Edit
-                </p>
+
                 <div className="employee__info">
                     <div className="employee-info__left">
                         <div
