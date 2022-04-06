@@ -37,7 +37,6 @@ const EmployeeProjectView = (props) => {
     const [categoryName, setCategoryName] = useState('');
     const [nameFilter, setNameFilter] = useState('');
     const [sortValue, setSortValue] = useState('DESC');
-    const [page, setPage] = useState(1);
 
     const { id } = useParams();
 
@@ -104,31 +103,31 @@ const EmployeeProjectView = (props) => {
                         notes={notes}
                         status={notesStatus}
                     />
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            flexWrap: 'wrap',
-                        }}
-                    >
-                        <div className="employee__content">
-                            <input
-                                value={nameFilter}
-                                onChange={searchByName}
-                                type={'text'}
-                                placeholder="Search"
-                            />
-                            <select
-                                onChange={(e) => setSortValue(e.target.value)}
-                                name="value"
-                                id="value-select"
-                            >
-                                <option value={'ASC'}>Sort by:</option>
-                                <option value={'ASC'}>Oldest</option>
-                                <option value={'DESC'}>Newest</option>
-                            </select>
-                        </div>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                    }}
+                >
+                    <div className="employee__content">
+                        <input
+                            value={nameFilter}
+                            onChange={searchByName}
+                            type={'text'}
+                            placeholder="Search"
+                        />
+                        <select
+                            onChange={(e) => setSortValue(e.target.value)}
+                            name="value"
+                            id="value-select"
+                        >
+                            <option value={'ASC'}>Sort by:</option>
+                            <option value={'ASC'}>Oldest</option>
+                            <option value={'DESC'}>Newest</option>
+                        </select>
                     </div>
                 </div>
             </div>

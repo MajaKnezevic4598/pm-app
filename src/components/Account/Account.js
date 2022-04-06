@@ -15,10 +15,12 @@ const Account = () => {
     fetchProfile(profileId)
   );
   const [picture, setPicture] = useState();
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
   const profileId = localStorage.getItem('profileId');
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
     setName(data?.attributes.name);
@@ -32,7 +34,6 @@ const Account = () => {
     axiosInstance
       .post('/upload', formData)
       .then((response) => {
-        console.log(response);
         axiosInstance.put('/profiles/' + id, {
           data: {
             profilePhoto: response.data,
@@ -46,18 +47,25 @@ const Account = () => {
 
   const updateData = async () => {
     //todo - delete
+    setLoading(true);
     if (picture) {
       await uploadImage(profileId);
     }
-    await axiosInstance.put('/profiles/' + profileId, { data: { name: name } });
+    if (password.length >= 6 && password === confirmPassword) {
+      await axiosInstance.put('/users/' + userId, {
+        password: password,
+      });
+    }
+    if (name !== '') {
+      await axiosInstance.put('/profiles/' + profileId, {
+        data: { name: name },
+      });
+    }
     refetch();
+    setLoading(false);
   };
 
-  useEffect(() => {
-    console.log(data?.attributes.profilePhoto.data);
-  }, [data]);
-
-  if (status === 'loading') {
+  if (status === 'loading' || loading) {
     return <Spinner />;
   }
 
@@ -105,16 +113,16 @@ const Account = () => {
           <span>Password: </span>
           <input
             type={'password'}
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="inputs">
           <span>Confirm Password: </span>
           <input
             type={'password'}
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
         <button style={{ cursor: 'pointer' }} onClick={updateData}>
