@@ -92,12 +92,13 @@ const PMHome = () => {
                             }
                             employees={item.attributes.employees.data.length}
                             projectDescription={item.attributes.description}
+                            projectId={item.id}
                         />
                     );
                 })}
             </section>
         </div>
-    );
+)
 };
 
 export default PMHome;

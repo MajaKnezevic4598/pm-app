@@ -17,12 +17,13 @@ const SingleProjectCard = ({
     projectLogo,
     employees,
     projectDescription,
+    projectId,
     id,
 }) => {
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
     return (
-        <div className="card" onClick={() => navigate(`/${id}/notes`)}>
+        <div className="card" id={`${projectId}`} onClick={() => navigate(`/${id}/notes`)}>
             <div className="card__img-conteiner">
                 {projectLogo ? (
                     <img
