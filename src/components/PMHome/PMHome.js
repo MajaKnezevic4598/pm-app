@@ -98,6 +98,7 @@ const PMHome = () => {
                 })}
             </section>
         </div>
+)
 };
 
 export default PMHome;
