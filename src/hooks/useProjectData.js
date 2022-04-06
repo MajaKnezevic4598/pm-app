@@ -13,13 +13,14 @@ const fetchProjectsForSinglePM = async (profileId, nameFilter) => {
   return res;
 };
 
-const addProject = ({ id, name, description, logo }) => {
+const addProject = ({ id, name, description, logo, employees }) => {
   return axiosInstance.post("/projects", {
     data: {
       project_manager: id,
       name,
       description,
       logo,
+      employees,
     },
   });
 };
@@ -36,6 +37,8 @@ export const useAllProjectsForPM = (profileId, nameFilter) => {
   );
 };
 
-export const useAddSingleProject = () => {
-  return useMutation(addProject);
+export const useAddSingleProject = (onSuccess) => {
+  return useMutation(addProject,{
+    onSuccess,
+  });
 };

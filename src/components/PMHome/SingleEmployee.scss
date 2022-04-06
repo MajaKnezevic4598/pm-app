@@ -1,0 +1,10 @@
+@import "../../styles/variables";
+
+.employee-conteiner {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  border: 1px solid gray;
+  border-radius: 4px;
+  margin-left: 1rem;
+}
