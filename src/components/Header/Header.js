@@ -39,7 +39,7 @@ const Header = () => {
           <nav
             className={`${styles.nav} ${menuOpen ? styles[`nav--open`] : {}}`}
           >
-            <Link className={styles.nav__item} to="/my-projects">
+            <Link className={styles.nav__item} to="/">
               My Projects
             </Link>
             <Link className={styles.nav__item} to="/account">

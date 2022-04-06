@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import '../../styles/variables';
 .users {
   &__description {
     background-color: #f5fde7;
@@ -45,6 +45,7 @@
     padding: 0 8rem;
     margin: 2rem auto;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
     width: 80%;

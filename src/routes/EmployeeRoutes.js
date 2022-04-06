@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+
 import Account from '../components/Account/Account';
 import EmployeeHome from '../components/EmployeeHome/EmployeeHome';
 import Header from '../components/Header/Header';
+import EmployeeProjectView from '../components/EmployeeHome/EmployeeProjectView';
 
 const EmployeeRoutes = (props) => {
   return (
@@ -16,6 +18,10 @@ const EmployeeRoutes = (props) => {
         <Routes>
           <Route path="/" element={<EmployeeHome />} />
           <Route path="/account" element={<Account />} />
+             <Route
+                path="/:id/employee-project-view"
+                element={<EmployeeProjectView />}
+             />
         </Routes>
       </BrowserRouter>
     </>
