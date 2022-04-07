@@ -6,6 +6,8 @@ import { useQuery } from "react-query";
 import SingleEmployee from "./SingleEmployee";
 import { useState, useEffect } from "react";
 import Select from "./Select";
+import Default from "../../assets/no-image.png";
+import Spinner from "../Spinner.js/Spinner";
 
 const EditProject = () => {
   const { id } = useParams();
@@ -13,6 +15,8 @@ const EditProject = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [employees, setEmployees] = useState([]);
+  const [picture, setPicture] = useState();
+  const [loading, setLoading] = useState(false);
 
   const fetchSingleProject = async (id) => {
     const res = await axiosInstance.get(
@@ -22,12 +26,10 @@ const EditProject = () => {
     return res?.data;
   };
 
-  const { data, isLoading, isError, error } = useQuery(
-    ["single-project", id],
-    () => {
+  const { data, isLoading, isError, error, refetch, isFetching, status } =
+    useQuery(["single-project", id], () => {
       return fetchSingleProject(id);
-    }
-  );
+    });
   useEffect(() => {
     if (data) {
       console.log(data?.data);
@@ -40,9 +42,55 @@ const EditProject = () => {
   useEffect(() => {
     console.log(employees);
   }, [employees]);
+
+  const uploadProjetLogo = async (projectId) => {
+    const formData = new FormData();
+    formData.append("files", picture[0]);
+
+    await axiosInstance
+      .post("/upload", formData)
+      .then((response) => {
+        axiosInstance.put("/projects/" + projectId, {
+          data: {
+            logo: response.data,
+          },
+        });
+        console.log("response iz puta");
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (picture) {
+      await uploadProjetLogo(id);
+
+      console.log("uradio sam refetch");
+    }
+    if (description || name || employees) {
+      await axiosInstance.put(`projects/${id}`, {
+        data: {
+          description,
+          name,
+          employees,
+        },
+      });
+    }
+    setLoading(false);
+    // refetch();
+  };
+
+  if (status === "loading" || loading) {
+    return <Spinner />;
+  }
+
   return (
     <div>
-      <form className="add-project-conteiner">
+      <form className="add-project-conteiner" onSubmit={handleSubmit}>
         <section className="project-info-section">
           <h3>Project Info</h3>
           <div className="project-input">
@@ -56,15 +104,29 @@ const EditProject = () => {
               }}
             />
           </div>
-          <div className="chose-logo">
+          <div className="logo-conteiner">
+            {/* picture je ono sto smo ubacili kao vrednost za input type file */}
+            {!picture ? (
+              // eslint-disable-next-line jsx-a11y/alt-text
+              <img
+                src={
+                  data?.data?.attributes.logo.data.attributes.url == null
+                    ? Default
+                    : `https://pm-app-bek.herokuapp.com${data?.data?.attributes.logo.data.attributes.url}`
+                }
+              />
+            ) : (
+              // eslint-disable-next-line jsx-a11y/img-redundant-alt
+              <img src={URL.createObjectURL(picture[0])} alt="profile-photo" />
+            )}
             <input
+              id="file-upload"
               type="file"
-              placeholder="chose Logo"
-              name="logo"
-              //   onChange={(e) => {
-              //     setSelectedFile(e.target.files[0]);
-              //   }}
+              onChange={(e) => setPicture(e.target.files)}
             />
+            <label htmlFor="file-upload" className="logo-conteiner__edit-icon">
+              <i className="fas fa-pen"></i>
+            </label>
           </div>
           <div className="project-description">
             <p>Project description</p>
@@ -81,18 +143,23 @@ const EditProject = () => {
           <Select employees={employees} setEmployees={setEmployees} />
           {employees.map((employee) => {
             return (
-              <SingleEmployee
-                key={uuid()}
-                name={employee.attributes.name}
-                setEmployees={setEmployees}
-                employees={employees}
-                id={employee.id}
-              />
+              <div className="single-employee-conteiner" key={uuid()}>
+                <SingleEmployee
+                  key={uuid()}
+                  name={employee.attributes.name}
+                  setEmployees={setEmployees}
+                  employees={employees}
+                  id={employee.id}
+                  profilePhoto={
+                    employee.attributes.profilePhoto.data.attributes.url
+                  }
+                />
+              </div>
             );
           })}
         </section>
 
-        <button className="save-new-project">Add Project</button>
+        <button className="save-new-project">Edit Project</button>
       </form>
       jellooo
     </div>

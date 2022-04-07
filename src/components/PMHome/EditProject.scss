@@ -1,1 +1,26 @@
 @import "../../styles/variables";
+
+.logo-conteiner {
+  position: relative;
+  input[type="file"] {
+    display: none;
+  }
+  img {
+    border: 1px solid #c0d6ff;
+
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+
+  &__edit-icon {
+    cursor: pointer;
+    background-color: #0464fc;
+    position: absolute;
+    top: 65%;
+    left: 65%;
+    padding: 8px;
+    border-radius: 50%;
+  }
+}
