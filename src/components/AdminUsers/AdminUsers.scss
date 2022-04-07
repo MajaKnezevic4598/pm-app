@@ -1,27 +1,31 @@
 @import '../../styles/variables';
 .users {
   &__description {
-    background-color: #f5fde7;
+    background-color: $darkPrimary;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 3rem 4rem;
+    padding: 3rem 8rem;
+    padding-bottom: 4.5rem;
     font-family: $roboto-font;
+    margin-bottom: 30px;
 
     @media screen and (max-width: 650px) {
       flex-direction: column;
+      padding: 3rem 4rem;
     }
 
     &__left div:first-of-type {
       font-size: 28px;
       line-height: 33px;
       font-weight: 600;
+      color: $whitePrimary;
     }
 
     &__left div:last-of-type {
       font-size: 22px;
       line-height: 26px;
-      color: #5c5c5c;
+      color: $grayPrimary;
 
       @media screen and (max-width: 650px) {
         margin-bottom: 20px;
