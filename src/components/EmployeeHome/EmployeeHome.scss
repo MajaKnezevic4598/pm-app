@@ -34,7 +34,7 @@
 
 .employee {
     &__description {
-        background-color: #f5fde7;
+        background-color: #393d3f;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -64,6 +64,7 @@
         }
 
         &__left div:first-of-type {
+            color: #fdfdff;
             font-size: 1.75rem;
             line-height: 2.5rem;
             font-weight: 600;
@@ -72,7 +73,7 @@
         &__left div:last-of-type {
             font-size: 1.375rem;
             line-height: 2.2rem;
-            color: #5c5c5c;
+            color: #ccc;
 
             @include small {
                 margin-bottom: 1.15rem;
@@ -178,6 +179,11 @@
 
 .flex-container {
     display: flex;
+    padding-left: 6rem;
+
+    @include tablet {
+        padding-left: 0;
+    }
 
     & .header-logo {
         & img {
