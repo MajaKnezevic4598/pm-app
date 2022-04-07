@@ -112,7 +112,9 @@ const SelectComponent = (props) => {
       value="Select"
       onInputChange={(val) => setNameFilter(val)}
       onChange={(item) => {
-        if (props.employees.indexOf(item.value) === -1) {
+        if (
+          props.employees.findIndex((elem) => elem.id === item.value.id) === -1
+        ) {
           props.setEmployees([...props.employees, item.value]);
         } else {
           alert(`item with id of ${item.value} is in the array`);

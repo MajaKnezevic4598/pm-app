@@ -1,9 +1,6 @@
 import "./SingleProjectCard.scss";
 import img from "../../assets/av.png";
-import img1 from "../../assets/av1.png";
 import { MdOpenInNew } from "react-icons/md";
-import { useState } from "react";
-import { FiXSquare } from "react-icons/fi";
 
 import { useNavigate } from "react-router-dom";
 
@@ -55,8 +52,8 @@ const SingleProjectCard = ({
       <div className="card__info-2">
         <MdOpenInNew
           className="card__info-2__icon"
-          onClick={() => {
-            // setModalIsOpen(true);
+          onClick={(e) => {
+            e.stopPropagation();
             console.log("kliknuto");
             navigate(`/${projectId}/notes/edit-project`);
           }}

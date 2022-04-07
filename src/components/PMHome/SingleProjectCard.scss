@@ -31,6 +31,7 @@ $card-width: 22rem;
   justify-content: space-around;
   margin-right: 2vw;
   margin-bottom: 2vw;
+  z-index: 1;
 
   &__img-conteiner {
     align-self: center;
@@ -67,7 +68,9 @@ $card-width: 22rem;
     align-self: flex-start;
 
     &__icon {
+      position: relative;
       font-size: 1.6rem;
+      z-index: 1000;
       &:hover {
         color: $orange;
         cursor: pointer;
