@@ -113,3 +113,23 @@
     }
   }
 }
+
+.user-modal {
+  display: flex;
+  flex-direction: column;
+
+  &__image {
+    border: 1px solid #E2E8F0;
+    align-self: center;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  &__action-buttons {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
