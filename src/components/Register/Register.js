@@ -283,17 +283,7 @@ const Register = () => {
         </button>
         <div className="login__bottom_signup">
           Already have an account?{' '}
-          <span
-            style={{
-              color: '#fbb440',
-              fontWeight: 'bold',
-              marginLeft: '5px',
-              cursor: 'pointer',
-            }}
-            onClick={() => navigate('/login')}
-          >
-            Sign In
-          </span>
+          <span onClick={() => navigate('/login')}>Sign In</span>
         </div>
       </form>
     </div>

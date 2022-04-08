@@ -18,7 +18,7 @@
     border-radius: 50%;
     width: 150%;
     height: 21.875rem;
-    background-color: $mainYellow;
+    background-color: $bluePrimary;
     position: absolute;
     margin-top: -50px;
     top: -5%;
@@ -36,6 +36,11 @@
     &__text {
       padding-left: 2rem;
       padding-top: 4rem;
+
+      @media screen and (max-width:380px) {
+        padding-top: 0rem;
+        padding-left: 1rem;
+      }
     }
   }
 
@@ -71,7 +76,7 @@
 
     &__button {
       width: 50%;
-      background-color: $mainYellow;
+      background-color: $bluePrimary;
       display: flex;
       justify-content: center;
       align-items: center;
