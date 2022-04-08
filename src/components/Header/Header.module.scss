@@ -97,8 +97,9 @@
   position: fixed;
   top: $headerHeight;
   right: -100%;
-  background: rgba($backGround2, 0.5);
+  background: rgba($darkPrimary, 1);
   text-align: center;
+  border-radius: 0 0 20px 20px;
   padding: $spacing-medium 0;
 
   &--open {

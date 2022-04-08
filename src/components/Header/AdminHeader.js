@@ -16,7 +16,12 @@ const AdminHeader = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('role');
     localStorage.removeItem('profileId');
+    setMenuOpen(false);
     window.location.href = '/';
+  };
+
+  const closeNav = () => {
+    setMenuOpen(false);
   };
 
   const Button = () => {
@@ -39,13 +44,21 @@ const AdminHeader = () => {
           <nav
             className={`${styles.nav} ${menuOpen ? styles[`nav--open`] : {}}`}
           >
-            <Link className={styles.nav__item} to="/">
+            <Link className={styles.nav__item} onClick={closeNav} to="/">
               Users
             </Link>
-            <Link className={styles.nav__item} to="/categories">
+            <Link
+              className={styles.nav__item}
+              onClick={closeNav}
+              to="/categories"
+            >
               Categories
             </Link>
-            <Link className={styles.nav__item} to="/my-account">
+            <Link
+              className={styles.nav__item}
+              onClick={closeNav}
+              to="/my-account"
+            >
               Account
             </Link>
             <div className={styles.nav__button__container}>
