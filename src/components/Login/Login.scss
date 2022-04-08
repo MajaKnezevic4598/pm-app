@@ -1,15 +1,16 @@
+@import '../../styles/variables.scss';
+
 .login {
   height: 100vh;
   position: relative;
   overflow-x: hidden;
-  padding-top: 12px;
   padding-top: 64px;
 
   &__circle {
     border-radius: 50%;
     width: 150%;
     height: 350px;
-    background-color: #fbb440;
+    background-color: $bluePrimary;
     position: absolute;
     margin-top: -50px;
     top: -5%;
@@ -28,6 +29,11 @@
     &__text {
       padding-left: 2rem;
       padding-top: 4rem;
+
+      @media screen and (max-width:380px) {
+        padding-top: 1rem;
+        padding-left: 1rem;
+      }
     }
   }
 
@@ -59,7 +65,7 @@
 
     &__button {
       width: 50%;
-      background-color: #fbb440;
+      background-color: $bluePrimary;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -78,7 +84,15 @@
     &_signup {
       color: #a9a9a9;
       padding-bottom: 2rem;
+      
+      span {
+        color: $bluePrimary;
+        font-weight: bold;
+        margin-left: '5px';
+      }
     }
+
+  
   }
 
   @media screen and (min-height: 750px) {

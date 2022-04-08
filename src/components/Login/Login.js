@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./Login.scss";
-import { useNavigate } from "react-router-dom";
-import useInput from "../../hooks/use-input";
-import axiosInstance from "../../helpers/axiosInstance";
-import AuthContext from "../../context/AuthContext";
-import Spinner from "../Spinner.js/Spinner";
-import { Typewriter } from "react-simple-typewriter";
+import React, { useContext, useEffect, useState } from 'react';
+import './Login.scss';
+import { useNavigate } from 'react-router-dom';
+import useInput from '../../hooks/use-input';
+import axiosInstance from '../../helpers/axiosInstance';
+import AuthContext from '../../context/AuthContext';
+import Spinner from '../Spinner.js/Spinner';
+import { Typewriter } from 'react-simple-typewriter';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,26 +38,27 @@ const Login = () => {
     if (emailIsValid && passwordIsValid) {
       setIsLoading(true);
       try {
-        const data = await axiosInstance.post("/auth/local", {
+        const data = await axiosInstance.post('/auth/local', {
           identifier: enteredEmail,
           password: enteredPassword,
         });
         if (data) {
-          localStorage.setItem("token", data.data.jwt);
-          localStorage.setItem("userId", data.data.user.id);
+          localStorage.setItem('token', data.data.jwt);
+          localStorage.setItem('userId', data.data.user.id);
           const profileData = await axiosInstance.get(
-            "/users/" + data.data.user.id
+            '/users/' + data.data.user.id
           );
-          localStorage.setItem("role", profileData.data.role.name);
+          localStorage.setItem('role', profileData.data.role.name);
           const profile = await axiosInstance.get(
             `https://pm-app-bek.herokuapp.com/api/profiles?filters[userId][id][$eq]=${data.data.user.id}&populate=*`
           );
-          localStorage.setItem("profileId", profile.data.data[0].id);
+          localStorage.setItem('profileId', profile.data.data[0].id);
           getLoggedIn();
         }
         setIsLoading(false);
       } catch (err) {
         console.log(err);
+        setHasError(true);
         setIsLoading(false);
       }
     } else {
@@ -89,14 +90,13 @@ const Login = () => {
         <div className="login__top__text">
           <div
             style={{
-              fontSize: "3rem",
-              display: "flex",
-              flexDirection: "column",
+              fontSize: '3rem',
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
-
             <Typewriter
-              words={["Welcome Back"]}
+              words={['Welcome Back']}
               loop={1}
               cursor={false}
               cursorStyle="|"
@@ -109,9 +109,9 @@ const Login = () => {
             <span style={{ marginTop: "-10px" }}>Back</span> */}
           </div>
           {/* <div style={{ marginTop: "10px" }}>Please sign-in to continue!</div> */}
-          <div style={{ marginTop: "10px" }}>
+          <div style={{ marginTop: '10px' }}>
             <Typewriter
-              words={["Please sign-in to continue!"]}
+              words={['Please sign-in to continue!']}
               loop={1}
               cursor={false}
               cursorStyle="|"
@@ -137,51 +137,46 @@ const Login = () => {
           autoComplete="email"
           style={{
             border:
-              !emailIsValid && hasError ? "1px solid red" : "1px solid #eee",
+              !emailIsValid && hasError ? '1px solid red' : '1px solid #eee',
           }}
         />
         <input
           value={enteredPassword}
           onChange={passwordChangedHandler}
-          type={"password"}
+          type={'password'}
           placeholder="Password"
           autoComplete="current-password"
           style={{
             border:
-              !passwordIsValid && hasError ? "1px solid red" : "1px solid #eee",
+              !passwordIsValid && hasError ? '1px solid red' : '1px solid #eee',
           }}
         />
         {hasError ? (
           <div
             style={{
-              color: "red",
+              color: 'red',
             }}
           >
             {hasError && enteredPassword.length < 6
-              ? "Password too short"
-              : "Invalid input"}
+              ? 'Password too short'
+              : 'Invalid input'}
           </div>
         ) : null}
-        <div className="login__bottom__forgot">Forgot your password?</div>
+
         <button
           type="submit"
           className="login__bottom__button"
           onClick={loginHandler}
         >
-          Signin
+          Sign in
         </button>
         <div className="login__bottom_signup">
-          Don't have an account?{" "}
+          Don't have an account?{' '}
           <span
-            style={{
-              color: "#fbb440",
-              fontWeight: "bold",
-              marginLeft: "5px",
-              cursor: "pointer",
-            }}
-            onClick={() => navigate("/register")}
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/register')}
           >
-            Signup
+            Sign up
           </span>
         </div>
       </form>

@@ -284,12 +284,7 @@ const Register = () => {
         <div className="login__bottom_signup">
           Already have an account?{' '}
           <span
-            style={{
-              color: '#fbb440',
-              fontWeight: 'bold',
-              marginLeft: '5px',
-              cursor: 'pointer',
-            }}
+            style={{ cursor: 'pointer' }}
             onClick={() => navigate('/login')}
           >
             Sign In
