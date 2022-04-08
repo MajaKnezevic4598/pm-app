@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import './UserBox.scss';
 import Default from '../../assets/no-image.png';
 import axiosInstance from '../../helpers/axiosInstance';
+import { BsBoxArrowUpRight } from 'react-icons/bs';
 
 const Image = React.memo(function Image({ src }) {
   return (
@@ -17,6 +18,8 @@ const Image = React.memo(function Image({ src }) {
 });
 
 const UserBox = (props) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <div className="user-box">
       <div className="user-box__left">
@@ -32,6 +35,12 @@ const UserBox = (props) => {
         </div>
       </div>
       <div className="user-box__right">
+        <span
+          className="user-box__right__more"
+          onClick={() => setModalOpen(true)}
+        >
+          <BsBoxArrowUpRight />
+        </span>
         <div
           style={{ cursor: 'pointer' }}
           onClick={() => props.toggleApprove(props.id, props.confirmed)}
@@ -44,6 +53,7 @@ const UserBox = (props) => {
             // <i style={{ color: 'green' }} className="fas fa-thumbs-up"></i>
           }
         </div>
+
         <div
           onClick={() => {
             props.toggleModal();

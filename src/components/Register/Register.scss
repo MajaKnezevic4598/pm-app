@@ -92,7 +92,9 @@
       border: none;
 
       &:hover {
-        background-color: $signUpHover;
+        background-color: $bluePrimary;
+        opacity: 0.85;
+        transition: all 0.3s;
       }
 
       &:active {
@@ -103,6 +105,9 @@
     &_signup {
       color: $infoBottomText;
       padding-bottom: 2rem;
+      span {
+        cursor: pointer;
+      }
     }
   }
 
