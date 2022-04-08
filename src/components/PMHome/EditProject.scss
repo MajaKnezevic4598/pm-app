@@ -2,6 +2,10 @@
 
 .logo-conteiner {
   position: relative;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   input[type="file"] {
     display: none;
   }
@@ -12,15 +16,17 @@
     width: 100px;
     height: 100px;
     object-fit: cover;
+    position: relative;
   }
 
   &__edit-icon {
     cursor: pointer;
     background-color: #0464fc;
     position: absolute;
-    top: 65%;
-    left: 65%;
+    bottom: -4px;
+    left: 50%;
     padding: 8px;
     border-radius: 50%;
+    background: transparent;
   }
 }

@@ -110,7 +110,7 @@ const EditProject = () => {
               // eslint-disable-next-line jsx-a11y/alt-text
               <img
                 src={
-                  data?.data?.attributes.logo.data.attributes.url == null
+                  data?.data?.attributes.logo.data.attributes.url === null
                     ? Default
                     : `https://pm-app-bek.herokuapp.com${data?.data?.attributes.logo.data.attributes.url}`
                 }
