@@ -1,31 +1,55 @@
 @import '../../styles/variables';
 .categories {
   &__description {
-    background-color: #e7fdfd;
+    background-color: $darkPrimary;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 3rem 4rem;
+    padding: 3rem 8rem;
+    padding-bottom: 4.5rem;
+    margin-bottom: 30px;
     font-family: $roboto-font;
+    border-radius: 0 0 20px 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 
-    @media screen and (max-width: 650px) {
+    @media screen and (max-width: 800px) {
       flex-direction: column;
       text-align: center;
+      padding: 3rem 4rem;
+    border-radius: 0 0 15px 15px;
+
     }
 
     &__left div:first-of-type {
       font-size: 28px;
       line-height: 33px;
       font-weight: 600;
+      color: $whitePrimary;
     }
 
     &__left div:last-of-type {
       font-size: 22px;
       line-height: 26px;
-      color: #5c5c5c;
+      color: $grayPrimary;
 
-      @media screen and (max-width: 650px) {
+      @media screen and (max-width: 800px) {
         margin-bottom: 20px;
+      }
+    }
+
+    &__right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      input {
+        margin-bottom: 0 !important;
+      }
+
+      @media screen and (max-width: 800px) {
+        margin-top: 10px;
+        flex-direction: column;
+        gap: 10px;      
       }
     }
 
@@ -47,7 +71,7 @@
       color: white;
       margin-left: 10px;
       padding: 10px 24px;
-      background: #319795;
+      background: $bluePrimary;
       border-radius: 6px;
     }
   }
