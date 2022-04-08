@@ -14,7 +14,7 @@ const SingleEmployee = ({
   };
   console.log(profilePhoto);
   return (
-    <div className="employee-conteiner">
+    <div className="single-employee-conteiner">
       <div>{name}</div>
       <img
         src={`https://pm-app-bek.herokuapp.com${profilePhoto}`}

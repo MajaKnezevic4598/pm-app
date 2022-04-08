@@ -139,11 +139,13 @@ const EditProject = () => {
         </section>
 
         <section className="project-members-section">
-          <div>Add Employee</div>
+          <div className="project-members-section__title">
+            Add/Remove Employees
+          </div>
           <Select employees={employees} setEmployees={setEmployees} />
-          {employees.map((employee) => {
-            return (
-              <div className="single-employee-conteiner" key={uuid()}>
+          <div className="employees-conteiner">
+            {employees.map((employee) => {
+              return (
                 <SingleEmployee
                   key={uuid()}
                   name={employee.attributes.name}
@@ -154,14 +156,13 @@ const EditProject = () => {
                     employee.attributes.profilePhoto.data.attributes.url
                   }
                 />
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </section>
 
         <button className="save-new-project">Edit Project</button>
       </form>
-      jellooo
     </div>
   );
 };
