@@ -4,6 +4,7 @@ import Default from '../../assets/no-image.png';
 import axiosInstance from '../../helpers/axiosInstance';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 import Modal from 'react-modal';
+
 const Image = React.memo(function Image({ src }) {
   return (
     <img
@@ -44,6 +45,7 @@ const UserBox = (props) => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
   return (
     <div className="user-box">
       <div className="user-box__left">
