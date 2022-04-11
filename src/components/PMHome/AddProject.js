@@ -6,10 +6,11 @@ import Select from "./Select.js";
 import SingleEmployee from "./SingleEmployee";
 import { useNavigate } from "react-router";
 import uuid from "react-uuid";
-import Default from "../../assets/no-image.png";
+import Default from "../../assets/person-profile.png";
 
 const AddProject = () => {
   const [employees, setEmployees] = useState([]);
+  const [employeesId, setEmployeesId] = useState([]);
   const profileId = window.localStorage.getItem("profileId");
   const navigate = useNavigate();
 
@@ -30,6 +31,13 @@ const AddProject = () => {
 
   useEffect(() => {
     console.log(employees);
+    console.log("iz add projecta");
+    if (employees.length !== 0) {
+      console.log("vise nisam prazan");
+      const ar = employees.map((item) => item.id);
+      console.log(ar);
+      setEmployeesId([...ar]);
+    }
   }, [employees]);
 
   const onSuccess = () => {
@@ -56,7 +64,7 @@ const AddProject = () => {
       ...projectDetails,
       id: profileId,
       logo: uploadFileResponse ? uploadFileResponse.data[0].id : null,
-      employees: [...employees, employees.id],
+      employees: employeesId,
     };
     mutate(projectData);
 
@@ -86,7 +94,7 @@ const AddProject = () => {
           </div>
           <div className="logo-conteiner">
             {!selectedFile ? (
-              <img src={Default} alt="profile" />
+              <img src={Default} alt="profile" className="default-image" />
             ) : (
               // eslint-disable-next-line jsx-a11y/img-redundant-alt
               <img

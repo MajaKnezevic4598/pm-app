@@ -17,6 +17,7 @@ const EditProject = () => {
   const [employees, setEmployees] = useState([]);
   const [picture, setPicture] = useState();
   const [loading, setLoading] = useState(false);
+  const [employeesId, setEmployeesId] = useState([]);
 
   const fetchSingleProject = async (id) => {
     const res = await axiosInstance.get(
@@ -31,7 +32,7 @@ const EditProject = () => {
       return fetchSingleProject(id);
     });
   useEffect(() => {
-    if (data) {
+    if (data?.data) {
       console.log(data?.data);
       setName(data?.data?.attributes.name);
       setDescription(data?.data?.attributes.description);
@@ -41,6 +42,12 @@ const EditProject = () => {
 
   useEffect(() => {
     console.log(employees);
+    if (employees.length !== 0) {
+      const ar = employees.map((item) => item.id);
+      console.log(ar);
+      setEmployeesId([...ar]);
+      console.log(employees);
+    }
   }, [employees]);
 
   const uploadProjetLogo = async (projectId) => {
@@ -76,7 +83,7 @@ const EditProject = () => {
         data: {
           description,
           name,
-          employees,
+          employees: employeesId,
         },
       });
     }
@@ -110,9 +117,9 @@ const EditProject = () => {
               // eslint-disable-next-line jsx-a11y/alt-text
               <img
                 src={
-                  data?.data?.attributes.logo.data.attributes.url === null
+                  data?.data?.attributes?.logo?.data?.attributes?.url === null
                     ? Default
-                    : `https://pm-app-bek.herokuapp.com${data?.data?.attributes.logo.data.attributes.url}`
+                    : `https://pm-app-bek.herokuapp.com${data?.data?.attributes.logo.data?.attributes.url}`
                 }
               />
             ) : (
@@ -153,7 +160,7 @@ const EditProject = () => {
                   employees={employees}
                   id={employee.id}
                   profilePhoto={
-                    employee.attributes.profilePhoto.data.attributes.url
+                    employee.attributes.profilePhoto.data?.attributes.url
                   }
                 />
               );
