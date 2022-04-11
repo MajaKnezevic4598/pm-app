@@ -136,7 +136,7 @@
         & header {
             background-color: #62929e;
             color: #fdfdff;
-            width: 1166px;
+            // width: 1166px;
             padding-top: 1rem;
             border-radius: 1rem 1rem 0 0;
         }
@@ -144,15 +144,15 @@
         & section {
             font-size: 1.5rem;
             float: left;
-            margin: 0 2.5%;
+            // margin: 0 2.5%;
             // width: 10%;
-            padding: 1.5rem 2rem;
+            padding: 2rem 1rem;
             margin-bottom: 1rem;
             font-family: $roboto-font;
 
             &:hover {
                 cursor: pointer;
-                transform: scale(1.04);
+                transform: scale(0.96);
                 font-weight: 600;
                 transition: 0.1s ease-in;
             }
@@ -163,6 +163,10 @@
             @include tablet {
                 font-size: 1rem;
                 width: 25%;
+            }
+
+            @include small {
+                font-size: 0.75rem;
             }
         }
 

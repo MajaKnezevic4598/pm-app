@@ -82,6 +82,24 @@ const EmployeeProjectViewInfo = (props) => {
                             {props.categories?.map((category) => {
                                 return (
                                     <section
+                                        style={{
+                                            backgroundColor:
+                                                props.categoryName ===
+                                                category.attributes.name
+                                                    ? '#f8f8f8'
+                                                    : '#62929e',
+                                            padding:
+                                                props.categoryName ===
+                                                category.attributes.name
+                                                    ? '2rem 1rem'
+                                                    : '1rem 1rem',
+                                            color:
+                                                props.categoryName ===
+                                                category.attributes.name
+                                                    ? 'black'
+                                                    : 'white',
+                                            borderRadius: '0.5rem',
+                                        }}
                                         onClick={() =>
                                             props.setCategoryName(
                                                 category.attributes.name,
@@ -104,7 +122,7 @@ const EmployeeProjectViewInfo = (props) => {
                     alignItems: 'center',
                     // position: 'relative',
                     // width: '375px',
-                    maxWidth: '1166px',
+                    maxWidth: '1100px',
                     // width: 'auto',
                     justifyContent: 'center',
                     background: '#F8F8F8',

@@ -99,6 +99,7 @@ const EmployeeProjectView = (props) => {
                         }
                         employees={data?.attributes.employees.data}
                         setCategoryName={setCategoryName}
+                        categoryName={categoryName}
                         categories={categories}
                         notes={notes}
                         status={notesStatus}
