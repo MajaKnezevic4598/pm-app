@@ -1,5 +1,11 @@
 @import '../../styles/variables';
 
+@mixin extraSmall {
+    @media (max-width: #{$extraSmall}) {
+        @content;
+    }
+}
+
 @mixin small {
     @media (max-width: #{$small}) {
         @content;
@@ -47,7 +53,7 @@
             justify-content: center;
             width: 100%;
             &__right {
-                margin-left: 6rem;
+                margin-left: 5rem;
             }
         }
 
@@ -195,6 +201,15 @@
         padding-left: 0;
     }
 
+    @include small {
+        position: relative;
+        right: 2rem;
+    }
+
+    @include extraSmall {
+        right: 0;
+    }
+
     & .header-logo {
         & img {
             width: 10vh;
@@ -208,6 +223,11 @@
             background-color: #2193b0;
             margin-right: 20px;
             margin-top: -10px;
+
+            @include small {
+                width: 64px;
+                height: 64px;
+            }
         }
         &:hover {
             cursor: pointer;
@@ -216,5 +236,13 @@
         &__project-image {
             height: 11vh;
         }
+    }
+
+    @include small {
+        margin-left: 2.5rem;
+    }
+
+    @include extraSmall {
+        margin-left: 1rem;
     }
 }

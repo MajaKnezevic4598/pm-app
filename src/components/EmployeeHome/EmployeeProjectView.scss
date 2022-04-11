@@ -1,6 +1,12 @@
 @import '../../styles/variables';
 
 //BREAKPOINTS
+@mixin extraSmall {
+    @media (max-width: #{$extraSmall}) {
+        @content;
+    }
+}
+
 @mixin small {
     @media (max-width: #{$small}) {
         @content;
@@ -86,7 +92,19 @@
             color: #fdfdff;
 
             @include tablet {
-                margin-right: 2rem;
+                margin-left: 2rem;
+                position: relative;
+                font-size: 1rem;
+            }
+
+            @include small {
+                position: relative;
+                right: 9.5rem;
+                top: 6.4rem;
+            }
+
+            @include extraSmall {
+                right: 7.5rem;
             }
 
             &__pmlogo {
@@ -104,6 +122,11 @@
                         width: 2rem;
                         height: 2rem;
                     }
+
+                    @include small {
+                        position: relative;
+                        top: -1rem;
+                    }
                 }
             }
         }
@@ -116,12 +139,22 @@
             color: #fdfdff;
 
             @include tablet {
+                position: relative;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-right: 1rem;
+                margin-right: 1.5rem;
                 margin-bottom: 3.2rem;
                 font-size: 1rem;
+            }
+
+            @include small {
+                top: 2rem;
+                right: 9.5rem;
+            }
+
+            @include extraSmall {
+                right: 7.5rem;
             }
 
             & img {
@@ -136,8 +169,11 @@
                 }
 
                 @include tablet {
+                    position: relative;
                     margin-top: 6rem;
                     margin-left: -4rem;
+                    right: -1rem;
+                    top: -1rem;
                     width: 2rem;
                     height: 2rem;
                 }
