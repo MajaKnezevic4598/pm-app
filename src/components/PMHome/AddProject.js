@@ -60,11 +60,20 @@ const AddProject = () => {
       uploadFileResponse = await uploadFiles(selectedFile);
     }
 
+    const employeesSubmit = [];
+
+    employees.map((employee) =>
+      employeesSubmit.push({
+        id: employee.id,
+        email: employee.attributes.email,
+      })
+    );
+
     const projectData = {
       ...projectDetails,
       id: profileId,
       logo: uploadFileResponse ? uploadFileResponse.data[0].id : null,
-      employees: employeesId,
+      employees: employeesSubmit,
     };
     mutate(projectData);
 
