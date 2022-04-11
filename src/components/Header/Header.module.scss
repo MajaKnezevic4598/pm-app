@@ -68,6 +68,7 @@
   letter-spacing: 1px;
   background: linear-gradient(-45deg, #6355a4, #b7b1ce, #fbb440, #fbb440);
   background-size: 300%;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: animated_text 5s ease-in-out infinite;
@@ -97,8 +98,9 @@
   position: fixed;
   top: $headerHeight;
   right: -100%;
-  background: rgba($backGround2, 0.5);
+  background: rgba($darkPrimary, 1);
   text-align: center;
+  border-radius: 0 0 20px 20px;
   padding: $spacing-medium 0;
 
   &--open {

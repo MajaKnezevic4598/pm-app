@@ -1,5 +1,5 @@
-import { useQuery, useMutation } from "react-query";
-import axiosInstance from "../helpers/axiosInstance";
+import { useQuery, useMutation } from 'react-query';
+import axiosInstance from '../helpers/axiosInstance';
 
 const fetchProjectsForSinglePM = async (profileId, nameFilter) => {
   //   return axiosInstance.get(
@@ -14,7 +14,7 @@ const fetchProjectsForSinglePM = async (profileId, nameFilter) => {
 };
 
 const addProject = ({ id, name, description, logo, employees }) => {
-  return axiosInstance.post("/projects", {
+  return axiosInstance.post('/projects', {
     data: {
       project_manager: id,
       name,
@@ -27,7 +27,7 @@ const addProject = ({ id, name, description, logo, employees }) => {
 
 export const useAllProjectsForPM = (profileId, nameFilter) => {
   return useQuery(
-    ["all-projects-for-single-PM", profileId],
+    ['all-projects-for-single-PM', profileId],
     () => {
       return fetchProjectsForSinglePM(profileId, nameFilter);
     },
@@ -38,7 +38,7 @@ export const useAllProjectsForPM = (profileId, nameFilter) => {
 };
 
 export const useAddSingleProject = (onSuccess) => {
-  return useMutation(addProject,{
+  return useMutation(addProject, {
     onSuccess,
   });
 };

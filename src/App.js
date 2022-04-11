@@ -13,16 +13,15 @@ import LoadingRoutes from './routes/LoadingRoutes';
 import { useQuery } from 'react-query';
 
 const fetchConfirmed = async (userId) => {
-    if (userId) {
-        const res = await axiosInstance.get(
-            `/profiles?filters[userId][id][$eq]=${userId}&populate=*`,
-        );
-        return res.data.data[0].attributes.confirmed;
-    }
+  if (userId) {
+    const res = await axiosInstance.get(
+      `/profiles?filters[userId][id][$eq]=${userId}&populate=*`
+    );
+    return res.data.data[0].attributes.confirmed;
+  }
 };
 
 function App() {
-
   const { loggedIn } = useContext(AuthContext);
   const [uncomfirmed, setUncomfirmed] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -49,26 +48,24 @@ function App() {
         setLoading(false);
       }
     };
-        checkUncomfirmed();
-    }, [loggedIn]);
+    checkUncomfirmed();
+  }, [loggedIn]);
 
-    if (loading) {
-        return (
-            <div className="App">
-                <LoadingRoutes />
-            </div>
-        );
-    }
+  if (loading) {
+    return (
+      <div className="App">
+        <LoadingRoutes />
+      </div>
+    );
+  }
 
-    if (uncomfirmed) {
-        return (
-            <div className="App">
-                <UncomfirmedRoutes />
-            </div>
-        );
-    }
-
-
+  if (uncomfirmed) {
+    return (
+      <div className="App">
+        <UncomfirmedRoutes />
+      </div>
+    );
+  }
 
   return (
     <div className="App">
