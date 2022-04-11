@@ -1,0 +1,177 @@
+import "./EditProject.scss";
+import uuid from "react-uuid";
+import { useParams } from "react-router";
+import axiosInstance from "../../helpers/axiosInstance";
+import { useQuery } from "react-query";
+import SingleEmployee from "./SingleEmployee";
+import { useState, useEffect } from "react";
+import Select from "./Select";
+import Default from "../../assets/no-image.png";
+import Spinner from "../Spinner.js/Spinner";
+
+const EditProject = () => {
+  const { id } = useParams();
+  console.log(id);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [employees, setEmployees] = useState([]);
+  const [picture, setPicture] = useState();
+  const [loading, setLoading] = useState(false);
+  const [employeesId, setEmployeesId] = useState([]);
+
+  const fetchSingleProject = async (id) => {
+    const res = await axiosInstance.get(
+      `projects/${id}?populate=logo&populate=project_manager.profilePhoto&populate=employees.profilePhoto`
+    );
+    console.log(res.data);
+    return res?.data;
+  };
+
+  const { data, isLoading, isError, error, refetch, isFetching, status } =
+    useQuery(["single-project", id], () => {
+      return fetchSingleProject(id);
+    });
+  useEffect(() => {
+    if (data?.data) {
+      console.log(data?.data);
+      setName(data?.data?.attributes.name);
+      setDescription(data?.data?.attributes.description);
+      setEmployees(data?.data?.attributes.employees.data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log(employees);
+    if (employees.length !== 0) {
+      const ar = employees.map((item) => item.id);
+      console.log(ar);
+      setEmployeesId([...ar]);
+      console.log(employees);
+    }
+  }, [employees]);
+
+  const uploadProjetLogo = async (projectId) => {
+    const formData = new FormData();
+    formData.append("files", picture[0]);
+
+    await axiosInstance
+      .post("/upload", formData)
+      .then((response) => {
+        axiosInstance.put("/projects/" + projectId, {
+          data: {
+            logo: response.data,
+          },
+        });
+        console.log("response iz puta");
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (picture) {
+      await uploadProjetLogo(id);
+
+      console.log("uradio sam refetch");
+    }
+    if (description || name || employees) {
+      await axiosInstance.put(`projects/${id}`, {
+        data: {
+          description,
+          name,
+          employees: employeesId,
+        },
+      });
+    }
+    setLoading(false);
+    // refetch();
+  };
+
+  if (status === "loading" || loading) {
+    return <Spinner />;
+  }
+
+  return (
+    <div>
+      <form className="add-project-conteiner" onSubmit={handleSubmit}>
+        <section className="project-info-section">
+          <h3>Project Info</h3>
+          <div className="project-input">
+            <p>Project Name:</p>
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+          </div>
+          <div className="logo-conteiner">
+            {/* picture je ono sto smo ubacili kao vrednost za input type file */}
+            {!picture ? (
+              // eslint-disable-next-line jsx-a11y/alt-text
+              <img
+                src={
+                  data?.data?.attributes?.logo?.data?.attributes?.url === null
+                    ? Default
+                    : `https://pm-app-bek.herokuapp.com${data?.data?.attributes.logo.data?.attributes.url}`
+                }
+              />
+            ) : (
+              // eslint-disable-next-line jsx-a11y/img-redundant-alt
+              <img src={URL.createObjectURL(picture[0])} alt="profile-photo" />
+            )}
+            <input
+              id="file-upload"
+              type="file"
+              onChange={(e) => setPicture(e.target.files)}
+            />
+            <label htmlFor="file-upload" className="logo-conteiner__edit-icon">
+              <i className="fas fa-pen"></i>
+            </label>
+          </div>
+          <div className="project-description">
+            <p>Project description</p>
+            <textarea
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+        </section>
+
+        <section className="project-members-section">
+          <div className="project-members-section__title">
+            Add/Remove Employees
+          </div>
+          <Select employees={employees} setEmployees={setEmployees} />
+          <div className="employees-conteiner">
+            {employees.map((employee) => {
+              return (
+                <SingleEmployee
+                  key={uuid()}
+                  name={employee.attributes.name}
+                  setEmployees={setEmployees}
+                  employees={employees}
+                  id={employee.id}
+                  profilePhoto={
+                    employee.attributes.profilePhoto.data?.attributes.url
+                  }
+                />
+              );
+            })}
+          </div>
+        </section>
+
+        <button className="save-new-project">Edit Project</button>
+      </form>
+    </div>
+  );
+};
+
+export default EditProject;

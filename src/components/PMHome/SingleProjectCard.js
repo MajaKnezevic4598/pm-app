@@ -1,123 +1,67 @@
-import './SingleProjectCard.scss';
-import img from '../../assets/av.png';
-import img1 from '../../assets/av1.png';
-import { MdOpenInNew } from 'react-icons/md';
-import Modal from 'react-modal';
-import { useState } from 'react';
-import { FiXSquare } from 'react-icons/fi';
+import "./SingleProjectCard.scss";
+import img from "../../assets/av.png";
+import { MdOpenInNew } from "react-icons/md";
 
-import { useNavigate } from 'react-router-dom';
-
-Modal.setAppElement('#root');
+import { useNavigate } from "react-router-dom";
 
 const SingleProjectCard = ({
-    manager,
-    prName,
-    pmImage,
-    projectLogo,
-    employees,
-    projectDescription,
-    projectId,
-    id,
+  manager,
+  prName,
+  pmImage,
+  projectLogo,
+  employees,
+  projectDescription,
+  projectId,
+  id,
 }) => {
-    const navigate = useNavigate();
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    return (
-        <div className="card" id={`${projectId}`} onClick={() => navigate(`/${id}/notes`)}>
-            <div className="card__img-conteiner">
-                {projectLogo ? (
-                    <img
-                        className="card__project-logo"
-                        src={`https://pm-app-bek.herokuapp.com${projectLogo}`}
-                        alt="projectLogo"
-                    />
-                ) : (
-                    <img
-                        src={img}
-                        className="card__project-logo"
-                        alt="projectLogo"
-                    />
-                )}
-            </div>
-            <div className="card__info-1">
-                <h2>{prName}</h2>
-                <div>
-                    {pmImage ? (
-                        <img
-                            src={`https://pm-app-bek.herokuapp.com${pmImage}`}
-                            alt="neka"
-                            className="project-manager-image"
-                        />
-                    ) : (
-                        <img src={img} alt="default" />
-                    )}
+  const navigate = useNavigate();
 
-                    <span>{manager}</span>
-                </div>
-            </div>
-            <div className="card__info-2">
-                <MdOpenInNew
-                    className="card__info-2__icon"
-                    onClick={() => {
-                        setModalIsOpen(true);
-                    }}
-                />
-                <p>{employees} employees</p>
-            </div>
-            <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={() => {
-                    setModalIsOpen(false);
-                }}
-                className="Modal"
-                overlayClassName="Overlay"
-            >
-                <div className="Modal__conteiner">
-                    <section className="modal-main-section">
-                        <div>
-                            {/* <img src={img} alt="" className="modal-main-section__img" /> */}
+  return (
+    <div
+      className="card"
+      id={`${projectId}`}
+      onClick={() => navigate(`/${id}/notes`)}
+    >
+      <div className="card__img-conteiner">
+        {projectLogo ? (
+          <img
+            className="card__project-logo"
+            src={`https://pm-app-bek.herokuapp.com${projectLogo}`}
+            alt="projectLogo"
+          />
+        ) : (
+          <img src={img} className="card__project-logo" alt="projectLogo" />
+        )}
+      </div>
+      <div className="card__info-1">
+        <h2>{prName}</h2>
+        <div>
+          {pmImage ? (
+            <img
+              src={`https://pm-app-bek.herokuapp.com${pmImage}`}
+              alt="neka"
+              className="project-manager-image"
+            />
+          ) : (
+            <img src={img} alt="default" />
+          )}
 
-                            {projectLogo ? (
-                                <img
-                                    className="modal-main-section__img"
-                                    src={`https://pm-app-bek.herokuapp.com${projectLogo}`}
-                                    alt="projectLogo"
-                                />
-                            ) : (
-                                <img
-                                    src={img}
-                                    className="modal-main-section__img"
-                                    alt="projectLogo"
-                                />
-                            )}
-                        </div>
-                        <div className="modal-main-section__project-desc">
-                            <h3>{prName}</h3>
-                            <p>{projectDescription}</p>
-                        </div>
-                        <div className="modal-main-section__manager-info">
-                            <h4>Project Manager</h4>
-                            <div className="images-conteiner">
-                                <img src={img} alt="project-manager-img" />
-                                <img src={img1} alt="project-manager-img" />
-                                <img src={img} alt="project-manager-img" />
-                            </div>
-                        </div>
-                        <div>Employees</div>
-                    </section>
-                    <h1>title</h1>
-                    <p>body</p>
-                </div>
-
-                <FiXSquare
-                    className="btn-close"
-                    onClick={() => {
-                        setModalIsOpen(false);
-                    }}
-                />
-            </Modal>
+          <span>{manager}</span>
         </div>
-    );
+      </div>
+      <div className="card__info-2">
+        <MdOpenInNew
+          className="card__info-2__icon"
+          onClick={(e) => {
+            e.stopPropagation();
+            console.log("kliknuto");
+            navigate(`/${projectId}/notes/edit-project`);
+          }}
+        />
+        <p>{employees} employees</p>
+      </div>
+    </div>
+  );
 };
 
 export default SingleProjectCard;
