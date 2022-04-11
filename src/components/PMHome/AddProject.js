@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import "./AddProject.scss";
-import { uploadFiles } from "../../services/uploadFiles";
-import { useAddSingleProject } from "../../hooks/useProjectData";
-import Select from "./Select.js";
-import SingleEmployee from "./SingleEmployee";
-import { useNavigate } from "react-router";
-import uuid from "react-uuid";
+import React, { useEffect, useState } from 'react';
+import './AddProject.scss';
+import { uploadFiles } from '../../services/uploadFiles';
+import { useAddSingleProject } from '../../hooks/useProjectData';
+import Select from './Select.js';
+import SingleEmployee from './SingleEmployee';
+import { useNavigate } from 'react-router';
+import uuid from 'react-uuid';
 
 const AddProject = () => {
   const [employees, setEmployees] = useState([]);
-  const profileId = window.localStorage.getItem("profileId");
+  const profileId = window.localStorage.getItem('profileId');
   const navigate = useNavigate();
 
   const [projectDetails, setProjectDetails] = useState({
-    name: "",
-    description: "",
+    name: '',
+    description: '',
   });
   const [selectedFile, setSelectedFile] = useState();
 
@@ -32,16 +32,16 @@ const AddProject = () => {
   }, [employees]);
 
   const onSuccess = () => {
-    alert("uspesan post");
-    navigate("/");
+    alert('uspesan post');
+    navigate('/');
   };
 
   const { mutate } = useAddSingleProject(onSuccess);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      projectDetails.name === "" ||
-      projectDetails.description === "" ||
+      projectDetails.name === '' ||
+      projectDetails.description === '' ||
       employees.length === 0
     ) {
       return;
@@ -60,8 +60,8 @@ const AddProject = () => {
     mutate(projectData);
 
     setProjectDetails({
-      name: "",
-      description: "",
+      name: '',
+      description: '',
     });
   };
   return (
