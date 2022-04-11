@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import React, { useEffect } from 'react';
 
 import Default from '../../assets/no-image.png';
-import Spinner from '../Spinner.js/Spinner';
 import './EmployeeProjectView.scss';
-import SingleNote from './SingleNote';
+import EmployeeNote from './EmployeeNote';
 import EmptyNote from './EmptyNote';
-import axiosInstance from '../../helpers/axiosInstance';
-import { useParams } from 'react-router-dom';
 
 const EmployeeProjectViewInfo = (props) => {
     useEffect(() => {
@@ -80,14 +76,7 @@ const EmployeeProjectViewInfo = (props) => {
                         })}
                     </div>
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flexWrap: 'wrap',
-                    }}
-                >
+                <div>
                     <div className="employee__content">
                         <header>
                             {props.categories?.map((category) => {
@@ -105,27 +94,71 @@ const EmployeeProjectViewInfo = (props) => {
                             })}
                         </header>
                     </div>
-                    {/* PROBATI SEARCH PREBACITI */}
                 </div>
             </div>
-            <div>
-                {props.notes?.length < 1 ? <EmptyNote /> : null}
-                {props.notes?.map((note) => {
-                    return (
-                        <SingleNote
-                            name={note.attributes.title}
-                            description={note.attributes.description}
-                            photo={
-                                note.attributes.profile.data?.attributes
-                                    .profilePhoto.data?.attributes.url
-                            }
-                            pmName={
-                                note.attributes.profile.data?.attributes.name
-                            }
-                        />
-                    );
-                })}
-            </div>
+            <section
+                className="section__body"
+                style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    // position: 'relative',
+                    // width: '375px',
+                    maxWidth: '1166px',
+                    // width: 'auto',
+                    justifyContent: 'center',
+                    background: '#F8F8F8',
+                    paddingBottom: '16px',
+                    paddingTop: '8px',
+                    margin: '-1rem auto',
+                }}
+            >
+                <div
+                    style={{
+                        display: 'flex',
+                        position: 'relative',
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        flexWrap: 'wrap',
+                    }}
+                    className="employee__content"
+                >
+                    <input
+                        value={props.nameFilter}
+                        onChange={props.searchByName}
+                        type={'text'}
+                        placeholder="Search"
+                    />
+                    <select
+                        onChange={(e) => props.setSortValue(e.target.value)}
+                        name="value"
+                        id="value-select"
+                    >
+                        <option value={'ASC'}>Sort by:</option>
+                        <option value={'ASC'}>Oldest</option>
+                        <option value={'DESC'}>Newest</option>
+                    </select>
+                </div>
+                <div>
+                    {props.notes?.length < 1 ? <EmptyNote /> : null}
+                    {props.notes?.map((note) => {
+                        return (
+                            <EmployeeNote
+                                name={note.attributes.title}
+                                description={note.attributes.description}
+                                photo={
+                                    note.attributes.profile.data?.attributes
+                                        .profilePhoto.data?.attributes.url
+                                }
+                                pmName={
+                                    note.attributes.profile.data?.attributes
+                                        .name
+                                }
+                            />
+                        );
+                    })}
+                </div>
+            </section>
         </>
     );
 };

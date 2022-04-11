@@ -15,194 +15,194 @@ $card-width: 22rem;
 //padding
 
 .card {
-  width: $card-width;
-  min-width: 25vw;
-  height: 20vh;
-  min-height: 18vh;
-  padding: 0.6rem;
-  background: linear-gradient(to bottom right, $blue, darken($blue, 25%));
-  border-radius: $border-radius-sm;
-  color: $font-color;
-  box-shadow: $box-shadow;
-  display: flex;
-  position: relative;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: space-around;
-  margin-right: 2vw;
-  margin-bottom: 2vw;
+    width: $card-width;
+    min-width: 25vw;
+    height: 20vh;
+    min-height: 18vh;
+    padding: 0.6rem;
+    background: linear-gradient(to bottom right, $blue, darken($blue, 25%));
+    border-radius: $border-radius-sm;
+    color: $font-color;
+    box-shadow: $box-shadow;
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-around;
+    margin-right: 2vw;
+    margin-bottom: 2vw;
 
-  &__img-conteiner {
-    align-self: center;
-  }
-  &__project-logo {
-    height: 12vh;
-    width: 12vh;
-    border-radius: 50%;
-  }
-
-  &__info-1 {
-    align-self: flex-start;
-    h2 {
-      font-size: 1.4rem;
-      letter-spacing: 0.1rem;
+    &__img-conteiner {
+        align-self: center;
     }
-    div:first-of-type {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      margin-top: 1.4rem;
-    }
-    .project-manager-image {
-      width: 4vw;
-      height: 4vw;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-right: 1vw;
-    }
-  }
-
-  &__info-2 {
-    text-align: end;
-    align-self: flex-start;
-
-    &__icon {
-      font-size: 1.6rem;
-      &:hover {
-        color: $orange;
-        cursor: pointer;
-      }
+    &__project-logo {
+        height: 12vh;
+        width: 12vh;
+        border-radius: 50%;
     }
 
-    p {
-      font-size: 0.7rem;
-      margin-top: calc(100% - 30%);
+    &__info-1 {
+        align-self: flex-start;
+        h2 {
+            font-size: 1.4rem;
+            letter-spacing: 0.1rem;
+        }
+        div:first-of-type {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 1.4rem;
+        }
+        .project-manager-image {
+            width: 4vw;
+            height: 4vw;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 1vw;
+        }
     }
-  }
+
+    &__info-2 {
+        text-align: end;
+        align-self: flex-start;
+
+        &__icon {
+            font-size: 1.6rem;
+            &:hover {
+                color: $orange;
+                cursor: pointer;
+            }
+        }
+
+        p {
+            font-size: 0.7rem;
+            margin-top: calc(100% - 30%);
+        }
+    }
 }
 //using css classes to style react-modal
 .Modal {
-  position: absolute;
-  top: 15vh;
-  left: 10vw;
-  right: 10vw;
-  bottom: 5vh;
-  background-color: white;
-  padding: 1.5rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  border-radius: 4px;
-  //   color: #fbb440;
-  &__conteiner {
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    // border: 1px solid black;
-    border-radius: $border-radius-sm;
-    // background-color: #96b1a9;
-
-    .modal-main-section {
-      width: 100%;
-      height: 30%;
-      background-color: $orange;
-      border-radius: 4px;
-      padding: 1rem;
-      display: flex;
-      justify-content: space-around;
-      color: $font-color-dark;
-      &__img {
-        width: 12vh;
-        height: 12vh;
-        border-radius: 50%;
-      }
-
-      &__project-desc {
-        flex-basis: 30vw;
-        flex-grow: 0;
-        flex-shrink: 0;
-
-        overflow-y: auto;
-
-        h3 {
-          margin-bottom: 2vh;
-        }
-        p {
-          padding-right: 0.5rem;
-        }
-      }
-      &__manager-info {
-        margin-top: 2vh;
-        .images-conteiner {
-          display: grid;
-          grid-template-columns: repeat(6, 1fr);
-          img {
-            height: 6.5vh;
-          }
-          img:first-of-type {
-            grid-column: 1/3;
-          }
-          img:nth-of-type(2) {
-            grid-column: 2/4;
-          }
-          img:nth-of-type(3) {
-            grid-column: 3/5;
-          }
-          img:first-of-type,
-          img:nth-of-type(2),
-          img:nth-of-type(3) {
-            grid-row: 1/2;
-          }
-        }
-      }
-    }
-  }
-
-  .btn-close {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 1.6rem;
-    cursor: pointer;
-    color: $font-color-dark;
-  }
+    top: 15vh;
+    left: 10vw;
+    right: 10vw;
+    bottom: 5vh;
+    background-color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border-radius: 4px;
+    //   color: #fbb440;
+    &__conteiner {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        // border: 1px solid black;
+        border-radius: $border-radius-sm;
+        // background-color: #96b1a9;
+
+        .modal-main-section {
+            width: 100%;
+            height: 30%;
+            background-color: $orange;
+            border-radius: 4px;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            color: $font-color-dark;
+            &__img {
+                width: 12vh;
+                height: 12vh;
+                border-radius: 50%;
+            }
+
+            &__project-desc {
+                flex-basis: 30vw;
+                flex-grow: 0;
+                flex-shrink: 0;
+
+                overflow-y: auto;
+
+                h3 {
+                    margin-bottom: 2vh;
+                }
+                p {
+                    padding-right: 0.5rem;
+                }
+            }
+            &__manager-info {
+                margin-top: 2vh;
+                .images-conteiner {
+                    display: grid;
+                    grid-template-columns: repeat(6, 1fr);
+                    img {
+                        height: 6.5vh;
+                    }
+                    img:first-of-type {
+                        grid-column: 1/3;
+                    }
+                    img:nth-of-type(2) {
+                        grid-column: 2/4;
+                    }
+                    img:nth-of-type(3) {
+                        grid-column: 3/5;
+                    }
+                    img:first-of-type,
+                    img:nth-of-type(2),
+                    img:nth-of-type(3) {
+                        grid-row: 1/2;
+                    }
+                }
+            }
+        }
+    }
+
+    .btn-close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 1.6rem;
+        cursor: pointer;
+        color: $font-color-dark;
+    }
 }
 
 .Overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(210, 215, 211, 0.8);
-  //   border-radius: $border-radius-sm;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(210, 215, 211, 0.8);
+    //   border-radius: $border-radius-sm;
 }
 
 @media screen and (max-width: 480px) {
-  .card {
-    width: 100%;
-    min-width: 100%;
-    height: auto;
-    min-height: auto;
-  }
+    .card {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        min-height: auto;
+    }
 }
 
 ::-webkit-scrollbar {
-  width: 0.5rem;
+    width: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $blue;
-  border-radius: 10px;
+    background: $blue;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  cursor: pointer;
-  background-color: darken($blue, 10%);
+    cursor: pointer;
+    background-color: darken($blue, 10%);
 }

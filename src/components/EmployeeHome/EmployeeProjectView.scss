@@ -46,7 +46,7 @@
 
 .emp {
     &__description {
-        background: #ede7fd;
+        background: #393d3f;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -74,7 +74,6 @@
             font-weight: 400;
             font-size: 22px;
             line-height: 26px;
-
             color: #5c5c5c;
         }
 
@@ -84,6 +83,7 @@
             font-weight: 600;
             font-size: 24px;
             line-height: 28px;
+            color: #fdfdff;
 
             @include tablet {
                 margin-right: 2rem;
@@ -113,11 +113,13 @@
             font-weight: 600;
             font-size: 1.5rem;
             line-height: 28px;
+            color: #fdfdff;
 
             @include tablet {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                margin-right: 1rem;
                 margin-bottom: 3.2rem;
                 font-size: 1rem;
             }
@@ -181,31 +183,12 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-
     margin-top: 22rem;
     margin-left: 50rem;
 
     & input {
         padding: 0.25rem;
     }
-
-    // @include laptopLarge {
-    //     margin-left: 35rem;
-    // }
-
-    // @include laptopStandard {
-    //     margin-left: 21rem;
-    // }
-
-    // @include tablet {
-    //     margin-left: 13.5rem;
-    //     margin-top: 25.5rem;
-    // }
-
-    // @include mobile {
-    //     margin-left: 2rem;
-    //     margin-top: 36rem;
-    // }
 
     &__select__input {
         margin-left: 1rem;

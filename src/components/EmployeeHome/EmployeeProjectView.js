@@ -102,33 +102,10 @@ const EmployeeProjectView = (props) => {
                         categories={categories}
                         notes={notes}
                         status={notesStatus}
+                        nameFilter={nameFilter}
+                        searchByName={searchByName}
+                        setSortValue={setSortValue}
                     />
-                </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flexWrap: 'wrap',
-                    }}
-                >
-                    <div className="employee__content">
-                        <input
-                            value={nameFilter}
-                            onChange={searchByName}
-                            type={'text'}
-                            placeholder="Search"
-                        />
-                        <select
-                            onChange={(e) => setSortValue(e.target.value)}
-                            name="value"
-                            id="value-select"
-                        >
-                            <option value={'ASC'}>Sort by:</option>
-                            <option value={'ASC'}>Oldest</option>
-                            <option value={'DESC'}>Newest</option>
-                        </select>
-                    </div>
                 </div>
             </div>
         </>

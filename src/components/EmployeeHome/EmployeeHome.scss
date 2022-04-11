@@ -113,25 +113,35 @@
 
     &__content {
         padding: 0 8rem;
-        margin: 2rem auto;
+        margin: 1rem auto;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         width: 100%;
         justify-content: center;
 
+        &__search {
+            background: #f8f8f8;
+            width: 1166px;
+            float: left;
+            margin: 0 2.5%;
+        }
+
         & header {
-            background-color: #eaeaea;
+            background-color: #62929e;
+            color: #fdfdff;
+            width: 1166px;
             padding-top: 1rem;
-            border-radius: 1rem 1rem;
+            border-radius: 1rem 1rem 0 0;
         }
 
         & section {
             font-size: 1.5rem;
             float: left;
-            margin: 0 1.5%;
-            width: 30%;
-            padding: 2rem 2rem;
+            margin: 0 2.5%;
+            // width: 10%;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1rem;
             font-family: $roboto-font;
 
             &:hover {
