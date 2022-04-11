@@ -92,13 +92,23 @@ const EmployeeProjectViewInfo = (props) => {
                                                 props.categoryName ===
                                                 category.attributes.name
                                                     ? '2rem 1rem'
-                                                    : '1rem 1rem',
+                                                    : '2rem 1rem',
                                             color:
                                                 props.categoryName ===
                                                 category.attributes.name
                                                     ? 'black'
                                                     : 'white',
-                                            borderRadius: '0.5rem',
+                                            border:
+                                                props.categoryName ===
+                                                category.attributes.name
+                                                    ? '1px solid gray'
+                                                    : 'none',
+
+                                            borderRadius:
+                                                props.categoryName ===
+                                                category.attributes.name
+                                                    ? '5px 0px 1px 1px'
+                                                    : '5px',
                                         }}
                                         onClick={() =>
                                             props.setCategoryName(
@@ -112,71 +122,73 @@ const EmployeeProjectViewInfo = (props) => {
                             })}
                         </header>
                     </div>
+                    <section
+                        className="section__body"
+                        style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            alignItems: 'center',
+                            maxWidth: '960px',
+                            justifyContent: 'center',
+                            // background: '#F8F8F8',
+                            paddingBottom: '1rem',
+                            paddingTop: '1rem',
+                            margin: '0 auto',
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: 'flex',
+                                position: 'relative',
+                                justifyContent: 'center',
+                                alignContent: 'center',
+                                flexWrap: 'wrap',
+                            }}
+                            className="employee__content"
+                        >
+                            <input
+                                value={props.nameFilter}
+                                onChange={props.searchByName}
+                                type={'text'}
+                                placeholder="Search"
+                            />
+                            <select
+                                onChange={(e) =>
+                                    props.setSortValue(e.target.value)
+                                }
+                                name="value"
+                                id="value-select"
+                            >
+                                <option value={'ASC'}>Sort by:</option>
+                                <option value={'ASC'}>Oldest</option>
+                                <option value={'DESC'}>Newest</option>
+                            </select>
+                        </div>
+                        <div>
+                            {props.notes?.length < 1 ? <EmptyNote /> : null}
+                            {props.notes?.map((note) => {
+                                return (
+                                    <EmployeeNote
+                                        name={note.attributes.title}
+                                        description={
+                                            note.attributes.description
+                                        }
+                                        photo={
+                                            note.attributes.profile.data
+                                                ?.attributes.profilePhoto.data
+                                                ?.attributes.url
+                                        }
+                                        pmName={
+                                            note.attributes.profile.data
+                                                ?.attributes.name
+                                        }
+                                    />
+                                );
+                            })}
+                        </div>
+                    </section>
                 </div>
             </div>
-            <section
-                className="section__body"
-                style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    // position: 'relative',
-                    // width: '375px',
-                    maxWidth: '1100px',
-                    // width: 'auto',
-                    justifyContent: 'center',
-                    background: '#F8F8F8',
-                    paddingBottom: '16px',
-                    paddingTop: '8px',
-                    margin: '-1rem auto',
-                }}
-            >
-                <div
-                    style={{
-                        display: 'flex',
-                        position: 'relative',
-                        justifyContent: 'center',
-                        alignContent: 'center',
-                        flexWrap: 'wrap',
-                    }}
-                    className="employee__content"
-                >
-                    <input
-                        value={props.nameFilter}
-                        onChange={props.searchByName}
-                        type={'text'}
-                        placeholder="Search"
-                    />
-                    <select
-                        onChange={(e) => props.setSortValue(e.target.value)}
-                        name="value"
-                        id="value-select"
-                    >
-                        <option value={'ASC'}>Sort by:</option>
-                        <option value={'ASC'}>Oldest</option>
-                        <option value={'DESC'}>Newest</option>
-                    </select>
-                </div>
-                <div>
-                    {props.notes?.length < 1 ? <EmptyNote /> : null}
-                    {props.notes?.map((note) => {
-                        return (
-                            <EmployeeNote
-                                name={note.attributes.title}
-                                description={note.attributes.description}
-                                photo={
-                                    note.attributes.profile.data?.attributes
-                                        .profilePhoto.data?.attributes.url
-                                }
-                                pmName={
-                                    note.attributes.profile.data?.attributes
-                                        .name
-                                }
-                            />
-                        );
-                    })}
-                </div>
-            </section>
         </>
     );
 };

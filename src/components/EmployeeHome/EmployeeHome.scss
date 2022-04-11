@@ -136,25 +136,18 @@
         & header {
             background-color: #62929e;
             color: #fdfdff;
-            // width: 1166px;
-            padding-top: 1rem;
             border-radius: 1rem 1rem 0 0;
         }
 
         & section {
+            border-radius: 5px 0px 5px 5px;
             font-size: 1.5rem;
             float: left;
-            // margin: 0 2.5%;
-            // width: 10%;
-            padding: 2rem 1rem;
-            margin-bottom: 1rem;
             font-family: $roboto-font;
 
             &:hover {
                 cursor: pointer;
-                transform: scale(0.96);
-                font-weight: 600;
-                transition: 0.1s ease-in;
+                transition: 0.2s ease-in;
             }
             &:target {
                 font-weight: 600;
