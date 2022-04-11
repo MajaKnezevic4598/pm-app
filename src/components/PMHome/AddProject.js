@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import "./AddProject.scss";
-import { uploadFiles } from "../../services/uploadFiles";
-import { useAddSingleProject } from "../../hooks/useProjectData";
-import Select from "./Select.js";
-import SingleEmployee from "./SingleEmployee";
-import { useNavigate } from "react-router";
-import uuid from "react-uuid";
-import Default from "../../assets/person-profile.png";
+import React, { useEffect, useState } from 'react';
+import './AddProject.scss';
+import { uploadFiles } from '../../services/uploadFiles';
+import { useAddSingleProject } from '../../hooks/useProjectData';
+import Select from './Select.js';
+import SingleEmployee from './SingleEmployee';
+import { useNavigate } from 'react-router';
+import uuid from 'react-uuid';
+import Default from '../../assets/person-profile.png';
 
 const AddProject = () => {
   const [employees, setEmployees] = useState([]);
   const [employeesId, setEmployeesId] = useState([]);
-  const profileId = window.localStorage.getItem("profileId");
+  const profileId = window.localStorage.getItem('profileId');
   const navigate = useNavigate();
 
   const [projectDetails, setProjectDetails] = useState({
-    name: "",
-    description: "",
+    name: '',
+    description: '',
   });
   const [selectedFile, setSelectedFile] = useState();
 
@@ -31,9 +31,9 @@ const AddProject = () => {
 
   useEffect(() => {
     console.log(employees);
-    console.log("iz add projecta");
+    console.log('iz add projecta');
     if (employees.length !== 0) {
-      console.log("vise nisam prazan");
+      console.log('vise nisam prazan');
       const ar = employees.map((item) => item.id);
       console.log(ar);
       setEmployeesId([...ar]);
@@ -41,16 +41,16 @@ const AddProject = () => {
   }, [employees]);
 
   const onSuccess = () => {
-    alert("uspesan post");
-    navigate("/");
+    alert('uspesan post');
+    navigate('/');
   };
 
   const { mutate } = useAddSingleProject(onSuccess);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      projectDetails.name === "" ||
-      projectDetails.description === "" ||
+      projectDetails.name === '' ||
+      projectDetails.description === '' ||
       employees.length === 0
     ) {
       return;
@@ -60,23 +60,32 @@ const AddProject = () => {
       uploadFileResponse = await uploadFiles(selectedFile);
     }
 
+    const employeesSubmit = [];
+
+    employees.map((employee) =>
+      employeesSubmit.push({
+        id: employee.id,
+        email: employee.attributes.email,
+      })
+    );
+
     const projectData = {
       ...projectDetails,
       id: profileId,
       logo: uploadFileResponse ? uploadFileResponse.data[0].id : null,
-      employees: employeesId,
+      employees: employeesSubmit,
     };
     mutate(projectData);
 
     setProjectDetails({
-      name: "",
-      description: "",
+      name: '',
+      description: '',
     });
   };
   return (
     <div
       style={{
-        height: "auto",
+        height: 'auto',
       }}
     >
       <form onSubmit={handleSubmit} className="add-project-conteiner">
