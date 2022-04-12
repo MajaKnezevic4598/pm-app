@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './EmployeeInfo.scss';
 import Default from '../../assets/no-image.png';
-import axiosInstance from '../../helpers/axiosInstance';
-import { FiEdit } from 'react-icons/fi';
-import PmPhoto from '../../assets/testproject.png';
-import { Link } from 'react-router-dom';
+
+import { BsBoxArrowUpRight } from 'react-icons/bs';
 
 const Image = React.memo(function Image({ src }) {
     return (
@@ -53,7 +52,7 @@ const EmployeeInfo = (props) => {
             <div className="employee-info__right">
                 <div>
                     <Link to={`/${props.id}/employee-project-view`}>
-                        <FiEdit />
+                        <BsBoxArrowUpRight />
                     </Link>
                 </div>
                 <div>
