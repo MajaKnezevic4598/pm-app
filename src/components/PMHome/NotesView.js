@@ -10,6 +10,8 @@ import "../EmployeeHome/EmployeeProjectView.scss";
 import axiosInstance from "../../helpers/axiosInstance";
 import { useParams } from "react-router-dom";
 import CreateNewNote from "./CreateNewNote";
+import DeleteProjectModal from "../Modal/DeleteProjectModal";
+import uuid from "react-uuid";
 
 const fetchProject = async (id) => {
   const response = await axiosInstance.get(
@@ -37,6 +39,8 @@ const NotesView = (props) => {
   const [nameFilter, setNameFilter] = useState("");
   const [sortValue, setSortValue] = useState("DESC");
   const [changeViewState, setChangeViewState] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   const navigate = useNavigate();
 
@@ -88,6 +92,18 @@ const NotesView = (props) => {
       />
     );
   });
+
+  const modalOn = () => {
+    setShowModal(true);
+  };
+
+  const modallOff = () => {
+    setShowModal(false);
+  };
+
+  const deleteProject = () => {
+    console.log("delete project");
+  };
   return (
     <>
       <div className="employee">
@@ -113,6 +129,7 @@ const NotesView = (props) => {
               >
                 Edit project
               </div>
+              <div onClick={modalOn}>Delete Project</div>
             </div>
           </div>
           <div className="emp__description__right">
@@ -200,6 +217,7 @@ const NotesView = (props) => {
             {notes?.map((note) => {
               return (
                 <SingleNote
+                  key={uuid()}
                   id={note.id}
                   refetch={refetch}
                   name={note.attributes.title}
@@ -221,6 +239,17 @@ const NotesView = (props) => {
           categories={categories}
         />
       )}
+      <DeleteProjectModal
+        show={showModal}
+        modalClosed={modallOff}
+        clickFirst={modallOff}
+        clickSecond={deleteProject}
+        projectName={data?.data.attributes.name}
+        projectManager={
+          data?.data.attributes.project_manager.data?.attributes.name
+        }
+        disabled={disabled}
+      />
     </>
   );
 };

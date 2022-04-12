@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 
 const Image = React.memo(function Image({ src }) {
   return (
+    // eslint-disable-next-line jsx-a11y/alt-text
     <img
       src={src}
       className="user-box__left__picture"
