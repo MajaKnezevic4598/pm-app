@@ -118,6 +118,17 @@
   display: flex;
   flex-direction: column;
 
+  &__close {
+    position: absolute;
+    top: 3%;
+    left: 95%;
+    cursor: pointer;
+
+    @media screen and (max-width:500px) {
+      left: 92%;
+    }
+  }
+
   &__image {
     border: 1px solid #E2E8F0;
     align-self: center;
@@ -129,6 +140,7 @@
 
   &__info {
     font-size: 18px;
+    word-wrap: break-word;
     span {
       font-weight: 500;
     }

@@ -47,11 +47,12 @@ const UserBox = (props) => {
       right: 'auto',
       bottom: 'auto',
       marginRight: '-50%',
+      maxHeight: '90%',
       transform: 'translate(-50%, -50%)',
       backgroundColor: 'white',
       border: '1px solid #eee',
       maxWidth: '90%',
-      minWidth: isMobile ? '90%' : '60%',
+      minWidth: isMobile ? '90%' : '48%',
       wordBreak: 'break-all',
       boxShadow:
         'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
@@ -109,6 +110,9 @@ const UserBox = (props) => {
         style={customStyles}
       >
         <div className="user-modal">
+          <div className="user-modal__close" onClick={closeModal}>
+            <i class="fas fa-times"></i>
+          </div>
           <img
             src={
               props.img
