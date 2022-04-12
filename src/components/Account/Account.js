@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import axiosInstance from '../../helpers/axiosInstance';
-import Spinner from '../Spinner.js/Spinner';
-import './Account.scss';
-import Default from '../../assets/no-image.png';
+import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import axiosInstance from "../../helpers/axiosInstance";
+import Spinner from "../Spinner.js/Spinner";
+import "./Account.scss";
+import Default from "../../assets/no-image.png";
 
 const fetchProfile = async (id) => {
   const profile = await axiosInstance.get(`/profiles/${id}?populate=*`);
@@ -11,16 +11,16 @@ const fetchProfile = async (id) => {
 };
 
 const Account = () => {
-  const { data, status, refetch } = useQuery(['user-data'], () =>
+  const { data, status, refetch } = useQuery(["user-data"], () =>
     fetchProfile(profileId)
   );
   const [picture, setPicture] = useState();
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [name, setName] = useState('');
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const profileId = localStorage.getItem('profileId');
-  const userId = localStorage.getItem('userId');
+  const profileId = localStorage.getItem("profileId");
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     setName(data?.attributes.name);
@@ -29,12 +29,12 @@ const Account = () => {
   const uploadImage = async (id) => {
     const formData = new FormData();
 
-    formData.append('files', picture[0]);
+    formData.append("files", picture[0]);
 
     axiosInstance
-      .post('/upload', formData)
+      .post("/upload", formData)
       .then((response) => {
-        axiosInstance.put('/profiles/' + id, {
+        axiosInstance.put("/profiles/" + id, {
           data: {
             profilePhoto: response.data,
           },
@@ -52,12 +52,12 @@ const Account = () => {
       await uploadImage(profileId);
     }
     if (password.length >= 6 && password === confirmPassword) {
-      await axiosInstance.put('/users/' + userId, {
+      await axiosInstance.put("/users/" + userId, {
         password: password,
       });
     }
-    if (name !== '') {
-      await axiosInstance.put('/profiles/' + profileId, {
+    if (name !== "") {
+      await axiosInstance.put("/profiles/" + profileId, {
         data: { name: name },
       });
     }
@@ -65,7 +65,7 @@ const Account = () => {
     setLoading(false);
   };
 
-  if (status === 'loading' || loading) {
+  if (status === "loading" || loading) {
     return <Spinner />;
   }
 
@@ -74,16 +74,18 @@ const Account = () => {
       <div className="acc-container__my-account">
         <div className="acc-container__my-account__image-container">
           {!picture ? (
+            // eslint-disable-next-line jsx-a11y/img-redundant-alt
             <img
               src={
                 data?.attributes.profilePhoto.data === null
                   ? Default
-                  : 'https://pm-app-bek.herokuapp.com' +
+                  : "https://pm-app-bek.herokuapp.com" +
                     data?.attributes.profilePhoto.data?.attributes.url
               }
               alt="profile-photo"
             />
           ) : (
+            // eslint-disable-next-line jsx-a11y/img-redundant-alt
             <img src={URL.createObjectURL(picture[0])} alt="profile-photo" />
           )}
 
@@ -105,14 +107,14 @@ const Account = () => {
         </div>
         <div className="inputs">
           <span>Email: </span>
-          <span style={{ marginBottom: '16px', fontSize: '1.3rem' }}>
+          <span style={{ marginBottom: "16px", fontSize: "1.3rem" }}>
             {data?.attributes.email}
           </span>
         </div>
         <div className="inputs">
           <span>Password: </span>
           <input
-            type={'password'}
+            type={"password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -120,12 +122,12 @@ const Account = () => {
         <div className="inputs">
           <span>Confirm Password: </span>
           <input
-            type={'password'}
+            type={"password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <button style={{ cursor: 'pointer' }} onClick={updateData}>
+        <button style={{ cursor: "pointer" }} onClick={updateData}>
           SAVE
         </button>
       </div>

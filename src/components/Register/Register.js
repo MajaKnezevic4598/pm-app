@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../helpers/axiosInstance";
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../helpers/axiosInstance';
 
-import AuthContext from "../../context/AuthContext";
-import useInput from "../../hooks/use-input";
-import "./Register.scss";
-import { Typewriter } from "react-simple-typewriter";
+import AuthContext from '../../context/AuthContext';
+import useInput from '../../hooks/use-input';
+import './Register.scss';
+import { Typewriter } from 'react-simple-typewriter';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -75,28 +75,20 @@ const Register = () => {
   const uploadImage = async (id) => {
     const formData = new FormData();
 
-    formData.append("files", files);
+    formData.append('files', files);
 
-    axiosInstance
-      .post("/upload", formData)
-      .then((response) => {
-        console.log(response);
-        axiosInstance.put("/profiles/" + id, {
-          data: {
-            profilePhoto: response.data,
-          },
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const imageUpload = await axiosInstance.post('/upload', formData);
+    console.log(imageUpload);
+
+    const profileUpload = await axiosInstance.put('/profiles/' + id, {
+      data: { profilePhoto: imageUpload.data },
+    });
   };
 
   const registerHandler = async () => {
     if (emailIsValid && passwordIsValid && enteredNameIsValid && role !== 0) {
-      console.log(enteredName, enteredUserName, enteredEmail, enteredPassword);
       try {
-        const data = await axiosInstance.post("/auth/local/register", {
+        const data = await axiosInstance.post('/auth/local/register', {
           name: enteredName,
           username: enteredUserName,
           identifier: enteredEmail,
@@ -104,7 +96,7 @@ const Register = () => {
           email: enteredEmail,
         });
         await axiosInstance.put(
-          "/users/" + data.data.user.id,
+          '/users/' + data.data.user.id,
           { confirmed: false, role: role },
           {
             headers: {
@@ -114,23 +106,20 @@ const Register = () => {
           }
         );
 
-        localStorage.setItem("token", data.data.jwt);
-        localStorage.setItem("userId", data.data.user.id);
+        localStorage.setItem('token', data.data.jwt);
+        localStorage.setItem('userId', data.data.user.id);
 
-        const getRegister = await axiosInstance.get("/users/me", {
+        const getRegister = await axiosInstance.get('/users/me', {
           headers: {
             //prettier-ignore
             "Authorization": "Bearer " + data.data.jwt,
           },
         });
-        localStorage.setItem("role", getRegister.data.role.name);
-
-        console.log(getRegister);
+        localStorage.setItem('role', getRegister.data.role.name);
 
         if (data) {
           //CREATE PROFILE, PROSLEDITI SVE ZIVO I NAME I USERNAME I SVEEEEE
-          console.log(data.data);
-          const profileCreate = await axiosInstance.post("/profiles", {
+          const profileCreate = await axiosInstance.post('/profiles', {
             data: {
               userId: data.data.user.id,
               name: data.data.user.name,
@@ -142,7 +131,7 @@ const Register = () => {
             },
           });
 
-          localStorage.setItem("profileId", profileCreate.data.data.id);
+          localStorage.setItem('profileId', profileCreate.data.data.id);
 
           if (files) {
             await uploadImage(profileCreate.data.data.id);
@@ -150,7 +139,6 @@ const Register = () => {
 
           getLoggedIn();
           window.location.href = '/';
-          console.log(data);
         }
         setIsLoading(false);
       } catch (e) {
@@ -169,13 +157,13 @@ const Register = () => {
         <div className="register__top__text">
           <div
             style={{
-              fontSize: "3rem",
-              display: "flex",
-              flexDirection: "column",
+              fontSize: '3rem',
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
             <Typewriter
-              words={["Create Account"]}
+              words={['Create Account']}
               loop={1}
               cursor={false}
               cursorStyle="|"
@@ -187,9 +175,9 @@ const Register = () => {
             <span className="register__account">Account</span> */}
           </div>
           {/* <div className="register__signup">Please sign-up to continue!</div> */}
-          <div style={{ marginTop: "10px" }}>
+          <div style={{ marginTop: '10px' }}>
             <Typewriter
-              words={["Please sign-up to continue!"]}
+              words={['Please sign-up to continue!']}
               loop={1}
               cursor={false}
               cursorStyle="|"
@@ -215,19 +203,19 @@ const Register = () => {
           style={{
             border:
               !enteredNameIsValid && hasError
-                ? "1px solid red"
-                : "1px solid #eee",
+                ? '1px solid red'
+                : '1px solid #eee',
           }}
         />
         {hasError ? (
           <div
             style={{
-              color: "red",
-              fontSize: "12px",
-              paddingBottom: "8px",
+              color: 'red',
+              fontSize: '12px',
+              paddingBottom: '8px',
             }}
           >
-            {hasError && enteredName.length < 4 ? "Name too short!" : null}
+            {hasError && enteredName.length < 4 ? 'Name too short!' : null}
           </div>
         ) : null}
         {/* USERNAME */}
@@ -245,30 +233,30 @@ const Register = () => {
           autoComplete="email"
           style={{
             border:
-              !emailIsValid && hasError ? "1px solid red" : "1px solid #eee",
+              !emailIsValid && hasError ? '1px solid red' : '1px solid #eee',
           }}
         />
         <input
           value={enteredPassword}
           onChange={passwordChangedHandler}
-          type={"password"}
+          type={'password'}
           placeholder="Password"
           autoComplete="current-password"
           style={{
             border:
-              !passwordIsValid && hasError ? "1px solid red" : "1px solid #eee",
+              !passwordIsValid && hasError ? '1px solid red' : '1px solid #eee',
           }}
         />
         {hasError ? (
           <div
             style={{
-              color: "red",
-              fontSize: "12px",
-              paddingBottom: "8px",
+              color: 'red',
+              fontSize: '12px',
+              paddingBottom: '8px',
             }}
           >
             {hasError && enteredPassword.length < 6
-              ? "Password too short"
+              ? 'Password too short'
               : null}
           </div>
         ) : null}
@@ -294,15 +282,10 @@ const Register = () => {
           Sign Up
         </button>
         <div className="login__bottom_signup">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <span
-            style={{
-              color: "#fbb440",
-              fontWeight: "bold",
-              marginLeft: "5px",
-              cursor: "pointer",
-            }}
-            onClick={() => navigate("/login")}
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/login')}
           >
             Sign In
           </span>

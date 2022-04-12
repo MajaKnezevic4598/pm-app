@@ -10,6 +10,10 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuToggler = () => setMenuOpen((p) => !p);
 
+  const closeNav = () => {
+    setMenuOpen(false);
+  };
+
   const Button = () => {
     return (
       <button className={styles.button} onClick={logout}>
@@ -23,7 +27,7 @@ const Header = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('role');
     localStorage.removeItem('profileId');
-
+    setMenuOpen(false);
     window.location.href = '/';
   };
 
@@ -39,10 +43,10 @@ const Header = () => {
           <nav
             className={`${styles.nav} ${menuOpen ? styles[`nav--open`] : {}}`}
           >
-            <Link className={styles.nav__item} to="/">
+            <Link className={styles.nav__item} onClick={closeNav} to="/">
               My Projects
             </Link>
-            <Link className={styles.nav__item} to="/account">
+            <Link className={styles.nav__item} onClick={closeNav} to="/account">
               Account
             </Link>
             <div className={styles.nav__button__container}>

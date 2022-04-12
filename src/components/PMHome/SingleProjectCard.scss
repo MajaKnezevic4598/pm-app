@@ -15,22 +15,68 @@ $card-width: 22rem;
 //padding
 
 .card {
-    width: $card-width;
-    min-width: 25vw;
-    height: 20vh;
-    min-height: 18vh;
-    padding: 0.6rem;
-    background: linear-gradient(to bottom right, $blue, darken($blue, 25%));
-    border-radius: $border-radius-sm;
-    color: $font-color;
-    box-shadow: $box-shadow;
-    display: flex;
-    position: relative;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: space-around;
-    margin-right: 2vw;
-    margin-bottom: 2vw;
+
+  width: $card-width;
+  min-width: 25vw;
+  height: 20vh;
+  min-height: 18vh;
+  padding: 0.6rem;
+  background: linear-gradient(to bottom right, $blue, darken($blue, 25%));
+  border-radius: $border-radius-sm;
+  color: $font-color;
+  box-shadow: $box-shadow;
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-around;
+  margin-right: 2vw;
+  margin-bottom: 2vw;
+  z-index: 1;
+
+  &__img-conteiner {
+    align-self: center;
+  }
+  &__project-logo {
+    height: 12vh;
+    width: 12vh;
+    border-radius: 50%;
+  }
+
+  &__info-1 {
+    align-self: flex-start;
+    h2 {
+      font-size: 1.4rem;
+      letter-spacing: 0.1rem;
+    }
+    div:first-of-type {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin-top: 1.4rem;
+    }
+    .project-manager-image {
+      width: 4vw;
+      height: 4vw;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 1vw;
+    }
+  }
+
+  &__info-2 {
+    text-align: end;
+    align-self: flex-start;
+
+    &__icon {
+      position: relative;
+      font-size: 1.6rem;
+      z-index: 1000;
+      &:hover {
+        color: $orange;
+        cursor: pointer;
+      }
+    }
 
     &__img-conteiner {
         align-self: center;

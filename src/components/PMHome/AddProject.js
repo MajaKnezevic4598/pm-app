@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
-import "./AddProject.scss";
-import { uploadFiles } from "../../services/uploadFiles";
-import { useAddSingleProject } from "../../hooks/useProjectData";
-import Select from "./Select.js";
-import SingleEmployee from "./SingleEmployee";
-import { useNavigate } from "react-router";
-import uuid from "react-uuid";
+import React, { useEffect, useState } from 'react';
+import './AddProject.scss';
+import { uploadFiles } from '../../services/uploadFiles';
+import { useAddSingleProject } from '../../hooks/useProjectData';
+import Select from './Select.js';
+import SingleEmployee from './SingleEmployee';
+import { useNavigate } from 'react-router';
+import uuid from 'react-uuid';
+import Default from '../../assets/person-profile.png';
 
 const AddProject = () => {
   const [employees, setEmployees] = useState([]);
-  const profileId = window.localStorage.getItem("profileId");
+  const [employeesId, setEmployeesId] = useState([]);
+  const profileId = window.localStorage.getItem('profileId');
   const navigate = useNavigate();
 
   const [projectDetails, setProjectDetails] = useState({
-    name: "",
-    description: "",
+    name: '',
+    description: '',
   });
   const [selectedFile, setSelectedFile] = useState();
 
@@ -29,19 +31,26 @@ const AddProject = () => {
 
   useEffect(() => {
     console.log(employees);
+    console.log('iz add projecta');
+    if (employees.length !== 0) {
+      console.log('vise nisam prazan');
+      const ar = employees.map((item) => item.id);
+      console.log(ar);
+      setEmployeesId([...ar]);
+    }
   }, [employees]);
 
   const onSuccess = () => {
-    alert("uspesan post");
-    navigate("/");
+    alert('uspesan post');
+    navigate('/');
   };
 
   const { mutate } = useAddSingleProject(onSuccess);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      projectDetails.name === "" ||
-      projectDetails.description === "" ||
+      projectDetails.name === '' ||
+      projectDetails.description === '' ||
       employees.length === 0
     ) {
       return;
@@ -51,21 +60,34 @@ const AddProject = () => {
       uploadFileResponse = await uploadFiles(selectedFile);
     }
 
+    const employeesSubmit = [];
+
+    employees.map((employee) =>
+      employeesSubmit.push({
+        id: employee.id,
+        email: employee.attributes.email,
+      })
+    );
+
     const projectData = {
       ...projectDetails,
       id: profileId,
       logo: uploadFileResponse ? uploadFileResponse.data[0].id : null,
-      employees: [...employees, employees.id],
+      employees: employeesSubmit,
     };
     mutate(projectData);
 
     setProjectDetails({
-      name: "",
-      description: "",
+      name: '',
+      description: '',
     });
   };
   return (
-    <div>
+    <div
+      style={{
+        height: 'auto',
+      }}
+    >
       <form onSubmit={handleSubmit} className="add-project-conteiner">
         <section className="project-info-section">
           <h3>Project Info</h3>
@@ -79,15 +101,25 @@ const AddProject = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="chose-logo">
+          <div className="logo-conteiner">
+            {!selectedFile ? (
+              <img src={Default} alt="profile" className="default-image" />
+            ) : (
+              // eslint-disable-next-line jsx-a11y/img-redundant-alt
+              <img
+                src={URL.createObjectURL(selectedFile[0])}
+                alt="profile-photo"
+              />
+            )}
+
             <input
+              id="file-upload"
               type="file"
-              placeholder="chose Logo"
-              name="logo"
-              onChange={(e) => {
-                setSelectedFile(e.target.files[0]);
-              }}
+              onChange={(e) => setSelectedFile(e.target.files)}
             />
+            <label htmlFor="file-upload" className="logo-conteiner__edit-icon">
+              <i className="fas fa-pen"></i>
+            </label>
           </div>
           <div className="project-description">
             <p>Project description</p>
@@ -100,19 +132,21 @@ const AddProject = () => {
         </section>
 
         <section className="project-members-section">
-          <div>Add Employee</div>
+          <div className="project-members-section__title">Add Employee</div>
           <Select employees={employees} setEmployees={setEmployees} />
-          {employees.map((employee) => {
-            return (
-              <SingleEmployee
-                key={uuid()}
-                name={employee.attributes.name}
-                setEmployees={setEmployees}
-                employees={employees}
-                id={employee.id}
-              />
-            );
-          })}
+          <div className="employees-conteiner">
+            {employees.map((employee) => {
+              return (
+                <SingleEmployee
+                  key={uuid()}
+                  name={employee.attributes.name}
+                  setEmployees={setEmployees}
+                  employees={employees}
+                  id={employee.id}
+                />
+              );
+            })}
+          </div>
         </section>
 
         <button className="save-new-project">Add Project</button>
