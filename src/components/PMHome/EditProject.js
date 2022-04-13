@@ -31,6 +31,8 @@ const EditProject = () => {
     useQuery(["single-project", id], () => {
       return fetchSingleProject(id);
     });
+
+    
   useEffect(() => {
     if (data?.data) {
       console.log(data?.data);
@@ -53,13 +55,19 @@ const EditProject = () => {
   const uploadProjetLogo = async (projectId) => {
     const formData = new FormData();
     formData.append("files", picture[0]);
+    console.log(formData);
+    console.log("form data iza uploadProjectLogo");
 
     await axiosInstance
       .post("/upload", formData)
       .then((response) => {
+        console.log("response iz upload slike");
+        console.log(response);
+        console.log(response.data[0].id);
         axiosInstance.put("/projects/" + projectId, {
           data: {
-            logo: response.data,
+            logo: response.data[0].id,
+            //ovo ovde treba pogledati
           },
         });
         console.log("response iz puta");
@@ -87,7 +95,7 @@ const EditProject = () => {
       })
     );
 
-    if (description || name || employees) {
+    if (description || name || employees || picture) {
       await axiosInstance.put(`projects/${id}`, {
         data: {
           description,
@@ -97,7 +105,7 @@ const EditProject = () => {
       });
     }
     setLoading(false);
-    // refetch();
+    refetch();
   };
 
   if (status === "loading" || loading) {
