@@ -3,6 +3,7 @@ import { ModalContext } from "../../context/ModalContext";
 import BackdropModal from "../Backdrop/BackdropModul";
 // import Backdrop from "../Backdrop/Backdrop";
 import "./DeleteProjectModal.scss";
+import { useNavigate } from "react-router";
 
 // const { loggedIn } = useContext(AuthContext);
 
@@ -10,8 +11,9 @@ const DeleteProjectModal = (props) => {
   // const [input, setInput] = useState("");
 
   const toCheck = `${props.projectManager}/${props.projectName}`;
+  const navigate = useNavigate();
 
-  const { isOpen, setIsOpen, input, setInput, closeModal } =
+  const { isOpen, setIsOpen, input, setInput, closeModal, deleteProject } =
     useContext(ModalContext);
   console.log(isOpen);
 
@@ -62,7 +64,10 @@ const DeleteProjectModal = (props) => {
           <button
             className="modal__buttons__delete"
             disabled={toCheck !== input}
-            onClick={props.clickSecond}
+            onClick={() => {
+              deleteProject(props.projectId);
+              navigate("/");
+            }}
           >
             DELETE
           </button>

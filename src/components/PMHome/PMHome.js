@@ -74,14 +74,14 @@ const PMHome = () => {
             <SingleProjectCard
               id={item.id}
               key={uuid()}
-              manager={item.attributes.project_manager.data.attributes.name}
+              manager={item.attributes?.project_manager.data?.attributes.name}
               prName={item.attributes.name}
               pmImage={
-                item.attributes.project_manager.data.attributes.profilePhoto
-                  .data.attributes.url
+                item.attributes.project_manager.data?.attributes.profilePhoto
+                  .data?.attributes.url
               }
               projectLogo={item?.attributes?.logo?.data?.attributes?.url}
-              employees={item.attributes.employees.data.length}
+              employees={item.attributes.employees.data?.length}
               projectDescription={item.attributes.description}
               projectId={item.id}
             />

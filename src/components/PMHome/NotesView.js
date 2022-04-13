@@ -256,7 +256,8 @@ const NotesView = (props) => {
 
         // modalClosed={modallOff}
         // clickFirst={modallOff}
-        clickSecond={deleteProject}
+        // clickSecond={deleteProject}
+        projectId={id}
         projectName={data?.data.attributes.name}
         projectManager={
           data?.data.attributes.project_manager.data?.attributes.name
