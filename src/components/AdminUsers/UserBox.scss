@@ -108,6 +108,7 @@
   &__right div:first-of-type {
     margin-bottom: 5px;
     @media screen and (max-width: 650px) {
+      margin-bottom: 0;
       margin-right: 10px;
       font-size: 14px;
     }
