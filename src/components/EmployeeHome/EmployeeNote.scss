@@ -1,0 +1,18 @@
+.notes {
+    &__content {
+        padding: 0 8rem;
+        margin: 1rem auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+
+        & header {
+            background-color: #62929e;
+            width: 1166px;
+            padding-top: 1rem;
+            border-radius: 1rem 1rem 0 0;
+        }
+    }
+}
