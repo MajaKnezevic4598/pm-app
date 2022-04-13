@@ -7,6 +7,7 @@ import "./styles/index.scss";
 import App from "./App";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AuthContext, { AuthContextProvider } from "./context/AuthContext";
+import { ModalContextProvider } from "./context/ModalContext";
 import { ReactQueryDevtools } from "react-query/devtools";
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <App />
+        <ModalContextProvider>
+          <App />
+        </ModalContextProvider>
       </AuthContextProvider>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>

@@ -1,10 +1,19 @@
-import { useState, useEffect } from "react";
-import Backdrop from "../Backdrop/Backdrop";
-import "./Modal.scss";
+import { useState, useContext } from "react";
+import { ModalContext } from "../../context/ModalContext";
+import BackdropModal from "../Backdrop/BackdropModul";
+// import Backdrop from "../Backdrop/Backdrop";
+import "./DeleteProjectModal.scss";
+
+// const { loggedIn } = useContext(AuthContext);
+
 const DeleteProjectModal = (props) => {
-  const [input, setInput] = useState("");
+  // const [input, setInput] = useState("");
 
   const toCheck = `${props.projectManager}/${props.projectName}`;
+
+  const { isOpen, setIsOpen, input, setInput, closeModal } =
+    useContext(ModalContext);
+  console.log(isOpen);
 
   const handleChange = (e) => {
     setInput(e.target.value);
@@ -14,16 +23,18 @@ const DeleteProjectModal = (props) => {
 
   return (
     <>
-      <Backdrop show={props.show} clicked={props.modalClosed} />
+      <BackdropModal show={isOpen} />
+
       <div
-        className={"modal"}
-        style={{
-          transform: props.show ? "translateY(0)" : "translateY(-100vh)",
-          opacity: props.show ? "1" : "0",
-        }}
+        // className={"modal"}
+        className={isOpen ? "modal open" : "modal close"}
+        // isOpentyle={{
+        //   transform: `${isOpen}` ? "translateY(0)" : "translateY(-100vh)",
+        //   opacity: `${isOpen}` ? "1" : "0",
+        // }}
       >
         <div className="modal__text">
-          Are you sure you wanto to delete project{" "}
+          Are you sure you wanto to delete project <span>{`${isOpen}`}</span>
           <span
             style={{
               fontWeight: "bold",
@@ -40,7 +51,12 @@ const DeleteProjectModal = (props) => {
           <input type="text" value={input} onChange={handleChange} />
         </div>
         <div className="modal__buttons">
-          <button className="modal__buttons__cancel" onClick={props.clickFirst}>
+          <button
+            className="modal__buttons__cancel"
+            onClick={() => {
+              closeModal();
+            }}
+          >
             CANCEL
           </button>
           <button

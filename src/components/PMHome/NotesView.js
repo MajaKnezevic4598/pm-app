@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router";
+
+import { ModalContext } from "../../context/ModalContext";
 
 import Default from "../../assets/no-image.png";
 import Spinner from "../Spinner.js/Spinner";
@@ -39,10 +41,13 @@ const NotesView = (props) => {
   const [nameFilter, setNameFilter] = useState("");
   const [sortValue, setSortValue] = useState("DESC");
   const [changeViewState, setChangeViewState] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
 
   const navigate = useNavigate();
+
+  const { setIsOpen, isOpen } = useContext(ModalContext);
+  console.log(isOpen);
 
   useEffect(() => {
     // console.log(data);
@@ -93,13 +98,13 @@ const NotesView = (props) => {
     );
   });
 
-  const modalOn = () => {
-    setShowModal(true);
-  };
+  // const modalOn = () => {
+  //   setShowModal(true);
+  // };
 
-  const modallOff = () => {
-    setShowModal(false);
-  };
+  // const modallOff = () => {
+  //   setShowModal(false);
+  // };
 
   const deleteProject = () => {
     console.log("delete project");
@@ -129,7 +134,14 @@ const NotesView = (props) => {
               >
                 Edit project
               </div>
-              <div onClick={modalOn}>Delete Project</div>
+              <div
+                onClick={(e) => {
+                  setIsOpen(true);
+                  console.log("kliknuto na delete project");
+                }}
+              >
+                Delete Project
+              </div>
             </div>
           </div>
           <div className="emp__description__right">
@@ -240,9 +252,10 @@ const NotesView = (props) => {
         />
       )}
       <DeleteProjectModal
-        show={showModal}
-        modalClosed={modallOff}
-        clickFirst={modallOff}
+        // show={showModal}
+
+        // modalClosed={modallOff}
+        // clickFirst={modallOff}
         clickSecond={deleteProject}
         projectName={data?.data.attributes.name}
         projectManager={

@@ -1,16 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
-import Login from './components/Login/Login';
-import AuthContext from './context/AuthContext';
-import axiosInstance from './helpers/axiosInstance';
-import AdminRoutes from './routes/AdminRoutes';
-import PublicRoutes from './routes/PublicRoutes';
-import EmployeeRoutes from './routes/EmployeeRoutes';
-import PMRoutes from './routes/PMRoutes';
-import UncomfirmedRoutes from './routes/UncomfirmedRoutes';
-import Spinner from './components/Spinner.js/Spinner';
-import Header from './components/Header/Header';
-import LoadingRoutes from './routes/LoadingRoutes';
-import { useQuery } from 'react-query';
+import { useContext, useEffect, useState } from "react";
+import Login from "./components/Login/Login";
+import AuthContext from "./context/AuthContext";
+
+import axiosInstance from "./helpers/axiosInstance";
+import AdminRoutes from "./routes/AdminRoutes";
+import PublicRoutes from "./routes/PublicRoutes";
+import EmployeeRoutes from "./routes/EmployeeRoutes";
+import PMRoutes from "./routes/PMRoutes";
+import UncomfirmedRoutes from "./routes/UncomfirmedRoutes";
+import Spinner from "./components/Spinner.js/Spinner";
+import Header from "./components/Header/Header";
+import LoadingRoutes from "./routes/LoadingRoutes";
+import { useQuery } from "react-query";
 
 const fetchConfirmed = async (userId) => {
   if (userId) {
@@ -25,9 +26,9 @@ function App() {
   const { loggedIn } = useContext(AuthContext);
   const [uncomfirmed, setUncomfirmed] = useState(false);
   const [loading, setLoading] = useState(false);
-  const userId = localStorage.getItem('userId');
-  const token = localStorage.getItem('token');
-  const userRole = localStorage.getItem('role');
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  const userRole = localStorage.getItem("role");
 
   useEffect(() => {
     const checkUncomfirmed = async () => {
@@ -69,11 +70,11 @@ function App() {
 
   return (
     <div className="App">
-      {loggedIn && userRole === 'system_administrator' ? (
+      {loggedIn && userRole === "system_administrator" ? (
         <AdminRoutes />
-      ) : loggedIn && userRole === 'employee' ? (
+      ) : loggedIn && userRole === "employee" ? (
         <EmployeeRoutes />
-      ) : loggedIn && userRole === 'project_manager' ? (
+      ) : loggedIn && userRole === "project_manager" ? (
         <PMRoutes />
       ) : (
         !token && <PublicRoutes />

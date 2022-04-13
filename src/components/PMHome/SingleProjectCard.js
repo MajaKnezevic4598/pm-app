@@ -20,7 +20,10 @@ const SingleProjectCard = ({
     <div
       className="card"
       id={`${projectId}`}
-      onClick={() => navigate(`/${id}/notes`)}
+      onClick={(e) => {
+        e.stopPropagation();
+        navigate(`/${id}/notes`);
+      }}
     >
       <div className="card__img-conteiner">
         {projectLogo ? (
