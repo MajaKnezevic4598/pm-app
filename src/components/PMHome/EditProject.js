@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import Select from "./Select";
 import Default from "../../assets/no-image.png";
 import Spinner from "../Spinner.js/Spinner";
+import { uploadFiles } from "../../services/uploadFiles";
 
 const EditProject = () => {
   const { id } = useParams();
@@ -32,7 +33,6 @@ const EditProject = () => {
       return fetchSingleProject(id);
     });
 
-    
   useEffect(() => {
     if (data?.data) {
       console.log(data?.data);
@@ -52,40 +52,44 @@ const EditProject = () => {
     }
   }, [employees]);
 
-  const uploadProjetLogo = async (projectId) => {
-    const formData = new FormData();
-    formData.append("files", picture[0]);
-    console.log(formData);
-    console.log("form data iza uploadProjectLogo");
+  // const uploadProjetLogo = async (projectId) => {
+  //   const formData = new FormData();
+  //   formData.append("files", picture[0]);
+  //   console.log(formData);
+  //   console.log("form data iza uploadProjectLogo");
 
-    await axiosInstance
-      .post("/upload", formData)
-      .then((response) => {
-        console.log("response iz upload slike");
-        console.log(response);
-        console.log(response.data[0].id);
-        axiosInstance.put("/projects/" + projectId, {
-          data: {
-            logo: response.data[0].id,
-            //ovo ovde treba pogledati
-          },
-        });
-        console.log("response iz puta");
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
+  //   await axiosInstance
+  //     .post("/upload", formData)
+  //     .then((response) => {
+  //       console.log("response iz upload slike");
+  //       console.log(response);
+  //       console.log(response.data[0].id);
+  //       axiosInstance.put("/projects/" + projectId, {
+  //         data: {
+  //           logo: response.data[0].id,
+  //         },
+  //       });
+  //       console.log("response iz puta");
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.message);
+  //     });
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (picture) {
-      await uploadProjetLogo(id);
 
-      console.log("uradio sam refetch");
+    let uploadFileResponse;
+    if (picture) {
+      uploadFileResponse = await uploadFiles(picture[0]);
     }
+
+    // if (picture) {
+    //   await uploadProjetLogo(id);
+
+    // }
 
     const employeesSubmit = [];
     employees.map((employee) =>
@@ -101,11 +105,12 @@ const EditProject = () => {
           description,
           name,
           employees: employeesSubmit,
+          logo: uploadFileResponse ? uploadFileResponse.data[0].id : null,
         },
       });
     }
-    setLoading(false);
     refetch();
+    setLoading(false);
   };
 
   if (status === "loading" || loading) {
