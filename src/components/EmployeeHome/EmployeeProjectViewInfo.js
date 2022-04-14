@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 
 import Default from '../../assets/no-image.png';
 import './EmployeeProjectView.scss';
+import './EmployeeProjectViewInfo.scss';
 import EmployeeNote from './EmployeeNote';
 import EmptyNote from './EmptyNote';
 
 const EmployeeProjectViewInfo = (props) => {
   useEffect(() => {
-    // console.log(data);
     console.log(props.notes);
   }, [props.notes]);
 
@@ -72,45 +72,43 @@ const EmployeeProjectViewInfo = (props) => {
             })}
           </div>
         </div>
-        <div>
-          <div className="employee__content">
-            <header style={{ display: 'flex', overflowX: 'scroll' }}>
-              {props.categories?.map((category) => {
-                return (
-                  <section
-                    style={{
-                      backgroundColor:
-                        props.categoryName === category.attributes.name
-                          ? '#f8f8f8'
-                          : '#62929e',
-                      padding:
-                        props.categoryName === category.attributes.name
-                          ? '2rem 1rem'
-                          : '2rem 1rem',
-                      color:
-                        props.categoryName === category.attributes.name
-                          ? 'black'
-                          : 'white',
-                      //   border:
-                      //     props.categoryName === category.attributes.name
-                      //       ? '1px solid gray'
-                      //       : 'none',
+        <div className="employee-info__content">
+          <header style={{ display: 'flex', overflowX: 'scroll' }}>
+            {props.categories?.map((category) => {
+              return (
+                <section
+                  style={{
+                    backgroundColor:
+                      props.categoryName === category.attributes.name
+                        ? '#f8f8f8'
+                        : '#62929e',
+                    padding:
+                      props.categoryName === category.attributes.name
+                        ? '2rem 1rem'
+                        : '2rem 1rem',
+                    color:
+                      props.categoryName === category.attributes.name
+                        ? 'black'
+                        : 'white',
+                    //   border:
+                    //     props.categoryName === category.attributes.name
+                    //       ? '1px solid gray'
+                    //       : 'none',
 
-                      borderRadius:
-                        props.categoryName === category.attributes.name
-                          ? '0px 0px 1px 1px'
-                          : '5px',
-                    }}
-                    onClick={() =>
-                      props.setCategoryName(category.attributes.name)
-                    }
-                  >
-                    {category.attributes.name}
-                  </section>
-                );
-              })}
-            </header>
-          </div>
+                    borderRadius:
+                      props.categoryName === category.attributes.name
+                        ? '0px 0px 1px 1px'
+                        : '5px',
+                  }}
+                  onClick={() =>
+                    props.setCategoryName(category.attributes.name)
+                  }
+                >
+                  {category.attributes.name}
+                </section>
+              );
+            })}
+          </header>
           <section
             className="section__body"
             style={{
