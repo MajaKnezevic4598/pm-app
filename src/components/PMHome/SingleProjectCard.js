@@ -1,8 +1,8 @@
-import "./SingleProjectCard.scss";
-import img from "../../assets/av.png";
-import { MdOpenInNew } from "react-icons/md";
+import './SingleProjectCard.scss';
+import img from '../../assets/av.png';
+import { MdOpenInNew } from 'react-icons/md';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const SingleProjectCard = ({
   manager,
@@ -13,6 +13,7 @@ const SingleProjectCard = ({
   projectDescription,
   projectId,
   id,
+  isEmployee,
 }) => {
   const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ const SingleProjectCard = ({
       id={`${projectId}`}
       onClick={(e) => {
         e.stopPropagation();
-        navigate(`/${id}/notes`);
+        isEmployee ? navigate(`/project/${id}`) : navigate(`/${id}/notes`);
       }}
     >
       <div className="card__project-info">
