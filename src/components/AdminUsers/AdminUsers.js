@@ -12,16 +12,12 @@ const fetchUsers = async (page, profileId, nameFilter) => {
   const res = await axiosInstance.get(
     `/profiles?sort=createdAt:DESC&populate=*&pagination[pageSize]=3&pagination[page]=${page}&filters[id][$ne]=${profileId}&filters[name][$containsi]=${nameFilter}`
   );
-  // console.log(res?.data);
   return res?.data;
 };
 
 const AdminUsers = () => {
-  const storageId = localStorage.getItem('userId');
   const profileId = localStorage.getItem('profileId');
-  const [searching, setSearching] = useState(false);
   const [nameFilter, setNameFilter] = useState('');
-  const [filteredUsers, setFilteredUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [futureId, setFutureId] = useState(null);
   const [futureProfileId, setFutureProfileId] = useState(null);

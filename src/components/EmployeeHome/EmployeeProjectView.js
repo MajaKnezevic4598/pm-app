@@ -85,7 +85,7 @@ const EmployeeProjectView = (props) => {
             id={data?.id}
             name={data?.attributes.name}
             description={data?.attributes.description}
-            logo={data?.attributes.logo.data.attributes.url}
+            logo={data?.attributes.logo.data?.attributes.url}
             projectManagerName={
               data?.attributes.project_manager.data.attributes.name
             }
@@ -96,36 +96,14 @@ const EmployeeProjectView = (props) => {
             }
             employees={data?.attributes.employees.data}
             setCategoryName={setCategoryName}
+            categoryName={categoryName}
             categories={categories}
             notes={notes}
             status={notesStatus}
+            nameFilter={nameFilter}
+            searchByName={searchByName}
+            setSortValue={setSortValue}
           />
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-          }}
-        >
-          <div className="employee__content">
-            <input
-              value={nameFilter}
-              onChange={searchByName}
-              type={'text'}
-              placeholder="Search"
-            />
-            <select
-              onChange={(e) => setSortValue(e.target.value)}
-              name="value"
-              id="value-select"
-            >
-              <option value={'ASC'}>Sort by:</option>
-              <option value={'ASC'}>Oldest</option>
-              <option value={'DESC'}>Newest</option>
-            </select>
-          </div>
         </div>
       </div>
     </>

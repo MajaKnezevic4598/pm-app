@@ -1,6 +1,7 @@
-@import "../../styles/variables";
+@import '../../styles/variables';
 
 .top-section {
+
   width: 100vw;
   height: 20vh;
   background: $darkPrimary;
@@ -66,24 +67,67 @@
           background: lighten($purplePrimary, 10%);
           cursor: pointer;
         }
-      }
-
-      input {
-        border: none;
-        -webkit-appearance: none;
-        -ms-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        // background: #f2f2f2;
-        background-color: lightgrey;
-        padding: 0.5rem;
-        border-radius: 3px;
-        width: 15vw;
-        font-size: 2vh;
-
-        &:focus {
-          outline: 1px solid #0083b0;
+        .middle-side p:first-child {
+            font-size: 3.5vh;
+            font-weight: bold;
+            letter-spacing: 0.1rem;
+            margin-bottom: 1vh;
         }
+
+        .middle-side p:last-child {
+            color: #fff;
+            font-size: 2vh;
+            letter-spacing: 0.1rem;
+            border: 1px solid #212427;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            background-color: #212427;
+            box-shadow: 0 4px 8px -2px #000;
+        }
+        .right-side {
+            margin-left: auto;
+            display: flex;
+
+            &__btn {
+                padding: 0.5rem;
+                font-size: 2vh;
+                border: none;
+                outline: none;
+                border-radius: 4px;
+                background: linear-gradient(to top, #00b4db, #0083b0);
+                color: #fff;
+                box-shadow: 0 4px 8px -2px #000;
+                margin-left: 2vw;
+
+                &:hover {
+                    background: linear-gradient(
+                        to bottom,
+                        darken(#0083b0, 15%),
+                        darken(#00b4db, 15%)
+                    );
+                    cursor: pointer;
+                }
+            }
+
+            input {
+                border: none;
+                -webkit-appearance: none;
+                -ms-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                // background: #f2f2f2;
+                background-color: lightgrey;
+                padding: 0.5rem;
+                border-radius: 3px;
+                width: 15vw;
+                font-size: 2vh;
+
+                &:focus {
+                    outline: 1px solid #0083b0;
+                }
+            }
+        }
+
       }
     }
   }
@@ -111,34 +155,35 @@
         margin-bottom: 0.5rem;
         width: 25vw;
       }
+
     }
-  }
 
-  @media screen and (max-width: 550px) {
-    .top-section {
-      height: 50vh;
+    @media screen and (max-width: 550px) {
+        .top-section {
+            height: 50vh;
 
-      &__conteiner {
-        flex-wrap: wrap;
+            &__conteiner {
+                flex-wrap: wrap;
 
-        p:first-child {
-          margin-bottom: 2vh;
+                p:first-child {
+                    margin-bottom: 2vh;
+                }
+            }
         }
-      }
-    }
-    .middle-side {
-      width: calc(100% - 120px);
+        .middle-side {
+            width: calc(100% - 120px);
+        }
+
+        .right-side {
+            margin: auto;
+            margin-top: 2vh;
+
+            input {
+                width: 31vw;
+            }
+        }
     }
 
-    .right-side {
-      margin: auto;
-      margin-top: 2vh;
-
-      input {
-        width: 31vw;
-      }
-    }
-  }
 
   @media screen and (max-width: 360px) {
     // .left-side {
@@ -150,10 +195,11 @@
     //   }
     // }
 
-    .middle-side p:first-child {
-      margin-top: 2vh;
+
+        .middle-side p:first-child {
+            margin-top: 2vh;
+        }
     }
-  }
 }
 
 .main-section {
@@ -166,17 +212,18 @@
   // background-color: yellow;
   border: 1px solid black;
   margin: 0 auto;
+
 }
 
 @media screen and (max-width: 650px) {
-  .top-section {
-    padding: 2vh;
-  }
+    .top-section {
+        padding: 2vh;
+    }
 }
 
 @media screen and (max-width: 550px) {
-  .top-section {
-    height: auto;
-    padding: 4vh;
-  }
+    .top-section {
+        height: auto;
+        padding: 4vh;
+    }
 }

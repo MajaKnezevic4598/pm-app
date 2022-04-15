@@ -19,32 +19,49 @@ const Image = React.memo(function Image({ src }) {
   );
 });
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: 'white',
-    border: '1px solid #eee',
-    maxWidth: '90%',
-    wordBreak: 'break-all',
-    boxShadow:
-      'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
-  },
-  overlay: {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    zIndex: '1001',
-  },
-};
 Modal.setAppElement('#root');
 const UserBox = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
 
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      maxHeight: '90%',
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: 'white',
+      border: '1px solid #eee',
+      maxWidth: '90%',
+      minWidth: isMobile ? '90%' : '48%',
+      wordBreak: 'break-all',
+      boxShadow:
+        'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
+    },
+    overlay: {
+      backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      zIndex: '1001',
+    },
   };
 
   return (
@@ -72,13 +89,7 @@ const UserBox = (props) => {
           style={{ cursor: 'pointer' }}
           onClick={() => props.toggleApprove(props.id, props.confirmed)}
         >
-          {
-            props.confirmed
-              ? // <i style={{ color: 'red' }} className="fas fa-thumbs-down"></i>
-                'Unapprove'
-              : 'Approve'
-            // <i style={{ color: 'green' }} className="fas fa-thumbs-up"></i>
-          }
+          {props.confirmed ? 'Unapprove' : 'Approve'}
         </div>
 
         <div
@@ -100,6 +111,9 @@ const UserBox = (props) => {
         style={customStyles}
       >
         <div className="user-modal">
+          <div className="user-modal__close" onClick={closeModal}>
+            <i class="fas fa-times"></i>
+          </div>
           <img
             src={
               props.img
@@ -117,20 +131,26 @@ const UserBox = (props) => {
           >
             {props.name}
           </h2>
-          <div>Email: {props.email}</div>
-          <div>Role: {props.role}</div>
+          <div className="user-modal__info">
+            Email: <span>{props.email}</span>
+          </div>
+          <div className="user-modal__info">
+            Role: <span>{props.role}</span>
+          </div>
           {props.role === 'project_manager' || props.role === 'employee' ? (
-            <div>
-              <div>
+            <div className="user-modal__projects">
+              <div className="user-modal__projects__title">
                 {props.role === 'project_manager'
-                  ? 'Projects Managing:'
+                  ? 'Projects Managing'
                   : props.role === 'employee'
-                  ? 'Projects Assigned:'
+                  ? 'Projects Assigned'
                   : null}
               </div>
-              {props.projects?.map((project) => (
-                <div key={project.id}>{project.attributes.name}</div>
-              ))}
+              <div className="user-modal__projects__list">
+                {props.projects?.map((project) => (
+                  <div key={project.id}>{project.attributes.name}</div>
+                ))}
+              </div>
             </div>
           ) : null}
           <div className="user-modal__action-buttons">
