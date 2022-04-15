@@ -12,12 +12,47 @@ $border-radius-sm: 4px;
 // card backgournd
 
 $card-bg-color: #dde1e7;
-$box-shadow: 2px 0px 10px 2px rgba(0, 0, 0, 0.5);
+$box-shadow-card: -3px -3px 6px rgba(255, 255, 255, 0.45),
+  3px 3px 6px rgba(94, 104, 121, 0.3);
+$box-shadow-small-card: -2px -2px 5px rgba(255, 255, 255, 0.45),
+  2px 2px 5px rgba(94, 104, 121, 0.3);
 
 //button
 $button-width: 6vw;
 $card-width: 22rem;
 //padding
+
+//multiple styles
+
+@mixin smallCard {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1vh 1.5vh;
+  border-radius: $border-radius-sm;
+  box-shadow: $box-shadow-card;
+}
+
+@mixin detailsCard {
+  position: absolute;
+  top: -2vh;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-size: 1.8vh;
+  padding: 1vh;
+  box-shadow: $box-shadow-small-card;
+  font-weight: 600;
+  letter-spacing: 0.1vw;
+  border-radius: 2px;
+}
+
+@mixin logo {
+  height: 9vh;
+  width: 9vh;
+  border-radius: 50%;
+  margin-right: 2vw;
+}
 
 .card {
   width: $card-width;
@@ -28,7 +63,7 @@ $card-width: 22rem;
   background: $card-bg-color;
   border-radius: $border-radius-sm;
   color: $darkPrimary;
-  box-shadow: $box-shadow;
+  // box-shadow: $box-shadow;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -40,52 +75,27 @@ $card-width: 22rem;
   z-index: 1;
 
   &__project-info {
-    display: flex;
-    align-items: center;
-    padding: 1vh 1.5vh;
-    width: 100%;
-    margin-bottom: 3vh;
+    @include smallCard;
+    margin-bottom: 5vh;
 
-    // box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
-    //   inset 5px 5px 9px rgba(94, 104, 121, 0.3);
-    box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
-      5px 5px 9px rgba(94, 104, 121, 0.3);
-
-    border-radius: 4px;
-    position: relative;
     .project-details {
-      position: absolute;
-      top: -4px;
-      left: 50%;
-      transform: translate(-50%, 0);
-      font-size: 2vh;
+      @include detailsCard;
     }
   }
   &__project-logo {
-    height: 9vh;
-    width: 9vh;
-    border-radius: 50%;
-    margin-right: 2vw;
+    @include logo;
   }
 
   &__prmanger-info {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-bottom: 3vh;
-    // box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
-    //   inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+    @include smallCard;
+    margin-bottom: 4vh;
 
-    box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
-      5px 5px 9px rgba(94, 104, 121, 0.3);
-    border-radius: 4px;
-    padding: 1vh 1.5vh;
+    .manager-details {
+      @include detailsCard;
+    }
 
     .project-manager-image {
-      height: 9vh;
-      width: 9vh;
-      border-radius: 50%;
-      margin-right: 2vw;
+      @include logo;
     }
   }
 
@@ -95,12 +105,8 @@ $card-width: 22rem;
     width: 100%;
     font-size: 2.2vh;
     font-weight: bold;
-    box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
-      5px 5px 9px rgba(94, 104, 121, 0.3);
-
-    // box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
-    //   inset 5px 5px 9px rgba(94, 104, 121, 0.3);
-    border-radius: 4px;
+    box-shadow: $box-shadow-card;
+    border-radius: $border-radius-sm;
 
     // &__icon {
     //   position: relative;
@@ -125,23 +131,4 @@ $card-width: 22rem;
     height: auto;
     min-height: auto;
   }
-}
-
-::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: $blue;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  cursor: pointer;
-  background-color: darken($blue, 10%);
 }
