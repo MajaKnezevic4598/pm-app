@@ -11,7 +11,6 @@ const LoadingRoutes = (props) => {
     <>
       <BrowserRouter>
         {role === 'system_administrator' ? <AdminHeader /> : <Header />}
-        {/* <CleanHeader /> */}
         <div
           style={{ width: '100%', height: '4.5em' }}
           className="spacer"
