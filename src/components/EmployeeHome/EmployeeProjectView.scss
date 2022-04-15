@@ -1,6 +1,12 @@
 @import '../../styles/variables';
 
 //BREAKPOINTS
+@mixin extraSmall {
+    @media (max-width: #{$extraSmall}) {
+        @content;
+    }
+}
+
 @mixin small {
     @media (max-width: #{$small}) {
         @content;
@@ -46,7 +52,7 @@
 
 .emp {
     &__description {
-        background: #ede7fd;
+        background: #393d3f;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -74,7 +80,6 @@
             font-weight: 400;
             font-size: 22px;
             line-height: 26px;
-
             color: #5c5c5c;
         }
 
@@ -84,9 +89,22 @@
             font-weight: 600;
             font-size: 24px;
             line-height: 28px;
+            color: #fdfdff;
 
             @include tablet {
-                margin-right: 2rem;
+                margin-left: 2rem;
+                position: relative;
+                font-size: 1rem;
+            }
+
+            @include small {
+                position: relative;
+                right: 9.5rem;
+                top: 6.4rem;
+            }
+
+            @include extraSmall {
+                right: 7.5rem;
             }
 
             &__pmlogo {
@@ -104,6 +122,11 @@
                         width: 2rem;
                         height: 2rem;
                     }
+
+                    @include small {
+                        position: relative;
+                        top: -1rem;
+                    }
                 }
             }
         }
@@ -113,13 +136,25 @@
             font-weight: 600;
             font-size: 1.5rem;
             line-height: 28px;
+            color: #fdfdff;
 
             @include tablet {
+                position: relative;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                margin-right: 1.5rem;
                 margin-bottom: 3.2rem;
                 font-size: 1rem;
+            }
+
+            @include small {
+                top: 2rem;
+                right: 9.5rem;
+            }
+
+            @include extraSmall {
+                right: 7.5rem;
             }
 
             & img {
@@ -134,8 +169,11 @@
                 }
 
                 @include tablet {
+                    position: relative;
                     margin-top: 6rem;
                     margin-left: -4rem;
+                    right: -1.3rem;
+                    top: -1rem;
                     width: 2rem;
                     height: 2rem;
                 }
@@ -181,31 +219,12 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-
     margin-top: 22rem;
     margin-left: 50rem;
 
     & input {
         padding: 0.25rem;
     }
-
-    // @include laptopLarge {
-    //     margin-left: 35rem;
-    // }
-
-    // @include laptopStandard {
-    //     margin-left: 21rem;
-    // }
-
-    // @include tablet {
-    //     margin-left: 13.5rem;
-    //     margin-top: 25.5rem;
-    // }
-
-    // @include mobile {
-    //     margin-left: 2rem;
-    //     margin-top: 36rem;
-    // }
 
     &__select__input {
         margin-left: 1rem;
