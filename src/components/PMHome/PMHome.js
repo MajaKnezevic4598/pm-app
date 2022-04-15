@@ -42,9 +42,9 @@ const PMHome = () => {
     <div>
       <section className="top-section">
         <div className="top-section__conteiner">
-          <div className="left-side">
+          {/* <div className="left-side">
             <img src={DefalutPr} alt="img" className="left-side__project-img" />
-          </div>
+          </div> */}
           <div className="middle-side">
             <p>My Projects</p>
             <p>Here you will find all your projects</p>
