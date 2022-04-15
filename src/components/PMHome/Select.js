@@ -77,18 +77,16 @@ const SelectComponent = (props) => {
     }
   }, [inView]);
 
-  useEffect(() => {
-    console.log(props.employees);
-  }, [props.employees]);
+  // useEffect(() => {
+  //   console.log(props.employees);
+  // }, [props.employees]);
 
   useEffect(() => {
     if (data?.pages) {
-      console.log(data.pages);
+      // console.log(data.pages);
       let newArray = [];
       data.pages.map((page) => {
         page.data.map((item) => {
-          console.log(item);
-          console.log("item iz selecta");
           newArray.push({
             value: item,
             //da value bude objekat

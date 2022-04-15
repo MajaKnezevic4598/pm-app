@@ -1,19 +1,20 @@
-import './EditProject.scss';
-import uuid from 'react-uuid';
-import { useParams } from 'react-router';
-import axiosInstance from '../../helpers/axiosInstance';
-import { useQuery } from 'react-query';
-import SingleEmployee from './SingleEmployee';
-import { useState, useEffect } from 'react';
-import Select from './Select';
-import Default from '../../assets/no-image.png';
-import Spinner from '../Spinner.js/Spinner';
+import "./EditProject.scss";
+import uuid from "react-uuid";
+import { useParams } from "react-router";
+import axiosInstance from "../../helpers/axiosInstance";
+import { useQuery } from "react-query";
+import SingleEmployee from "./SingleEmployee";
+import { useState, useEffect } from "react";
+import Select from "./Select";
+import Default from "../../assets/no-image.png";
+import Spinner from "../Spinner.js/Spinner";
+import { uploadFiles } from "../../services/uploadFiles";
 
 const EditProject = () => {
   const { id } = useParams();
   console.log(id);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [employees, setEmployees] = useState([]);
   const [picture, setPicture] = useState();
   const [loading, setLoading] = useState(false);
@@ -28,9 +29,10 @@ const EditProject = () => {
   };
 
   const { data, isLoading, isError, error, refetch, isFetching, status } =
-    useQuery(['single-project', id], () => {
+    useQuery(["single-project", id], () => {
       return fetchSingleProject(id);
     });
+
   useEffect(() => {
     if (data?.data) {
       console.log(data?.data);
@@ -50,33 +52,13 @@ const EditProject = () => {
     }
   }, [employees]);
 
-  const uploadProjetLogo = async (projectId) => {
-    const formData = new FormData();
-    formData.append('files', picture[0]);
-
-    await axiosInstance
-      .post('/upload', formData)
-      .then((response) => {
-        axiosInstance.put('/projects/' + projectId, {
-          data: {
-            logo: response.data,
-          },
-        });
-        console.log('response iz puta');
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (picture) {
-      await uploadProjetLogo(id);
 
-      console.log('uradio sam refetch');
+    let uploadFileResponse;
+    if (picture) {
+      uploadFileResponse = await uploadFiles(picture[0]);
     }
 
     const employeesSubmit = [];
@@ -87,20 +69,21 @@ const EditProject = () => {
       })
     );
 
-    if (description || name || employees) {
+    if (description || name || employees || picture) {
       await axiosInstance.put(`projects/${id}`, {
         data: {
           description,
           name,
           employees: employeesSubmit,
+          logo: uploadFileResponse ? uploadFileResponse.data[0].id : null,
         },
       });
     }
+    refetch();
     setLoading(false);
-    // refetch();
   };
 
-  if (status === 'loading' || loading) {
+  if (status === "loading" || loading) {
     return <Spinner />;
   }
 
