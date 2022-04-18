@@ -151,11 +151,11 @@ const NotesView = (props) => {
             <div className="emp__description__right__pmlogo">
               <Image
                 src={
-                  data?.data.attributes.project_manager.data?.attributes
-                    .profilePhoto.data.attributes.url
+                  data?.data?.attributes.project_manager.data?.attributes
+                    .profilePhoto.data?.attributes.url
                     ? "https://pm-app-bek.herokuapp.com" +
-                      data?.data.attributes.project_manager.data?.attributes
-                        .profilePhoto.data.attributes.url
+                      data?.data?.attributes.project_manager.data?.attributes
+                        .profilePhoto.data?.attributes.url
                     : Default
                 }
               />
