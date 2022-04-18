@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router";
+
+import { ModalContext } from "../../context/ModalContext";
 
 import Default from "../../assets/no-image.png";
 import Spinner from "../Spinner.js/Spinner";
@@ -10,6 +12,8 @@ import "../EmployeeHome/EmployeeProjectView.scss";
 import axiosInstance from "../../helpers/axiosInstance";
 import { useParams } from "react-router-dom";
 import CreateNewNote from "./CreateNewNote";
+import DeleteProjectModal from "../Modal/DeleteProjectModal";
+import uuid from "react-uuid";
 
 const fetchProject = async (id) => {
   const response = await axiosInstance.get(
@@ -37,8 +41,13 @@ const NotesView = (props) => {
   const [nameFilter, setNameFilter] = useState("");
   const [sortValue, setSortValue] = useState("DESC");
   const [changeViewState, setChangeViewState] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   const navigate = useNavigate();
+
+  const { setIsOpen, isOpen } = useContext(ModalContext);
+  console.log(isOpen);
 
   useEffect(() => {
     // console.log(data);
@@ -88,6 +97,18 @@ const NotesView = (props) => {
       />
     );
   });
+
+  // const modalOn = () => {
+  //   setShowModal(true);
+  // };
+
+  // const modallOff = () => {
+  //   setShowModal(false);
+  // };
+
+  const deleteProject = () => {
+    console.log("delete project");
+  };
   return (
     <>
       <div className="employee">
@@ -113,6 +134,14 @@ const NotesView = (props) => {
               >
                 Edit project
               </div>
+              <div
+                onClick={(e) => {
+                  setIsOpen(true);
+                  console.log("kliknuto na delete project");
+                }}
+              >
+                Delete Project
+              </div>
             </div>
           </div>
           <div className="emp__description__right">
@@ -122,11 +151,11 @@ const NotesView = (props) => {
             <div className="emp__description__right__pmlogo">
               <Image
                 src={
-                  data?.data.attributes.project_manager.data?.attributes
-                    .profilePhoto.data.attributes.url
+                  data?.data?.attributes.project_manager.data?.attributes
+                    .profilePhoto.data?.attributes.url
                     ? "https://pm-app-bek.herokuapp.com" +
-                      data?.data.attributes.project_manager.data?.attributes
-                        .profilePhoto.data.attributes.url
+                      data?.data?.attributes.project_manager.data?.attributes
+                        .profilePhoto.data?.attributes.url
                     : Default
                 }
               />
@@ -200,6 +229,7 @@ const NotesView = (props) => {
             {notes?.map((note) => {
               return (
                 <SingleNote
+                  key={uuid()}
                   id={note.id}
                   refetch={refetch}
                   name={note.attributes.title}
@@ -221,6 +251,19 @@ const NotesView = (props) => {
           categories={categories}
         />
       )}
+      <DeleteProjectModal
+        // show={showModal}
+
+        // modalClosed={modallOff}
+        // clickFirst={modallOff}
+        // clickSecond={deleteProject}
+        projectId={id}
+        projectName={data?.data.attributes.name}
+        projectManager={
+          data?.data.attributes.project_manager.data?.attributes.name
+        }
+        disabled={disabled}
+      />
     </>
   );
 };
