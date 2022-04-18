@@ -50,6 +50,7 @@ const SingleProjectCard = ({
         )}
 
         <h3>{manager}</h3>
+        <div className="manager-details">Manager details:</div>
       </div>
       <div className="card__employee-info">
         {employees} employees
