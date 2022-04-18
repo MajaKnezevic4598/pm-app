@@ -1,0 +1,35 @@
+@import "../../styles/variables";
+
+.notes-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: yellow;
+
+  &__conteiner {
+    border: 1px solid black;
+    background-color: orange;
+    width: 80vw;
+
+    header {
+      width: 100%;
+      display: flex;
+      height: 6vh;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid black;
+      div {
+        margin-right: 2vw;
+        overflow-y: auto;
+      }
+    }
+
+    .add-search-filter {
+      display: flex;
+      border: 1px solid black;
+      height: auto;
+      background-color: green;
+    }
+  }
+}

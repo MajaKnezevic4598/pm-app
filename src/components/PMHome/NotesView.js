@@ -8,7 +8,8 @@ import Default from "../../assets/no-image.png";
 import Spinner from "../Spinner.js/Spinner";
 import SingleNote from "../EmployeeHome/SingleNote";
 import EmptyNote from "../EmployeeHome/EmptyNote";
-import "../EmployeeHome/EmployeeProjectView.scss";
+// import "../EmployeeHome/EmployeeProjectView.scss";
+import "./NotesView.scss";
 import axiosInstance from "../../helpers/axiosInstance";
 import { useParams } from "react-router-dom";
 import CreateNewNote from "./CreateNewNote";
@@ -180,68 +181,67 @@ const NotesView = (props) => {
       </div>
       {!changeViewState ? (
         <>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            <div className="employee__content">
+          <div className="notes-view">
+            <div className="notes-view__conteiner">
               <header>
                 {categories?.map((category) => {
                   return (
-                    <section
+                    <div
                       onClick={() => setCategoryName(category.attributes.name)}
                     >
                       {category.attributes.name}
-                    </section>
+                    </div>
                   );
                 })}
               </header>
+              <div className="add-search-filter">
+                <div>
+                  <button className="add-project" onClick={changeFunction}>
+                    ADD NOTE
+                  </button>
+                </div>
+
+                <div>
+                  <input
+                    value={nameFilter}
+                    onChange={searchByName}
+                    type={"text"}
+                    placeholder="Search"
+                  />
+                </div>
+                <div>
+                  {" "}
+                  <select
+                    onChange={(e) => setSortValue(e.target.value)}
+                    name="value"
+                    id="value-select"
+                  >
+                    <option value={"ASC"}>Sort by:</option>
+                    <option value={"ASC"}>Oldest</option>
+                    <option value={"DESC"}>Newest</option>
+                  </select>
+                </div>
+              </div>
+              <div className="empty-note">
+                {notes?.length < 1 ? <EmptyNote /> : null}
+                {notes?.map((note) => {
+                  return (
+                    <SingleNote
+                      key={uuid()}
+                      id={note.id}
+                      refetch={refetch}
+                      name={note.attributes.title}
+                      description={note.attributes.description}
+                      photo={
+                        note.attributes.profile.data?.attributes.profilePhoto
+                          .data?.attributes.url
+                      }
+                      pmName={note.attributes.profile.data?.attributes.name}
+                    />
+                  );
+                })}
+              </div>
             </div>
-            <div className="notecreate__button__add" onClick={changeFunction}>
-              <button>ADD NOTE</button>
-            </div>
-          </div>
-          <div>
-            <div className="employee__content">
-              <input
-                value={nameFilter}
-                onChange={searchByName}
-                type={"text"}
-                placeholder="Search"
-              />
-              <select
-                onChange={(e) => setSortValue(e.target.value)}
-                name="value"
-                id="value-select"
-              >
-                <option value={"ASC"}>Sort by:</option>
-                <option value={"ASC"}>Oldest</option>
-                <option value={"DESC"}>Newest</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            {notes?.length < 1 ? <EmptyNote /> : null}
-            {notes?.map((note) => {
-              return (
-                <SingleNote
-                  key={uuid()}
-                  id={note.id}
-                  refetch={refetch}
-                  name={note.attributes.title}
-                  description={note.attributes.description}
-                  photo={
-                    note.attributes.profile.data?.attributes.profilePhoto.data
-                      ?.attributes.url
-                  }
-                  pmName={note.attributes.profile.data?.attributes.name}
-                />
-              );
-            })}
           </div>
         </>
       ) : (
@@ -252,11 +252,6 @@ const NotesView = (props) => {
         />
       )}
       <DeleteProjectModal
-        // show={showModal}
-
-        // modalClosed={modallOff}
-        // clickFirst={modallOff}
-        // clickSecond={deleteProject}
         projectId={id}
         projectName={data?.data.attributes.name}
         projectManager={
