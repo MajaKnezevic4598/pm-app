@@ -11,6 +11,12 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     border-radius: 4px;
 
+
+    @media screen and (max-width:650px){
+        width: 90%;
+     }
+   
+
     &__header {
         width: 100%;
         background: #987197;
@@ -28,6 +34,12 @@
             margin-left: 20px;
 
             color: #FDFDFF;
+
+            
+        @media screen and (max-width:650px){
+            font-size: 20px;
+
+         }
         }
 
         &__back {
@@ -47,6 +59,10 @@
         margin: 0 auto;
         padding: 2rem 0;
 
+        @media screen and (max-width:650px){
+               flex-direction: column;
+            }
+
         &__info {
             font-weight: 500;
             font-size: 24px;
@@ -54,6 +70,10 @@
             padding-right: 3rem;
             color: #000000;
             text-align: center;
+            @media screen and (max-width:650px){
+                padding-right: 0;
+                margin-bottom: 1.5rem;
+             }
         }
 
         form {
