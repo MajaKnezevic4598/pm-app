@@ -1,5 +1,6 @@
 import "./SingleEmployee.scss";
-import { MdDeleteForever } from "react-icons/md";
+// import { MdDeleteForever } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 const SingleEmployee = ({
   name,
@@ -21,7 +22,7 @@ const SingleEmployee = ({
         alt="profilePhoto"
         className="profile-photo"
       />
-      <MdDeleteForever onClick={handleClick} />
+      <MdDelete onClick={handleClick} className="delete" />
     </div>
   );
 };

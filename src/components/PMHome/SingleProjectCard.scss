@@ -122,6 +122,10 @@ $card-width: 22rem;
     //   font-size: 0.7rem;
     // }
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 @media screen and (max-width: 480px) {

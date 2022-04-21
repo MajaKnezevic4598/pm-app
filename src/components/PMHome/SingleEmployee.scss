@@ -2,14 +2,32 @@
 
 .single-employee-conteiner {
   display: flex;
-  padding: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.7rem 0.5rem;
   border: 1px solid gray;
   border-radius: 4px;
+  margin-bottom: 2vh;
+  div:first-of-type {
+    margin-right: auto;
+    font-size: 2.5vh;
+    font-weight: bold;
+  }
 
   img {
     height: 20px;
     width: 20px;
     object-fit: cover;
     border-radius: 50%;
+  }
+  .delete {
+    color: $darkPrimary;
+    font-size: 3vh;
+    font-weight: bold;
+    margin-left: 1.2vw;
+    &:hover {
+      cursor: pointer;
+      color: lighten($darkPrimary, 10%);
+    }
   }
 }

@@ -1,49 +1,155 @@
-@import '../../styles/variables';
+@import "../../styles/variables";
 
 @mixin mobile {
-    @media (max-width: #{$mobileLarge}) {
-        @content;
-    }
+  @media (max-width: #{$mobileLarge}) {
+    @content;
+  }
 }
 
 .note {
-    // display: inline-flex;
-    // position: relative;
-    // align-items: flex-start;
-    // padding-left: 4rem;
-    &__content {
-        background-color: #ffffff;
-        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
-        border-radius: 1rem 1rem;
-        margin: 2rem auto;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        width: 24rem;
-        justify-content: center;
-        padding: 2rem 4rem 2rem 4rem;
+  width: 30vw;
 
-        &:hover {
-            border: 1px solid rgb(192, 192, 192);
-            cursor: pointer;
-            transform: scale(1.01);
-        }
+  &__content {
+    background-color: #dde1e7;
+    box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
+      3px 3px 6px rgba(94, 104, 121, 0.3);
+    border-radius: 4px;
+    margin: 4vh 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 
-        @include mobile {
-            width: 80%;
-        }
+    // justify-content: flex-start;
+    padding: 3vh;
+
+    &:hover {
+      //   border: 1px solid rgb(192, 192, 192);
+      box-shadow: -6px -6px 9px rgba(255, 255, 255, 0.45),
+        6px 6px 9px rgba(94, 104, 121, 0.3);
+      cursor: pointer;
+      transform: scale(1.01);
     }
 
-    &__image {
-        width: 32px;
-        height: 32px;
-        object-fit: cover;
-        border-radius: 50%;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        cursor: pointer;
+    @include mobile {
+      width: 80%;
     }
+  }
 
-    &__name {
-        padding-left: 8px;
+  .right-buttons {
+    display: flex;
+
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 3vh;
+    .edit,
+    .delete {
+      margin-right: 0.3vw;
+      font-size: 2vh;
+      color: $darkPrimary;
+      text-transform: uppercase;
+      font-weight: bold;
+      &:hover {
+        color: lighten($darkPrimary, 20%);
+      }
     }
+    .sm-icon {
+      font-size: 2.8vh;
+      margin-right: 1vw;
+      color: $darkPrimary;
+      //   &.red {
+      //     color: #f88379;
+      //     &:hover {
+      //       color: darken(#f88379, 5%);
+      //     }
+      //   }
+      &:hover {
+        color: lighten($darkPrimary, 10%);
+      }
+    }
+  }
+
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    // border: 1px solid black;
+    width: 100%;
+    margin-bottom: 3vh;
+    padding: 2vh 1vh;
+    box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
+      3px 3px 6px rgba(94, 104, 121, 0.3);
+    border-radius: 4px;
+
+    .title {
+      font-size: 3vh;
+      font-weight: bold;
+      color: $darkPrimary;
+      margin-right: auto;
+    }
+    // .edit,
+    // .delete {
+    //   margin-right: 0.3vw;
+    //   font-size: 2vh;
+    //   color: $darkPrimary;
+    //   text-transform: uppercase;
+    //   font-weight: bold;
+    //   &:hover {
+    //     color: lighten($darkPrimary, 20%);
+    //   }
+    // }
+    // .sm-icon {
+    //   font-size: 2.8vh;
+    //   margin-right: 1vw;
+    //   color: $darkPrimary;
+    //   &:hover {
+    //     color: lighten($darkPrimary, 20%);
+    //   }
+    // }
+  }
+
+  &__description {
+    width: 100%;
+    // border: 1px solid black;
+    margin-bottom: 2vh;
+    padding: 2vh 1vh;
+    box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
+      3px 3px 6px rgba(94, 104, 121, 0.3);
+    border-radius: 4px;
+  }
+
+  &__footer {
+    display: flex;
+    // border: 1px solid black;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2vh 1vh;
+    box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
+      3px 3px 6px rgba(94, 104, 121, 0.3);
+    border-radius: 4px;
+    .footer-img {
+      width: 5vh;
+      height: 5vh;
+      border-radius: 50%;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+    .footer-pmName {
+      font-size: 2.2vh;
+      font-weight: bold;
+      color: $darkPrimary;
+    }
+  }
+
+  //   &__image {
+  //     width: 32px;
+  //     height: 32px;
+  //     object-fit: cover;
+  //     border-radius: 50%;
+  //     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  //     cursor: pointer;
+  //   }
+
+  //   &__name {
+  //     padding-left: 8px;
+  //   }
 }
