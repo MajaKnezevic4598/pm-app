@@ -15,6 +15,8 @@ import { useParams } from "react-router-dom";
 import CreateNewNote from "./CreateNewNote";
 import DeleteProjectModal from "../Modal/DeleteProjectModal";
 import uuid from "react-uuid";
+import { MdDelete } from "react-icons/md";
+import { BiEdit } from "react-icons/bi";
 
 const fetchProject = async (id) => {
   const response = await axiosInstance.get(
@@ -140,6 +142,12 @@ const NotesView = (props) => {
                 >
                   Edit
                 </div>
+                <BiEdit
+                  className="edit-project"
+                  onClick={() => {
+                    navigate(`edit-project`);
+                  }}
+                />
                 <div
                   onClick={(e) => {
                     setIsOpen(true);
@@ -148,6 +156,12 @@ const NotesView = (props) => {
                 >
                   Delete
                 </div>
+                <MdDelete
+                  className="delete-project"
+                  onClick={(e) => {
+                    setIsOpen(true);
+                  }}
+                />
               </div>
 
               <div className="project-details__description">

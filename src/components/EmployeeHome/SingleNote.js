@@ -23,16 +23,19 @@ const SingleNote = (props) => {
   return (
     <div className="note">
       <div className="note__content">
-        <div className="note__head">
-          <p className="title">{props.name}</p>
+        <div className="right-buttons">
           <p onClick={editNote} className="edit">
             Edit
           </p>
           <BiEdit onClick={editNote} className="sm-icon" />
+
           <p onClick={deleteNote} className="delete">
             Delete
           </p>
-          <MdDelete onClick={deleteNote} className="sm-icon" />
+          <MdDelete onClick={deleteNote} className="sm-icon red" />
+        </div>
+        <div className="note__head">
+          <p className="title">{props.name}</p>
         </div>
         <div className="note__description"> {props.description}</div>
         <div className="note__footer">

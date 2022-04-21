@@ -35,6 +35,39 @@
     }
   }
 
+  .right-buttons {
+    display: flex;
+
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 3vh;
+    .edit,
+    .delete {
+      margin-right: 0.3vw;
+      font-size: 2vh;
+      color: $darkPrimary;
+      text-transform: uppercase;
+      font-weight: bold;
+      &:hover {
+        color: lighten($darkPrimary, 20%);
+      }
+    }
+    .sm-icon {
+      font-size: 2.8vh;
+      margin-right: 1vw;
+      color: $darkPrimary;
+      //   &.red {
+      //     color: #f88379;
+      //     &:hover {
+      //       color: darken(#f88379, 5%);
+      //     }
+      //   }
+      &:hover {
+        color: lighten($darkPrimary, 10%);
+      }
+    }
+  }
+
   &__head {
     display: flex;
     flex-wrap: wrap;
@@ -54,25 +87,25 @@
       color: $darkPrimary;
       margin-right: auto;
     }
-    .edit,
-    .delete {
-      margin-right: 0.3vw;
-      font-size: 2vh;
-      color: $darkPrimary;
-      text-transform: uppercase;
-      font-weight: bold;
-      &:hover {
-        color: lighten($darkPrimary, 20%);
-      }
-    }
-    .sm-icon {
-      font-size: 2.8vh;
-      margin-right: 1vw;
-      color: $darkPrimary;
-      &:hover {
-        color: lighten($darkPrimary, 20%);
-      }
-    }
+    // .edit,
+    // .delete {
+    //   margin-right: 0.3vw;
+    //   font-size: 2vh;
+    //   color: $darkPrimary;
+    //   text-transform: uppercase;
+    //   font-weight: bold;
+    //   &:hover {
+    //     color: lighten($darkPrimary, 20%);
+    //   }
+    // }
+    // .sm-icon {
+    //   font-size: 2.8vh;
+    //   margin-right: 1vw;
+    //   color: $darkPrimary;
+    //   &:hover {
+    //     color: lighten($darkPrimary, 20%);
+    //   }
+    // }
   }
 
   &__description {
