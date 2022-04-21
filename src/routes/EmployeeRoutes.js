@@ -18,10 +18,7 @@ const EmployeeRoutes = (props) => {
         <Routes>
           <Route path="/" element={<EmployeeHome />} />
           <Route path="/account" element={<Account />} />
-             <Route
-                path="/:id/employee-project-view"
-                element={<EmployeeProjectView />}
-             />
+          <Route path="/project/:id" element={<EmployeeProjectView />} />
         </Routes>
       </BrowserRouter>
     </>

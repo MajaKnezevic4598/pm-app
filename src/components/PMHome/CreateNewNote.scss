@@ -1,122 +1,138 @@
 @import '../../styles/variables';
 
-.info {
+.new-note {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin-top: 1rem;
+    align-items: center;
+    width: 70%;
+    margin: 2rem auto;
+    background: #F8F8F8;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    border-radius: 4px;
 
-    & h1 {
-        font-size: 1.5rem;
-        font-weight: 600;
+
+    @media screen and (max-width:650px){
+        width: 90%;
+     }
+   
+
+    &__header {
+        width: 100%;
+        background: #987197;
+        border-radius:5px;
+        padding: 1.5rem 1rem;
+        display: flex;
+        align-items: center;
+
+        &__title {
+            font-family: $roboto-font;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 28px;
+            margin-left: 20px;
+
+            color: #FDFDFF;
+
+            
+        @media screen and (max-width:650px){
+            font-size: 20px;
+
+         }
+        }
+
+        &__back {
+            cursor: pointer;
+        }
+
+        div {
+            color: $whitePrimary;
+        }
+
+
     }
 
-    & p {
-        cursor: pointer;
-        font-size: 0.85rem;
-        font-style: italic;
-        color: #2d3748;
-        padding: 0.3rem 1rem;
+    &__content {
+        display: flex;
+        width: 90%;
+        margin: 0 auto;
+        padding: 2rem 0;
+
+        @media screen and (max-width:650px){
+               flex-direction: column;
+            }
+
+        &__info {
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 28px;
+            padding-right: 3rem;
+            color: #000000;
+            text-align: center;
+            @media screen and (max-width:650px){
+                padding-right: 0;
+                margin-bottom: 1.5rem;
+             }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            .note-title {
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+                margin-bottom: 8px;
+                /* identical to box height, or 150% *//* gray/700 */
+                color: #2D3748;
+            }
+
+            .note-input {
+                background: #FFFFFF;
+                border: 1px solid #E2E8F0;
+                box-sizing: border-box;
+                border-radius: 6px;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 28px;
+                padding: 0.5rem 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .note-input:focus {
+                outline: none;
+            }
+        }
     }
 }
 
-.notecreate {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.btn-upload {
+    border: 1px solid #E2E8F0;
+    box-sizing: border-box;
+    border-radius: 6px;
+    width: fit-content;
+    padding: 0.7rem 1.7rem;
+    font-weight: 500;
+    cursor: pointer;
+}
 
-    & form {
-        width: 500px;
-        padding: 1rem 1rem;
-
-        & label {
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 0.03em;
-            font-weight: bold;
-        }
-
-        & input,
-        textarea {
-            border: 1px solid #ccc;
-            color: #333;
-            width: calc(100% - 10px);
-        }
-
-        & input,
-        textarea,
-        button {
-            border-radius: 4px;
-            padding: 28px 15px;
-            font-weight: 300;
-        }
-    }
-
-    &__button__upload {
-        color: black;
-        border: none;
-        width: 98%;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        cursor: pointer;
-        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
-        transition: 0.25s all ease;
-        &:hover {
-            transform: translateY(1px);
-        }
-    }
-
-    &__button__submit {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: black;
-        border: none;
-        width: 98%;
-        // font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        cursor: pointer;
-        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
-        transition: 0.25s all ease;
-        &:hover {
-            transform: translateY(1px);
-        }
-    }
-
-    &__button__add {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: black;
-        border: none;
-        width: 18%;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        padding: 0.5rem 0.5rem;
-        border-radius: 0.2rem;
-        cursor: pointer;
-        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
-        transition: 0.25s all ease;
-        &:hover {
-            cursor: pointer;
-            transform: translateY(1px);
-        }
-    }
-
-    .button-save-upload {
-        color: white;
-        border: none;
-        width: 100%;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        background: #ccc;
-        cursor: pointer;
-        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
-        transition: 0.25s all ease;
-        &:hover {
-            transform: translateY(2px);
-        }
-    }
+.btn-submit {
+    cursor: pointer;
+    align-self: flex-end;
+    background: #987197;
+    border-radius: 6px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+    color: #FFFFFF;
+    padding: 0.5rem 1.5rem;
+    margin-top: 3rem;
 }

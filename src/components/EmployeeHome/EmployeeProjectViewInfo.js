@@ -90,11 +90,6 @@ const EmployeeProjectViewInfo = (props) => {
                       props.categoryName === category.attributes.name
                         ? 'black'
                         : 'white',
-                    //   border:
-                    //     props.categoryName === category.attributes.name
-                    //       ? '1px solid gray'
-                    //       : 'none',
-
                     borderRadius:
                       props.categoryName === category.attributes.name
                         ? '0px 0px 1px 1px'
