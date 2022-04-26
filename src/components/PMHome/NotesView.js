@@ -135,33 +135,6 @@ const NotesView = (props) => {
               <div className="project-details__head">
                 {" "}
                 <div>{data?.data.attributes.name}</div>
-                <div
-                  onClick={() => {
-                    navigate(`edit-project`);
-                  }}
-                >
-                  Edit
-                </div>
-                <BiEdit
-                  className="edit-project"
-                  onClick={() => {
-                    navigate(`edit-project`);
-                  }}
-                />
-                <div
-                  onClick={(e) => {
-                    setIsOpen(true);
-                    console.log("kliknuto na delete project");
-                  }}
-                >
-                  Delete
-                </div>
-                <MdDelete
-                  className="delete-project"
-                  onClick={(e) => {
-                    setIsOpen(true);
-                  }}
-                />
               </div>
 
               <div className="project-details__description">
@@ -201,6 +174,40 @@ const NotesView = (props) => {
                   />
                 );
               })}
+            </div>
+          </div>
+          <div className="edit-delete-conteiner">
+            <div className="edit-delete-conteiner__edit">
+              <div
+                onClick={() => {
+                  navigate(`edit-project`);
+                }}
+              >
+                Edit
+              </div>
+              <BiEdit
+                className="edit-project"
+                onClick={() => {
+                  navigate(`edit-project`);
+                }}
+              />
+            </div>
+            <div className="edit-delete-conteiner__delete">
+              {" "}
+              <div
+                onClick={(e) => {
+                  setIsOpen(true);
+                  console.log("kliknuto na delete project");
+                }}
+              >
+                Delete
+              </div>
+              <MdDelete
+                className="delete-project"
+                onClick={(e) => {
+                  setIsOpen(true);
+                }}
+              />
             </div>
           </div>
         </div>
