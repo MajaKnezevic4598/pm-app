@@ -1,10 +1,10 @@
 @import "../../styles/variables";
 
-@mixin mobile {
-  @media (max-width: #{$mobileLarge}) {
-    @content;
-  }
-}
+// @mixin mobile {
+//   @media (max-width: #{$mobileLarge}) {
+//     @content;
+//   }
+// }
 
 .note {
   width: 25vw;
@@ -30,9 +30,9 @@
       transform: scale(1.01);
     }
 
-    @include mobile {
-      width: 80%;
-    }
+    // @include mobile {
+    //   width: 80%;
+    // }
   }
 
   .right-buttons {

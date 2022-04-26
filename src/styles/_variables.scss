@@ -1,14 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Neucha&family=Ubuntu:ital,wght@0,400;0,500;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Neucha&family=Ubuntu:ital,wght@0,400;0,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
 //FONTS
-$ubuntu-font: 'Ubuntu', sans-serif;
-$roboto-font: 'Roboto', sans-serif;
+$ubuntu-font: "Ubuntu", sans-serif;
+$roboto-font: "Roboto", sans-serif;
+$roboto-font-mono: "Roboto Mono", monospace;
+$logo-font: "Pacifico", cursive;
 
 //COLORS
-$bluePrimary:#62929E;
+$bluePrimary: #62929e;
 $purplePrimary: #987197;
-$darkPrimary: #393D3F;
-$whitePrimary: #FDFDFF;
+$darkPrimary: #393d3f;
+$whitePrimary: #fdfdff;
 $grayPrimary: #cccccc;
 $backGround: rgb(255, 255, 255);
 $basicWhite: white;
@@ -52,9 +58,9 @@ $medium: 50rem;
 $large: 78.125rem;
 
 @mixin breakpoint($point) {
-    @if $point == md {
-        @media (min-width: $md) {
-            @content;
-        }
+  @if $point == md {
+    @media (min-width: $md) {
+      @content;
     }
+  }
 }

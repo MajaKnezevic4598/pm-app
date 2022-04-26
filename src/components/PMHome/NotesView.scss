@@ -10,19 +10,23 @@ $conteiner-bg-color: #dde1e7;
   background-color: $darkPrimary;
   padding-bottom: 2vh;
   padding-top: 2vh;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  font-family: $roboto-font-mono;
 }
 
 .employee-header-conteiner {
   width: 95%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  border: 1px solid white;
+  // border: 1px solid white;
 
   &__left {
     display: flex;
+    align-items: center;
     width: 30%;
-    border: 1px solid white;
+    // border: 1px solid white;
     .header-logo {
       .picture {
         width: 8vh;
@@ -50,10 +54,32 @@ $conteiner-bg-color: #dde1e7;
         font-size: 2.2vh;
       }
     }
+
+    @media screen and (max-width: 650px) {
+      .header-logo {
+        .picture {
+          width: 6vh;
+          height: 6vh;
+        }
+      }
+      .project-details {
+        &__head {
+          div:nth-of-type(1) {
+            font-size: 2.8vh;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 550px) {
+      width: 50%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+    }
   }
 
   &__middle {
-    border: 1px solid white;
+    // border: 1px solid white;
     display: flex;
     align-items: center;
     width: 30%;
@@ -72,13 +98,31 @@ $conteiner-bg-color: #dde1e7;
       color: #fdfdff;
       letter-spacing: 0.1vw;
     }
+    @media screen and (max-width: 650px) {
+      .middle-picture {
+        .picture {
+          width: 6vh;
+          height: 6vh;
+        }
+      }
+      .manager-name {
+        font-size: 2.2vh;
+      }
+    }
+    @media screen and (max-width: 550px) {
+      width: 50%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      margin: 1.5vh 0;
+    }
   }
 
   &__right {
     width: 20%;
     display: flex;
     flex-direction: column;
-    border: 1px solid white;
+    // border: 1px solid white;
     p {
       font-size: 2vh;
       font-weight: bold;
@@ -92,10 +136,36 @@ $conteiner-bg-color: #dde1e7;
       height: 5vh;
       border-radius: 50%;
     }
+
+    @media screen and (max-width: 650px) {
+      .picture {
+        width: 4vh;
+        height: 4vh;
+      }
+      p {
+        margin-bottom: 1vh;
+        font-size: 1.8vh;
+      }
+    }
+    @media screen and (max-width: 550px) {
+      width: 50%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      align-items: center;
+      p {
+        margin-left: 4vw;
+      }
+      .picture {
+        margin-left: 1.5vw;
+      }
+    }
   }
   .edit-delete-conteiner {
     width: 10%;
-    border: 1px solid white;
+    // border: 1px solid white;
     display: flex;
     flex-direction: column;
 
@@ -131,6 +201,17 @@ $conteiner-bg-color: #dde1e7;
       margin-bottom: 1vh;
     }
   }
+  @media screen and (max-width: 550px) {
+    .edit-delete-conteiner {
+      width: 50%;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .edit-delete-conteiner {
+      width: 100%;
+      align-items: center;
+    }
+  }
 }
 
 .notes-view {
@@ -149,6 +230,7 @@ $conteiner-bg-color: #dde1e7;
     border-radius: 4px;
     background-color: $conteiner-bg-color;
     box-shadow: inset 2px 2px 5px rgba(94, 104, 121, 0.3);
+    font-family: $roboto-font-mono;
 
     header {
       width: 100%;
@@ -176,6 +258,12 @@ $conteiner-bg-color: #dde1e7;
         margin-top: 10px;
         width: 12vw;
         box-shadow: inset 2px 2px 5px rgba(94, 104, 121, 0.3);
+        &:not([class="active"]) {
+          &:hover {
+            background-color: darken(#dde1e7, 10%);
+            transition: background-color 0.4s ease;
+          }
+        }
       }
       .active {
         margin-top: 5px;
