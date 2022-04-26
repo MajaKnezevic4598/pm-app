@@ -9,13 +9,34 @@ const CreateNewNote = (props) => {
   const [noteDescription, setNoteDescription] = useState('');
   const [category, setCategory] = useState(null);
   const profileId = localStorage.getItem('profileId');
+  const [files, setFiles] = useState();
+
+  const uploadImage = async (id) => {
+    const formData = new FormData();
+
+    formData.append('files', files[0]);
+
+    axiosInstance
+      .post('/upload', formData)
+      .then((response) => {
+        axiosInstance.put('/notes/' + id, {
+          data: {
+            files: response.data,
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const saveNote = async (e) => {
     e.preventDefault();
     if (!category || !noteDescription || !noteTitle) {
       return;
     }
-    await axiosInstance.post('/notes', {
+
+    const notesData = await axiosInstance.post('/notes', {
       data: {
         title: noteTitle,
         description: noteDescription,
@@ -24,6 +45,10 @@ const CreateNewNote = (props) => {
         profile: profileId,
       },
     });
+
+    if (files && notesData) {
+      await uploadImage(notesData.data.data.id);
+    }
     props.setChangeView(false);
   };
   return (
@@ -74,7 +99,16 @@ const CreateNewNote = (props) => {
               );
             })}
           </select>
-          <button className="btn-upload">UPLOAD FILE</button>
+
+          <input
+            id="file-upload"
+            type="file"
+            style={{ display: 'none' }}
+            onChange={(e) => setFiles(e.target.files)}
+          />
+          <label htmlFor="file-upload" className="btn-upload">
+            UPLOAD FILE
+          </label>
           <button className="btn-submit" type="submit">
             SAVE NOTE
           </button>
