@@ -1,6 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router";
+import gsap from "gsap";
+import { AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft } from "react-icons/ai";
 
 import { ModalContext } from "../../context/ModalContext";
 
@@ -48,6 +51,11 @@ const NotesView = (props) => {
   const [disabled, setDisabled] = useState(true);
   const [activeTab, setActiveTab] = useState("");
 
+  const [scrollX, setscrollX] = useState(0);
+  const [scrolEnd, setscrolEnd] = useState(false);
+
+  let scrl = useRef(null);
+
   const styleHeader = {
     borderBottom: "2px solid #987197",
   };
@@ -57,6 +65,42 @@ const NotesView = (props) => {
     borderRight: "2px solid #987197",
     borderBottom: "2px solid #987197",
     boxShadow: "inset 0 0 10px rgba(0,0,0,0.3)",
+  };
+
+  const slide = (shift) => {
+    scrl.current.scrollLeft += shift;
+    setscrollX(scrollX + shift);
+
+    if (
+      Math.floor(scrl.current.scrollWidth - scrl.current.scrollLeft) <=
+      scrl.current.offsetWidth
+    ) {
+      setscrolEnd(true);
+    } else {
+      setscrolEnd(false);
+    }
+  };
+
+  //Anim
+  const anim = (e) => {
+    gsap.from(e.target, { scale: 1 });
+    gsap.to(e.target, { scale: 1.2 });
+  };
+  const anim2 = (e) => {
+    gsap.from(e.target, { scale: 1.2 });
+    gsap.to(e.target, { scale: 1 });
+  };
+
+  const scrollCheck = () => {
+    setscrollX(scrl.current.scrollLeft);
+    if (
+      Math.floor(scrl.current.scrollWidth - scrl.current.scrollLeft) <=
+      scrl.current.offsetWidth
+    ) {
+      setscrolEnd(true);
+    } else {
+      setscrolEnd(false);
+    }
   };
 
   const handleTab = (index) => {
@@ -219,23 +263,49 @@ const NotesView = (props) => {
               className="notes-view__conteiner"
               // style={activeTab ? style : null}
             >
-              <header style={activeTab ? styleHeader : null}>
-                {categories?.map((category, index) => {
-                  return (
-                    <div
-                      className={
-                        activeTab === `category-${index}` ? "active" : ""
-                      }
-                      onClick={() => {
-                        setCategoryName(category.attributes.name);
-                        handleTab(index);
-                      }}
-                    >
-                      {category.attributes.name}
-                    </div>
-                  );
-                })}
-              </header>
+              <div className="header-conteiner">
+                {scrollX !== 0 && (
+                  <button
+                    className="prev"
+                    onClick={() => slide(-100)}
+                    onMouseEnter={(e) => anim(e)}
+                    onMouseLeave={(e) => anim2(e)}
+                  >
+                    <AiOutlineLeft className="left-arrow" />
+                  </button>
+                )}
+                <header
+                  style={activeTab ? styleHeader : null}
+                  ref={scrl}
+                  onScroll={scrollCheck}
+                >
+                  {categories?.map((category, index) => {
+                    return (
+                      <div
+                        className={
+                          activeTab === `category-${index}` ? "active" : ""
+                        }
+                        onClick={() => {
+                          setCategoryName(category.attributes.name);
+                          handleTab(index);
+                        }}
+                      >
+                        {category.attributes.name}
+                      </div>
+                    );
+                  })}
+                </header>
+                {!scrolEnd && (
+                  <button
+                    className="next"
+                    onClick={() => slide(+100)}
+                    onMouseEnter={(e) => anim(e)}
+                    onMouseLeave={(e) => anim2(e)}
+                  >
+                    <AiOutlineRight className="right-arrow" />
+                  </button>
+                )}
+              </div>
               <section style={activeTab ? styleSection : null}>
                 <div className="add-search-filter">
                   <div>
