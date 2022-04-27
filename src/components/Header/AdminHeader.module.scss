@@ -1,15 +1,17 @@
-@import './../../styles/variables';
+@import "./../../styles/variables";
 
 .header {
   height: $headerHeight;
   background: $darkPrimary;
   color: $text2;
   position: fixed;
-  width: 100%;
+  width: 100vw;
+  // width: 100%;
   z-index: 1000;
+  font-family: $roboto-font-mono;
 
   &__content {
-    max-width: 1920px;
+    // max-width: 1920px;
     margin: 0 auto;
     padding: 0 $spacing-medium;
     @include breakpoint(md) {
@@ -63,6 +65,7 @@
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
+
   color: $text2;
   padding-left: 1rem;
   letter-spacing: 1px;
