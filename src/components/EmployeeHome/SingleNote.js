@@ -36,16 +36,24 @@ const SingleNote = (props) => {
         </div>
         <div className="note__head">
           <p className="title">{props.name}</p>
+          <div>Note title:</div>
         </div>
-        <div className="note__description"> {props.description}</div>
-        <div className="note__footer">
+        <div className="note__description">
           {" "}
+          <div>
+            <p className="description"> {props.description}</p>
+          </div>
+          <div>Note description:</div>
+        </div>
+
+        <div className="note__footer">
           <img
             className="footer-img"
             src={"https://pm-app-bek.herokuapp.com" + props.photo}
             alt="profilephoto"
           />
           <p className="footer-pmName">{props.pmName}</p>
+          <div className="footer-details">Project manager:</div>
         </div>
         {/* <p
                     className="edit"

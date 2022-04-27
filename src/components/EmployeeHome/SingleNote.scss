@@ -6,8 +6,25 @@
 //   }
 // }
 
+$box-shadow-small-card: -2px -2px 5px rgba(255, 255, 255, 0.45),
+  2px 2px 5px rgba(32, 58, 104, 0.3);
+
+@mixin detailsCard {
+  position: absolute;
+  top: -2vh;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-size: 1.8vh;
+  padding: 1vh;
+  box-shadow: $box-shadow-small-card;
+  font-weight: 600;
+  letter-spacing: 0.1vw;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
 .note {
-  width: 25vw;
+  width: 24vw;
 
   &__content {
     background-color: #dde1e7;
@@ -40,14 +57,15 @@
 
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 3vh;
+    margin-bottom: 4vh;
     .edit,
     .delete {
       margin-right: 0.3vw;
-      font-size: 2vh;
+      font-size: 1.7vh;
       color: $darkPrimary;
+
       text-transform: uppercase;
-      font-weight: bold;
+      font-weight: 700;
       &:hover {
         color: lighten($darkPrimary, 20%);
       }
@@ -80,6 +98,10 @@
     box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
       3px 3px 6px rgba(94, 104, 121, 0.3);
     border-radius: 4px;
+    position: relative;
+    & > div {
+      @include detailsCard;
+    }
 
     .title {
       font-size: 3vh;
@@ -111,11 +133,28 @@
   &__description {
     width: 100%;
     // border: 1px solid black;
+    margin-top: 1vh;
     margin-bottom: 2vh;
     padding: 2vh 1vh;
     box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
       3px 3px 6px rgba(94, 104, 121, 0.3);
     border-radius: 4px;
+    max-height: 20vh;
+    // overflow-x: auto;
+    text-overflow: ellipsis;
+    position: relative;
+
+    & > div:first-of-type {
+      p {
+        max-height: 16vh;
+        overflow-y: auto;
+
+        margin: 1vh 0;
+      }
+    }
+    & > div:last-of-type {
+      @include detailsCard;
+    }
   }
 
   &__footer {
@@ -127,6 +166,8 @@
     box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
       3px 3px 6px rgba(94, 104, 121, 0.3);
     border-radius: 4px;
+    position: relative;
+    margin-top: 2vh;
     .footer-img {
       width: 5vh;
       height: 5vh;
@@ -137,6 +178,9 @@
       font-size: 2.2vh;
       font-weight: bold;
       color: $darkPrimary;
+    }
+    .footer-details {
+      @include detailsCard;
     }
   }
 

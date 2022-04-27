@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router";
-import gsap from "gsap";
-import { AiOutlineRight } from "react-icons/ai";
-import { AiOutlineLeft } from "react-icons/ai";
+
+import { BsFillCaretLeftFill, BsFillCaretRightFill } from "react-icons/bs";
 
 import { ModalContext } from "../../context/ModalContext";
 
@@ -56,6 +55,13 @@ const NotesView = (props) => {
 
   let scrl = useRef(null);
 
+  useEffect(() => {
+    if (scrolEnd) {
+      console.log("scrollEnd is true");
+      console.log(scrolEnd);
+    }
+  }, [scrolEnd]);
+
   const styleHeader = {
     borderBottom: "2px solid #987197",
   };
@@ -79,16 +85,6 @@ const NotesView = (props) => {
     } else {
       setscrolEnd(false);
     }
-  };
-
-  //Anim
-  const anim = (e) => {
-    gsap.from(e.target, { scale: 1 });
-    gsap.to(e.target, { scale: 1.2 });
-  };
-  const anim2 = (e) => {
-    gsap.from(e.target, { scale: 1.2 });
-    gsap.to(e.target, { scale: 1 });
   };
 
   const scrollCheck = () => {
@@ -259,19 +255,11 @@ const NotesView = (props) => {
       {!changeViewState ? (
         <>
           <div className="notes-view">
-            <div
-              className="notes-view__conteiner"
-              // style={activeTab ? style : null}
-            >
+            <div className="notes-view__conteiner">
               <div className="header-conteiner">
                 {scrollX !== 0 && (
-                  <button
-                    className="prev"
-                    onClick={() => slide(-100)}
-                    onMouseEnter={(e) => anim(e)}
-                    onMouseLeave={(e) => anim2(e)}
-                  >
-                    <AiOutlineLeft className="left-arrow" />
+                  <button className="prev" onClick={() => slide(-100)}>
+                    <BsFillCaretLeftFill className="left-arrow" />
                   </button>
                 )}
                 <header
@@ -296,13 +284,8 @@ const NotesView = (props) => {
                   })}
                 </header>
                 {!scrolEnd && (
-                  <button
-                    className="next"
-                    onClick={() => slide(+100)}
-                    onMouseEnter={(e) => anim(e)}
-                    onMouseLeave={(e) => anim2(e)}
-                  >
-                    <AiOutlineRight className="right-arrow" />
+                  <button className="next" onClick={() => slide(+100)}>
+                    <BsFillCaretRightFill className="right-arrow" />
                   </button>
                 )}
               </div>

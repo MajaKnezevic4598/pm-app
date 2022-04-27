@@ -37,7 +37,8 @@
 // }
 
 .empty {
-  width: 35vw;
+  //   width: 35vw;
+  width: 90%;
   //   border: 1px solid black;
   padding: 4vh;
   border-radius: 4px;
@@ -46,11 +47,12 @@
   background-color: #dde1e7;
   display: flex;
   flex-direction: column;
+  margin: 5vh 0;
   p:nth-of-type(1) {
     text-align: center;
   }
   p:nth-of-type(2) {
-    margin-top: 2vh;
+    margin-top: 1.2vh;
     text-align: center;
     font-weight: bold;
   }
