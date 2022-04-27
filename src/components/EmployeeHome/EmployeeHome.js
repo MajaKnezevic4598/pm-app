@@ -49,13 +49,7 @@ const EmployeeHome = () => {
     <div className="employee">
       <div className="employee__description">
         <div className="flex-container">
-          <div className="header-logo">
-            <img
-              className="header-logo__project-image"
-              src={Rocket}
-              alt="Rocket"
-            />
-          </div>
+          <div className="header-logo"></div>
           <div className="employee__description__left">
             <div>My Projects</div>
             <div>Here you'll find your projects.</div>
