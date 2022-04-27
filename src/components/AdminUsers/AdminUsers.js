@@ -9,9 +9,16 @@ import Pagination from '@mui/material/Pagination';
 
 const fetchUsers = async (page, profileId, nameFilter) => {
   //PODICI LIMIT NA 25
-  const res = await axiosInstance.get(
-    `/profiles?sort=createdAt:DESC&populate=*&pagination[pageSize]=3&pagination[page]=${page}&filters[id][$ne]=${profileId}&filters[name][$containsi]=${nameFilter}`
-  );
+  let res;
+  if (nameFilter && nameFilter !== '') {
+    res = await axiosInstance.get(
+      `/profiles?sort=createdAt:DESC&populate=*&pagination[pageSize]=3&filters[id][$ne]=${profileId}&filters[name][$containsi]=${nameFilter}`
+    );
+  } else {
+    res = await axiosInstance.get(
+      `/profiles?sort=createdAt:DESC&populate=*&pagination[pageSize]=3&pagination[page]=${page}&filters[id][$ne]=${profileId}&filters[name][$containsi]=${nameFilter}`
+    );
+  }
   return res?.data;
 };
 
