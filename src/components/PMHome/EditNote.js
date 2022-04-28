@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 
-import axiosInstance from '../../helpers/axiosInstance';
-import './CreateNewNote.scss';
-import { BiArrowBack } from 'react-icons/bi';
-import { useNavigate } from 'react-router-dom';
+import axiosInstance from "../../helpers/axiosInstance";
+import "./CreateNewNote.scss";
+import { BiArrowBack } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const fetchNoteById = async (id) => {
-  const response = await axiosInstance.get('/notes/' + id + '?populate=*');
+  const response = await axiosInstance.get("/notes/" + id + "?populate=*");
   console.log(response.data.data);
   return response.data.data;
 };
 
 const fetchCategories = async () => {
-  const response = await axiosInstance.get('/categories');
+  const response = await axiosInstance.get("/categories");
   console.log(response.data.data);
   return response.data.data;
 };
 
 const EditNote = (props) => {
   const navigate = useNavigate();
-  const [noteTitle, setNoteTitle] = useState('');
-  const [noteDescription, setNoteDescription] = useState('');
+  const [noteTitle, setNoteTitle] = useState("");
+  const [noteDescription, setNoteDescription] = useState("");
   const [category, setCategory] = useState(null);
   const [files, setFiles] = useState();
 
-  const profileId = localStorage.getItem('profileId');
+  const profileId = localStorage.getItem("profileId");
 
   const { id } = useParams();
 
-  const { data, status } = useQuery(['editNote'], () => fetchNoteById(id));
+  const { data, status } = useQuery(["editNote"], () => fetchNoteById(id));
 
   const { data: categories, status: categoriesStatus } = useQuery(
-    ['editCategories'],
+    ["editCategories"],
     () => fetchCategories()
   );
   const saveNote = () => {};
@@ -48,7 +48,7 @@ const EditNote = (props) => {
 
   const editNote = async (e) => {
     e.preventDefault();
-    await axiosInstance.put('/notes/' + id, {
+    await axiosInstance.put("/notes/" + id, {
       data: {
         title: noteTitle,
         description: noteDescription,
@@ -64,10 +64,10 @@ const EditNote = (props) => {
           className="new-note__header__back"
           onClick={() => navigate(-1, { replace: true })}
         >
-          <BiArrowBack style={{ paddingTop: '4px' }} />
+          <BiArrowBack style={{ paddingTop: "4px" }} />
           Back
         </div>
-        <div className="new-note__header__title">Create a new Note</div>
+        <div className="new-note__header__title">Edit Note</div>
       </div>
       <div className="new-note__content">
         <div className="new-note__content__info">Note Info</div>
@@ -91,7 +91,7 @@ const EditNote = (props) => {
             id="description"
             placeholder="Note Description..."
             className="note-input"
-            style={{ resize: 'none' }}
+            style={{ resize: "none" }}
             onChange={(e) => setNoteDescription(e.target.value)}
           />
           <select
@@ -112,14 +112,14 @@ const EditNote = (props) => {
           <input
             id="file-upload"
             type="file"
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
             onChange={(e) => setFiles(e.target.files)}
           />
           <label htmlFor="file-upload" className="btn-upload">
             UPLOAD FILE
           </label>
           <button className="btn-submit" type="submit">
-            SAVE NOTE
+            EDIT
           </button>
         </form>
       </div>

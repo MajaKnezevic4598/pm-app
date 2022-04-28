@@ -228,9 +228,34 @@ $conteiner-bg-color: #dde1e7;
     margin-top: 4vh;
     margin-bottom: 4vh;
     border-radius: 4px;
-    background-color: $conteiner-bg-color;
-    box-shadow: inset 2px 2px 5px rgba(94, 104, 121, 0.3);
+    background-color: transparent;
+    // background-color: $conteiner-bg-color;
+    // box-shadow: inset 2px 2px 5px rgba(94, 104, 121, 0.3);
     font-family: $roboto-font-mono;
+
+    .header-conteiner {
+      display: flex;
+
+      .next,
+      .prev {
+        margin-top: 15px;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .left-arrow,
+      .right-arrow {
+        font-size: 4vh;
+        color: $darkPrimary;
+        font-weight: bold;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
 
     header {
       width: 100%;
@@ -239,24 +264,34 @@ $conteiner-bg-color: #dde1e7;
       align-items: flex-end;
       justify-content: flex-start;
 
-      overflow-y: auto;
+      // overflow-y: auto;
       // margin-bottom: 5vh;
       background-color: #fff;
       border-bottom-right-radius: 4px;
       color: $darkPrimary;
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+      &::-webkit-scrollbar {
+        background: transparent; /* make scrollbar transparent */
+        -webkit-appearance: none;
+        width: 0;
+        height: 0;
+      }
       div {
         // border: 1px solid violet;
 
         height: 6vh;
         display: flex;
         align-items: flex-end;
-        padding: 1vh 5vh 0.7vh 1vh;
+        padding: 1vh 5vh 0.7vh 2vh;
         font-weight: bold;
         font-size: 2.7vh;
         background-color: #dde1e7;
         cursor: pointer;
         margin-top: 10px;
         width: 12vw;
+        min-width: 12vw;
+
         box-shadow: inset 2px 2px 5px rgba(94, 104, 121, 0.3);
         &:not([class="active"]) {
           &:hover {
@@ -288,7 +323,7 @@ $conteiner-bg-color: #dde1e7;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-evenly;
-        padding: 3vh;
+        // padding: 3vh;
       }
     }
     .add-search-filter {
@@ -361,6 +396,15 @@ $conteiner-bg-color: #dde1e7;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    @media screen and(max-width:750px) {
+      width: 80vw;
+    }
+    @media screen and(max-width:550px) {
+      width: 90vw;
+    }
+    @media screen and (max-width: 480px) {
+      width: 95vw;
     }
   }
 }

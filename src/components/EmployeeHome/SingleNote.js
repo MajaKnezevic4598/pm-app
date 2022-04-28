@@ -44,8 +44,16 @@ const SingleNote = (props) => {
         </div>
         <div className="note__head">
           <p className="title">{props.name}</p>
+          <div>Note title:</div>
         </div>
-        <div className="note__description"> {props.description}</div>
+        <div className="note__description">
+          {" "}
+          <div>
+            <p className="description"> {props.description}</p>
+          </div>
+          <div>Note description:</div>
+        </div>
+
         <div className="note__footer">
           <img
             className="footer-img"
@@ -53,6 +61,7 @@ const SingleNote = (props) => {
             alt="profile-photo"
           />
           <p className="footer-pmName">{props.pmName}</p>
+          <div className="footer-details">Project manager:</div>
         </div>
       </div>
       <Modal

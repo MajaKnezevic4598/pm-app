@@ -15,7 +15,7 @@ $card-bg-color: #dde1e7;
 $box-shadow-card: -3px -3px 6px rgba(255, 255, 255, 0.45),
   3px 3px 6px rgba(94, 104, 121, 0.3);
 $box-shadow-small-card: -2px -2px 5px rgba(255, 255, 255, 0.45),
-  2px 2px 5px rgba(94, 104, 121, 0.3);
+  2px 2px 5px rgba(32, 58, 104, 0.3);
 
 //button
 $button-width: 6vw;
@@ -45,6 +45,7 @@ $card-width: 22rem;
   font-weight: 600;
   letter-spacing: 0.1vw;
   border-radius: 2px;
+  white-space: nowrap;
 }
 
 @mixin logo {
@@ -63,7 +64,7 @@ $card-width: 22rem;
   background: $card-bg-color;
   border-radius: $border-radius-sm;
   color: $darkPrimary;
-  // box-shadow: $box-shadow;
+
   display: flex;
   flex-direction: column;
   position: relative;
@@ -107,20 +108,6 @@ $card-width: 22rem;
     font-weight: bold;
     box-shadow: $box-shadow-card;
     border-radius: $border-radius-sm;
-
-    // &__icon {
-    //   position: relative;
-    //   font-size: 1.6rem;
-    //   z-index: 1000;
-    //   &:hover {
-    //     color: $orange;
-    //     cursor: pointer;
-    //   }
-    // }
-
-    // p {
-    //   font-size: 0.7rem;
-    // }
   }
 
   &:hover {
@@ -134,5 +121,28 @@ $card-width: 22rem;
     min-width: 100%;
     height: auto;
     min-height: auto;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .card {
+    &__project-info {
+      margin-bottom: 2vh;
+      h2 {
+        font-size: 2.5vh;
+        font-weight: bold;
+      }
+    }
+    &__prmanger-info {
+      margin-bottom: 2vh;
+      h3 {
+        font-size: 2.5vh;
+        font-weight: bold;
+      }
+    }
+    &__employee-info {
+      font-size: 2vh;
+      font-weight: bold;
+    }
   }
 }

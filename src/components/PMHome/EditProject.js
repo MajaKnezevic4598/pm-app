@@ -1,4 +1,3 @@
-import "./EditProject.scss";
 import uuid from "react-uuid";
 import { useParams } from "react-router";
 import axiosInstance from "../../helpers/axiosInstance";
@@ -9,6 +8,8 @@ import Select from "./Select";
 import Default from "../../assets/no-image.png";
 import Spinner from "../Spinner.js/Spinner";
 import { uploadFiles } from "../../services/uploadFiles";
+import { BiArrowBack } from "react-icons/bi";
+import { useNavigate } from "react-router";
 
 const EditProject = () => {
   const { id } = useParams();
@@ -19,6 +20,8 @@ const EditProject = () => {
   const [picture, setPicture] = useState();
   const [loading, setLoading] = useState(false);
   const [employeesId, setEmployeesId] = useState([]);
+
+  const navigate = useNavigate();
 
   const fetchSingleProject = async (id) => {
     const res = await axiosInstance.get(
@@ -90,6 +93,14 @@ const EditProject = () => {
   return (
     <div>
       <form className="add-project-conteiner" onSubmit={handleSubmit}>
+        <header>
+          <BiArrowBack
+            onClick={() => navigate(-1, { replace: true })}
+            className="back-arrow"
+          />
+          <p onClick={() => navigate(-1, { replace: true })}>Back</p>
+          <p>Edit Project</p>
+        </header>
         <section className="project-info-section">
           <h3>Project Info</h3>
           <div className="project-input">

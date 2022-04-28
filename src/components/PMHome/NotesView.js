@@ -1,8 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router';
+import React, { useEffect, useState, useContext, useRef } from "react";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router";
 
-import { ModalContext } from '../../context/ModalContext';
+import { BsFillCaretLeftFill, BsFillCaretRightFill } from "react-icons/bs";
+
+import { ModalContext } from "../../context/ModalContext";
+
 
 import Default from '../../assets/no-image.png';
 import Spinner from '../Spinner.js/Spinner';
@@ -40,13 +43,25 @@ const fetchAllNotes = async (id, categoryName, nameFilter, SortValue) => {
 };
 
 const NotesView = (props) => {
-  const [categoryName, setCategoryName] = useState('');
-  const [nameFilter, setNameFilter] = useState('');
-  const [sortValue, setSortValue] = useState('DESC');
-  const [changeViewState, setChangeViewState] = useState(false);
+  const [categoryName, setCategoryName] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
+  const [sortValue, setSortValue] = useState("DESC");
+  const [changeViewState, setChangeViewState] = useState();
   // const [showModal, setShowModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [activeTab, setActiveTab] = useState('');
+
+  const [scrollX, setscrollX] = useState(0);
+  const [scrolEnd, setscrolEnd] = useState(false);
+
+  let scrl = useRef(null);
+
+  useEffect(() => {
+    if (scrolEnd) {
+      console.log("scrollEnd is true");
+      console.log(scrolEnd);
+    }
+  }, [scrolEnd]);
 
   const styleHeader = {
     borderBottom: '2px solid #987197',
@@ -59,6 +74,32 @@ const NotesView = (props) => {
     boxShadow: 'inset 0 0 10px rgba(0,0,0,0.3)',
   };
 
+  const slide = (shift) => {
+    scrl.current.scrollLeft += shift;
+    setscrollX(scrollX + shift);
+
+    if (
+      Math.floor(scrl.current.scrollWidth - scrl.current.scrollLeft) <=
+      scrl.current.offsetWidth
+    ) {
+      setscrolEnd(true);
+    } else {
+      setscrolEnd(false);
+    }
+  };
+
+  const scrollCheck = () => {
+    setscrollX(scrl.current.scrollLeft);
+    if (
+      Math.floor(scrl.current.scrollWidth - scrl.current.scrollLeft) <=
+      scrl.current.offsetWidth
+    ) {
+      setscrolEnd(true);
+    } else {
+      setscrolEnd(false);
+    }
+  };
+
   const handleTab = (index) => {
     setActiveTab(`category-${index}`);
   };
@@ -67,10 +108,16 @@ const NotesView = (props) => {
   const { setIsOpen, isOpen } = useContext(ModalContext);
   console.log(isOpen);
 
+  // useEffect(() => {
+  //   // console.log(data);
+  //   console.log(props.notes);
+  //   console.log(changeViewState);
+  // }, [changeViewState]);
+
   useEffect(() => {
-    // console.log(data);
-    console.log(props.notes);
-    console.log(changeViewState);
+    if (changeViewState === false) {
+      refetch();
+    }
   }, [changeViewState]);
 
   const { id } = useParams();
@@ -193,10 +240,12 @@ const NotesView = (props) => {
               />
             </div>
             <div className="edit-delete-conteiner__delete">
-              {' '}
+              {" "}
               <div
                 onClick={(e) => {
                   setIsOpen(true);
+                  console.log("kliknuto na delete project");
+
                 }}
               >
                 Delete
@@ -215,23 +264,40 @@ const NotesView = (props) => {
         <>
           <div className="notes-view">
             <div className="notes-view__conteiner">
-              <header style={activeTab ? styleHeader : null}>
-                {categories?.map((category, index) => {
-                  return (
-                    <div
-                      className={
-                        activeTab === `category-${index}` ? 'active' : ''
-                      }
-                      onClick={() => {
-                        setCategoryName(category.attributes.name);
-                        handleTab(index);
-                      }}
-                    >
-                      {category.attributes.name}
-                    </div>
-                  );
-                })}
-              </header>
+              <div className="header-conteiner">
+                {scrollX !== 0 && (
+                  <button className="prev" onClick={() => slide(-100)}>
+                    <BsFillCaretLeftFill className="left-arrow" />
+                  </button>
+                )}
+                <header
+                  style={activeTab ? styleHeader : null}
+                  ref={scrl}
+                  onScroll={scrollCheck}
+                >
+                  {categories?.map((category, index) => {
+                    return (
+                      <div
+                        className={
+                          activeTab === `category-${index}` ? "active" : ""
+                        }
+                        onClick={() => {
+                          setCategoryName(category.attributes.name);
+                          handleTab(index);
+                        }}
+                      >
+                        {category.attributes.name}
+                      </div>
+                    );
+                  })}
+                </header>
+                {!scrolEnd && (
+                  <button className="next" onClick={() => slide(+100)}>
+                    <BsFillCaretRightFill className="right-arrow" />
+                  </button>
+                )}
+              </div>
+
               <section style={activeTab ? styleSection : null}>
                 <div className="add-search-filter">
                   <div>
