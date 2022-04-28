@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axiosInstance from '../../helpers/axiosInstance';
 import './SingleCategory.scss';
 
@@ -25,7 +25,6 @@ const SingleCategory = (props) => {
       setShouldUpdate(false);
       props.onFinish();
     } else {
-      console.log('empty category');
       setHasError(true);
     }
   };

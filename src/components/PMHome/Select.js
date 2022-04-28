@@ -1,9 +1,9 @@
-import React, { Component, useEffect, useState } from "react";
-import Select from "react-select";
-import { components } from "react-select";
-import { useInView } from "react-intersection-observer";
-import { useInfiniteQuery } from "react-query";
-import axiosInstance from "../../helpers/axiosInstance";
+import React, { useEffect, useState } from 'react';
+import Select from 'react-select';
+import { components } from 'react-select';
+import { useInView } from 'react-intersection-observer';
+import { useInfiniteQuery } from 'react-query';
+import axiosInstance from '../../helpers/axiosInstance';
 
 const SelectMenuButton = (props) => {
   const onButtonClick = () => {
@@ -14,15 +14,15 @@ const SelectMenuButton = (props) => {
       {props.children}
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          cursor: "pointer",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          cursor: 'pointer',
         }}
         ref={props.selectProps.refProp}
         onClick={onButtonClick}
       >
-        {props.selectProps.hasNextPage ? "Load more..." : "no employees"}
+        {props.selectProps.hasNextPage ? 'Load more...' : 'no employees'}
       </div>
     </components.MenuList>
   );
@@ -31,7 +31,7 @@ const SelectMenuButton = (props) => {
 const SelectComponent = (props) => {
   const [options, setOptions] = useState([]);
   const [shouldFetch, setShouldFetch] = useState(false);
-  const [nameFilter, setNameFilter] = useState("");
+  const [nameFilter, setNameFilter] = useState('');
 
   const {
     status,
@@ -45,7 +45,7 @@ const SelectComponent = (props) => {
     hasNextPage,
     hasPreviousPage,
   } = useInfiniteQuery(
-    ["projects-inf", nameFilter],
+    ['projects-inf', nameFilter],
     async ({ pageParam = 0 }) => {
       //ovde sam stavila da filtrira samo sa ulogom employee
       const res = await axiosInstance.get(
@@ -91,7 +91,7 @@ const SelectComponent = (props) => {
             value: item,
             //da value bude objekat
             label: item.attributes.name,
-            color: "#00B8D9",
+            color: '#00B8D9',
             isFixed: true,
           });
         });

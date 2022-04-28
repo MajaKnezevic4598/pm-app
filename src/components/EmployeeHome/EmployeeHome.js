@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 
 import employee from '../../services/EmployeeService';
-import EmployeeInfo from './EmployeeInfo';
-
 import Spinner from '../Spinner.js/Spinner';
 import './EmployeeHome.scss';
-import Rocket from '../../assets/rocket2.png';
 import Pagination from '@mui/material/Pagination';
-import { FiEdit } from 'react-icons/fi';
 import SingleProjectCard from '../PMHome/SingleProjectCard';
 
 const fetchProjects = async (profileId, nameFilter, page) => {

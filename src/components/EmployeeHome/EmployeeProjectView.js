@@ -26,9 +26,7 @@ const fetchAllNotes = async (id, categoryName, nameFilter, SortValue) => {
   const response = await axiosInstance.get(
     `/notes?filters[category][name][$eq]=${categoryName}&filters[project][id][$eq]=${id}&filters[title][$containsi]=${nameFilter}&sort=createdAt:${SortValue}&populate=profile.profilePhoto`
   );
-  console.log(id, categoryName);
   return response.data.data;
-  // return response.data;
 };
 
 const EmployeeProjectView = (props) => {

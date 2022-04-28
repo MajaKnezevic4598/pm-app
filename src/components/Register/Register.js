@@ -12,7 +12,6 @@ const Register = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState(null);
-  //definisati role set role
   const [role, setRole] = useState(0);
   const { getLoggedIn } = useContext(AuthContext);
 
@@ -78,7 +77,6 @@ const Register = () => {
     formData.append('files', files);
 
     const imageUpload = await axiosInstance.post('/upload', formData);
-    console.log(imageUpload);
 
     const profileUpload = await axiosInstance.put('/profiles/' + id, {
       data: { profilePhoto: imageUpload.data },
