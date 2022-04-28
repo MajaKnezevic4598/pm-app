@@ -55,6 +55,7 @@ const PMHome = () => {
               placeholder="Search project..."
               value={nameFilter}
               onChange={(e) => setNameFilter(e.target.value)}
+              className="search-input"
             />
 
             <button

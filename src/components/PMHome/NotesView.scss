@@ -250,6 +250,9 @@ $conteiner-bg-color: #dde1e7;
         font-size: 4vh;
         color: $darkPrimary;
         font-weight: bold;
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
 
@@ -392,6 +395,15 @@ $conteiner-bg-color: #dde1e7;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    @media screen and(max-width:750px) {
+      width: 80vw;
+    }
+    @media screen and(max-width:550px) {
+      width: 90vw;
+    }
+    @media screen and (max-width: 480px) {
+      width: 95vw;
     }
   }
 }

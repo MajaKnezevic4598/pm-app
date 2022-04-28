@@ -45,7 +45,7 @@ const NotesView = (props) => {
   const [categoryName, setCategoryName] = useState("");
   const [nameFilter, setNameFilter] = useState("");
   const [sortValue, setSortValue] = useState("DESC");
-  const [changeViewState, setChangeViewState] = useState(false);
+  const [changeViewState, setChangeViewState] = useState();
   // const [showModal, setShowModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [activeTab, setActiveTab] = useState("");
@@ -107,10 +107,16 @@ const NotesView = (props) => {
   const { setIsOpen, isOpen } = useContext(ModalContext);
   console.log(isOpen);
 
+  // useEffect(() => {
+  //   // console.log(data);
+  //   console.log(props.notes);
+  //   console.log(changeViewState);
+  // }, [changeViewState]);
+
   useEffect(() => {
-    // console.log(data);
-    console.log(props.notes);
-    console.log(changeViewState);
+    if (changeViewState === false) {
+      refetch();
+    }
   }, [changeViewState]);
 
   const { id } = useParams();
