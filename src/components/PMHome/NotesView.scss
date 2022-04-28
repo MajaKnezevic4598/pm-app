@@ -292,13 +292,7 @@ $conteiner-bg-color: #dde1e7;
         min-width: 12vw;
 
         box-shadow: inset 2px 2px 5px rgba(94, 104, 121, 0.3);
-        &:not([class="active"]) {
-          &:hover {
-            background-color: darken(#dde1e7, 10%);
-            transition: background-color 0.4s ease;
-          }
-        }
-        &:not([class="active1"]) {
+        &:not([class="active"]):not([class="active1"]) {
           &:hover {
             background-color: darken(#dde1e7, 10%);
             transition: background-color 0.4s ease;
