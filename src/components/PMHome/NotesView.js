@@ -1,11 +1,16 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
-import { useQuery } from "react-query";
-import { useNavigate } from "react-router";
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  useRef,
+  useCallback,
+} from 'react';
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router';
 
-import { BsFillCaretLeftFill, BsFillCaretRightFill } from "react-icons/bs";
+import { BsFillCaretLeftFill, BsFillCaretRightFill } from 'react-icons/bs';
 
-import { ModalContext } from "../../context/ModalContext";
-
+import { ModalContext } from '../../context/ModalContext';
 
 import Default from '../../assets/no-image.png';
 import Spinner from '../Spinner.js/Spinner';
@@ -43,9 +48,9 @@ const fetchAllNotes = async (id, categoryName, nameFilter, SortValue) => {
 };
 
 const NotesView = (props) => {
-  const [categoryName, setCategoryName] = useState("");
-  const [nameFilter, setNameFilter] = useState("");
-  const [sortValue, setSortValue] = useState("DESC");
+  const [categoryName, setCategoryName] = useState('');
+  const [nameFilter, setNameFilter] = useState('');
+  const [sortValue, setSortValue] = useState('DESC');
   const [changeViewState, setChangeViewState] = useState();
   // const [showModal, setShowModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
@@ -58,7 +63,7 @@ const NotesView = (props) => {
 
   useEffect(() => {
     if (scrolEnd) {
-      console.log("scrollEnd is true");
+      console.log('scrollEnd is true');
       console.log(scrolEnd);
     }
   }, [scrolEnd]);
@@ -149,7 +154,28 @@ const NotesView = (props) => {
     setNameFilter(e.target.value);
   };
 
-  const Image = React.memo(function Image({ src }) {
+  const getEmployeesPhotos = useCallback(() => {
+    return data?.data.attributes.employees?.data.map((employee) => {
+      return (
+        <img
+          src={
+            employee.attributes.profilePhoto.data
+              ? 'https://pm-app-bek.herokuapp.com' +
+                employee.attributes.profilePhoto.data.attributes.url
+              : Default
+          }
+          className="picture"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = Default;
+          }}
+          alt="SomePhoto"
+        />
+      );
+    });
+  }, []);
+
+  const Image = useCallback(function Image({ src }) {
     return (
       <img
         src={src}
@@ -161,7 +187,7 @@ const NotesView = (props) => {
         alt="SomePhoto"
       />
     );
-  });
+  }, []);
 
   return (
     <>
@@ -208,20 +234,7 @@ const NotesView = (props) => {
           </div>
           <div className="employee-header-conteiner__right">
             <p>Employees</p>
-            <div>
-              {data?.data.attributes.employees?.data.map((employee) => {
-                return (
-                  <Image
-                    src={
-                      employee.attributes.profilePhoto.data
-                        ? 'https://pm-app-bek.herokuapp.com' +
-                          employee.attributes.profilePhoto.data.attributes.url
-                        : Default
-                    }
-                  />
-                );
-              })}
-            </div>
+            <div>{getEmployeesPhotos()}</div>
           </div>
           <div className="edit-delete-conteiner">
             <div className="edit-delete-conteiner__edit">
@@ -240,12 +253,11 @@ const NotesView = (props) => {
               />
             </div>
             <div className="edit-delete-conteiner__delete">
-              {" "}
+              {' '}
               <div
                 onClick={(e) => {
                   setIsOpen(true);
-                  console.log("kliknuto na delete project");
-
+                  console.log('kliknuto na delete project');
                 }}
               >
                 Delete
@@ -279,7 +291,7 @@ const NotesView = (props) => {
                     return (
                       <div
                         className={
-                          activeTab === `category-${index}` ? "active" : ""
+                          activeTab === `category-${index}` ? 'active' : ''
                         }
                         onClick={() => {
                           setCategoryName(category.attributes.name);
