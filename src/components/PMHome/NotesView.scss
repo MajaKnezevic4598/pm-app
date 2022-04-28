@@ -256,7 +256,6 @@ $conteiner-bg-color: #dde1e7;
       }
     }
 
-
     header {
       width: 100%;
       display: flex;
@@ -299,6 +298,12 @@ $conteiner-bg-color: #dde1e7;
             transition: background-color 0.4s ease;
           }
         }
+        &:not([class="active1"]) {
+          &:hover {
+            background-color: darken(#dde1e7, 10%);
+            transition: background-color 0.4s ease;
+          }
+        }
       }
       .active {
         margin-top: 5px;
@@ -310,6 +315,10 @@ $conteiner-bg-color: #dde1e7;
         color: #fff;
         border-top-right-radius: 6px;
         border-top-left-radius: 6px;
+      }
+      .active1 {
+        @extend .active;
+        background-color: $bluePrimary;
       }
     }
     section {

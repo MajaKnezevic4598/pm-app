@@ -18,13 +18,13 @@ const EmployeeProjectViewInfo = (props) => {
   let scrl = useRef(null);
 
   const styleHeader = {
-    borderBottom: "2px solid #987197",
+    borderBottom: "2px solid #62929E",
   };
 
   const styleSection = {
-    borderLeft: "2px solid #987197",
-    borderRight: "2px solid #987197",
-    borderBottom: "2px solid #987197",
+    borderLeft: "2px solid #62929E",
+    borderRight: "2px solid #62929E",
+    borderBottom: "2px solid #62929E",
     boxShadow: "inset 0 0 10px rgba(0,0,0,0.3)",
   };
 
@@ -137,7 +137,7 @@ const EmployeeProjectViewInfo = (props) => {
                   return (
                     <div
                       className={
-                        activeTab === `category-${index}` ? "active" : ""
+                        activeTab === `category-${index}` ? "active1" : ""
                       }
                       onClick={() => {
                         props.setCategoryName(category.attributes.name);
