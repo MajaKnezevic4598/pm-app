@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Default from '../../assets/no-image.png';
 import './EmployeeProjectView.scss';
@@ -7,10 +7,6 @@ import EmployeeNote from './EmployeeNote';
 import EmptyNote from './EmptyNote';
 
 const EmployeeProjectViewInfo = (props) => {
-  useEffect(() => {
-    console.log(props.notes);
-  }, [props.notes]);
-
   const Image = React.memo(function Image({ src }) {
     return (
       <img

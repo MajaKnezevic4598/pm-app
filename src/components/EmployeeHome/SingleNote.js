@@ -1,23 +1,32 @@
-import React from "react";
+import React, { useState } from 'react';
 
-import "./SingleNote.scss";
-import { MdDelete } from "react-icons/md";
-import { BiEdit } from "react-icons/bi";
-import axiosInstance from "../../helpers/axiosInstance";
-import { useNavigate } from "react-router-dom";
-import "./SingleNote.scss";
+import './SingleNote.scss';
+import { MdDelete } from 'react-icons/md';
+import { BiEdit } from 'react-icons/bi';
+import axiosInstance from '../../helpers/axiosInstance';
+import { useNavigate } from 'react-router-dom';
+import './SingleNote.scss';
+import Modal from '../Modal/Modal';
 
 const SingleNote = (props) => {
   const navigate = useNavigate();
+  const [isModalOn, setIsModalOn] = useState(false);
+
+  const toggleDeleteModal = async () => {
+    setIsModalOn(true);
+  };
 
   const deleteNote = async () => {
-    await axiosInstance.delete("/notes/" + props.id);
+    await axiosInstance.delete('/notes/' + props.id);
     props.refetch();
-    console.log("mozda brise");
   };
 
   const editNote = () => {
-    navigate("/edit-note/" + props.id);
+    navigate('/edit-note/' + props.id);
+  };
+
+  const closeModal = () => {
+    setIsModalOn(false);
   };
 
   return (
@@ -28,11 +37,10 @@ const SingleNote = (props) => {
             Edit
           </p>
           <BiEdit onClick={editNote} className="sm-icon" />
-
-          <p onClick={deleteNote} className="delete">
-            Delete
-          </p>
-          <MdDelete onClick={deleteNote} className="sm-icon red" />
+          <div onClick={toggleDeleteModal} style={{ display: 'flex' }}>
+            <p className="delete">Delete</p>
+            <MdDelete className="sm-icon red" />
+          </div>
         </div>
         <div className="note__head">
           <p className="title">{props.name}</p>
@@ -49,97 +57,19 @@ const SingleNote = (props) => {
         <div className="note__footer">
           <img
             className="footer-img"
-            src={"https://pm-app-bek.herokuapp.com" + props.photo}
-            alt="profilephoto"
+            src={'https://pm-app-bek.herokuapp.com' + props.photo}
+            alt="profile-photo"
           />
           <p className="footer-pmName">{props.pmName}</p>
           <div className="footer-details">Project manager:</div>
         </div>
-        {/* <p
-                    className="edit"
-                    style={{
-                        position: 'absolute',
-                        paddingBottom: '80px',
-                        width: '350px',
-                        display: 'flex',
-                        justifyContent: 'right',
-                        alignItems: 'center',
-                        flexWrap: 'wrap',
-                        zIndex: 1000,
-                    }}
-                    onClick={editNote}
-                >
-                    <BiEdit /> Edit
-                </p>
-                <p
-                    className="delete"
-                    style={{
-                        position: 'absolute',
-                        paddingBottom: '40px',
-                        width: '350px',
-                        display: 'flex',
-                        justifyContent: 'right',
-                        alignItems: 'center',
-                        flexWrap: 'wrap',
-                        zIndex: 1000,
-                    }}
-                    onClick={deleteNote}
-                >
-                    <MdDelete /> Delete
-                </p>
-
-                <div className="employee__info">
-                    <div className="employee-info__left">
-                        <div
-                            style={{ width: '320px' }}
-                            className="employee-info__left__desc"
-                        >
-                            <p
-                                style={{
-                                    lineHeight: '28px',
-                                    fontSize: '24px',
-                                    fontWeight: 'bold',
-                                }}
-                            >
-                                {props.name}
-                            </p>
-
-                            <p
-                                style={{
-                                    paddingTop: '16px',
-                                    fontSize: '18px',
-                                    fontWeight: '400',
-                                    lineHeight: '21px',
-                                    color: '#717171',
-                                }}
-                            >
-                                {props.description}
-                            </p>
-                        </div>
-                        <div
-                            style={{
-                                position: 'absolute',
-                                paddingTop: '80px',
-                                width: '350px',
-                                display: 'flex',
-                                justifyContent: 'right',
-                                alignItems: 'center',
-                                flexWrap: 'wrap',
-                            }}
-                        >
-                            <img
-                                className="note__image"
-                                src={
-                                    'https://pm-app-bek.herokuapp.com' +
-                                    props.photo
-                                }
-                                alt="profilephoto"
-                            />
-                            <p className="note__name">{props.pmName}</p>
-                        </div>
-                    </div>
-                </div> */}
       </div>
+      <Modal
+        show={isModalOn}
+        modalClosed={closeModal}
+        clickFirst={closeModal}
+        clickSecond={deleteNote}
+      />
     </div>
   );
 };

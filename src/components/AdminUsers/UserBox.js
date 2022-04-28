@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './UserBox.scss';
 import Default from '../../assets/no-image.png';
-import axiosInstance from '../../helpers/axiosInstance';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 import Modal from 'react-modal';
 
