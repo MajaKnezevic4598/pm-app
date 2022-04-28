@@ -1,239 +1,239 @@
-@import '../../styles/variables';
+@import "../../styles/variables";
 
 @mixin extraSmall {
-    @media (max-width: #{$extraSmall}) {
-        @content;
-    }
+  @media (max-width: #{$extraSmall}) {
+    @content;
+  }
 }
 
 @mixin small {
-    @media (max-width: #{$small}) {
-        @content;
-    }
+  @media (max-width: #{$small}) {
+    @content;
+  }
 }
 
 @mixin medium {
-    @media (max-width: #{$medium}) {
-        @content;
-    }
+  @media (max-width: #{$medium}) {
+    @content;
+  }
 }
 
 @mixin large {
-    @media (max-width: #{$large}) {
-        @content;
-    }
+  @media (max-width: #{$large}) {
+    @content;
+  }
 }
 
 //VIEWS
 
 @mixin laptopStandard {
-    @media (max-width: #{$laptopStandard}) {
-        @content;
-    }
+  @media (max-width: #{$laptopStandard}) {
+    @content;
+  }
 }
 
 @mixin tablet {
-    @media (max-width: #{$tablet}) {
-        @content;
-    }
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
 }
 
 .employee {
-    &__description {
-        background-color: $darkPrimary;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 3rem 4rem;
-        font-family: $roboto-font;
-
-        @include small {
-            flex-direction: column;
-            padding: 0;
-            justify-content: center;
-            width: 100%;
-           margin: 0 auto;
-        }
-
-        @include large {
-            padding-top: 2rem;
-            width: 100%;
-        }
-
-        &__right {
-            & input {
-                width: 14.375rem;
-                height: 3rem;
-            }
-        }
-
-        &__left {
-            @include medium {
-                text-align: center;
-            }
-        }
-
-        &__left div:first-of-type {
-            color: #fdfdff;
-            font-size: 1.75rem;
-            line-height: 2.5rem;
-            font-weight: 600;
-        }
-
-        &__left div:last-of-type {
-            font-size: 1.375rem;
-            line-height: 2.2rem;
-            color: #ccc;
-
-            @include small {
-                margin-bottom: 1.15rem;
-            }
-        }
-
-        input {
-            cursor: pointer;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            font-size: 18px;
-            padding: 0.5rem 1rem;
-            padding-left: 2rem;
-            font-family: $roboto-font;
-            background-image: url('../../assets/settingsIcon.png');
-            background-position: 5px 16px;
-            background-repeat: no-repeat;
-
-            &:focus {
-                outline: none;
-            }
-
-            @include large {
-                margin-bottom: 1rem;
-            }
-
-            @include medium {
-                margin-bottom: 1rem;
-            }
-        }
-    }
-
-    &__content {
-        padding: 0 8rem;
-        margin: 1rem auto;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        width: 100%;
-        justify-content: center;
-
-        &__search {
-            background: #f8f8f8;
-            width: 1166px;
-            float: left;
-            margin: 0 2.5%;
-        }
-
-        & header {
-            background-color: #62929e;
-            color: #fdfdff;
-            margin-top: 2rem;
-            border-radius: 1rem 1rem 0 0;
-        }
-
-        & section {
-            border-radius: 5px 0px 5px 5px;
-            font-size: 1.5rem;
-            float: left;
-            font-family: $roboto-font;
-
-            &:hover {
-                cursor: pointer;
-                transition: 0.2s ease-in;
-            }
-            &:target {
-                font-weight: 600;
-            }
-
-            @include tablet {
-                font-size: 1rem;
-                width: 25%;
-            }
-
-            @include small {
-                font-size: 0.75rem;
-            }
-        }
-
-        & input,
-        select {
-            margin-left: 0.5rem;
-            padding: 0.6rem 0;
-            cursor: pointer;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            font-size: 14px;
-
-            &:hover {
-                cursor: pointer;
-            }
-
-            & option {
-                color: #8e8e8e;
-            }
-        }
-
-        @include small {
-            padding: 0;
-            justify-content: center;
-            width: 100%;
-        }
-    }
-}
-
-.flex-container {
+  &__description {
+    background-color: $darkPrimary;
     display: flex;
-    padding-left: 6rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem 4rem;
+    font-family: $roboto-font-mono;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    @include small {
+      flex-direction: column;
+      padding: 0;
+      justify-content: center;
+      width: 100%;
+      margin: 0 auto;
+    }
 
-    @include tablet {
-        padding-left: 0;
+    @include large {
+      padding-top: 2rem;
+      width: 100%;
+    }
+
+    &__right {
+      & input {
+        width: 14.375rem;
+        height: 3rem;
+      }
+    }
+
+    &__left {
+      @include medium {
+        text-align: center;
+      }
+    }
+
+    &__left div:first-of-type {
+      color: #fdfdff;
+      font-size: 1.75rem;
+      line-height: 2.5rem;
+      font-weight: 600;
+    }
+
+    &__left div:last-of-type {
+      font-size: 1.375rem;
+      line-height: 2.2rem;
+      color: #ccc;
+
+      @include small {
+        margin-bottom: 1.15rem;
+      }
+    }
+
+    input {
+      cursor: pointer;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 18px;
+      padding: 0.5rem 1rem;
+      padding-left: 2rem;
+      font-family: $roboto-font;
+      background-image: url("../../assets/settingsIcon.png");
+      background-position: 5px 16px;
+      background-repeat: no-repeat;
+
+      &:focus {
+        outline: none;
+      }
+
+      @include large {
+        margin-bottom: 1rem;
+      }
+
+      @include medium {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  &__content {
+    padding: 0 8rem;
+    margin: 1rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+
+    &__search {
+      background: #f8f8f8;
+      width: 1166px;
+      float: left;
+      margin: 0 2.5%;
+    }
+
+    & header {
+      background-color: #62929e;
+      color: #fdfdff;
+      margin-top: 2rem;
+      border-radius: 1rem 1rem 0 0;
+    }
+
+    & section {
+      border-radius: 5px 0px 5px 5px;
+      font-size: 1.5rem;
+      float: left;
+      font-family: $roboto-font;
+
+      &:hover {
+        cursor: pointer;
+        transition: 0.2s ease-in;
+      }
+      &:target {
+        font-weight: 600;
+      }
+
+      @include tablet {
+        font-size: 1rem;
+        width: 25%;
+      }
+
+      @include small {
+        font-size: 0.75rem;
+      }
+    }
+
+    & input,
+    select {
+      margin-left: 0.5rem;
+      padding: 0.6rem 0;
+      cursor: pointer;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 14px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      & option {
+        color: #8e8e8e;
+      }
     }
 
     @include small {
-        position: relative;
-        // right: 2rem;
+      padding: 0;
+      justify-content: center;
+      width: 100%;
     }
+  }
+}
 
-    @include extraSmall {
-        right: 0;
+.flex-container {
+  display: flex;
+  padding-left: 6rem;
+
+  @include tablet {
+    padding-left: 0;
+  }
+
+  @include small {
+    position: relative;
+    // right: 2rem;
+  }
+
+  @include extraSmall {
+    right: 0;
+  }
+
+  & .header-logo {
+    & img {
+      width: 10vh;
+      height: 10vh;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7), 0 6px 6px rgba(0, 0, 0, 0.7);
+      background-color: #2193b0;
+      margin-right: 20px;
+      margin-top: -10px;
+
+      @include small {
+        width: 64px;
+        height: 64px;
+      }
     }
-
-    & .header-logo {
-        & img {
-            width: 10vh;
-            height: 10vh;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7),
-                0 6px 6px rgba(0, 0, 0, 0.7);
-            background-color: #2193b0;
-            margin-right: 20px;
-            margin-top: -10px;
-
-            @include small {
-                width: 64px;
-                height: 64px;
-            }
-        }
-        &:hover {
-            cursor: pointer;
-            transform: scale(1.06);
-        }
-        &__project-image {
-            height: 11vh;
-        }
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.06);
     }
-    
+    &__project-image {
+      height: 11vh;
+    }
+  }
 }

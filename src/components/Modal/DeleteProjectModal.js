@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import { ModalContext } from '../../context/ModalContext';
-import BackdropModal from '../Backdrop/BackdropModul';
-import './DeleteProjectModal.scss';
-import { useNavigate } from 'react-router';
+import { useContext } from "react";
+import { ModalContext } from "../../context/ModalContext";
+import BackdropModal from "../Backdrop/BackdropModul";
+import "./DeleteProjectModal.scss";
+import { useNavigate } from "react-router";
 
 const DeleteProjectModal = (props) => {
   const toCheck = `${props.projectManager}/${props.projectName}`;
@@ -19,15 +19,15 @@ const DeleteProjectModal = (props) => {
     <>
       <BackdropModal show={isOpen} />
 
-      <div className={isOpen ? 'modal open' : 'modal close'}>
+      <div className={isOpen ? "modal open" : "modal close"}>
         <div className="modal__text">
-          Are you sure you wanto to delete project <span>{`${isOpen}`}</span>
+          Are you sure you wanto to delete project
           <span
             style={{
-              fontWeight: 'bold',
+              fontWeight: "bold",
             }}
           >
-            {' '}
+            {" "}
             {props.projectName}
           </span>
           ?<div>Enter following data do delete the project:</div>
@@ -50,7 +50,7 @@ const DeleteProjectModal = (props) => {
             disabled={toCheck !== input}
             onClick={() => {
               deleteProject(props.projectId);
-              navigate('/');
+              navigate("/");
             }}
           >
             DELETE
