@@ -178,10 +178,6 @@ const EmployeeProjectViewInfo = (props) => {
                     <option value={"DESC"}>Newest</option>
                   </select>
                 </div>
-                <div>
-                  {/* <button className="add-project" onClick={changeFunction}> */}
-                  <button>ADD NOTE</button>
-                </div>
               </div>
               <div className="empty-note">
                 {props.notes?.length < 1 ? <EmptyNote /> : null}
