@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 
 import employee from '../../services/EmployeeService';
-import EmployeeInfo from './EmployeeInfo';
-
 import Spinner from '../Spinner.js/Spinner';
 import './EmployeeHome.scss';
-import Rocket from '../../assets/rocket2.png';
 import Pagination from '@mui/material/Pagination';
-import { FiEdit } from 'react-icons/fi';
 import SingleProjectCard from '../PMHome/SingleProjectCard';
 
 const fetchProjects = async (profileId, nameFilter, page) => {
@@ -49,13 +44,7 @@ const EmployeeHome = () => {
     <div className="employee">
       <div className="employee__description">
         <div className="flex-container">
-          <div className="header-logo">
-            <img
-              className="header-logo__project-image"
-              src={Rocket}
-              alt="Rocket"
-            />
-          </div>
+          <div className="header-logo"></div>
           <div className="employee__description__left">
             <div>My Projects</div>
             <div>Here you'll find your projects.</div>

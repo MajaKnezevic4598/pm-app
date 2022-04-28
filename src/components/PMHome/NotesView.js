@@ -1,34 +1,34 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useQuery } from "react-query";
-import { useNavigate } from "react-router";
+import React, { useEffect, useState, useContext } from 'react';
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router';
 
-import { ModalContext } from "../../context/ModalContext";
+import { ModalContext } from '../../context/ModalContext';
 
-import Default from "../../assets/no-image.png";
-import Spinner from "../Spinner.js/Spinner";
-import SingleNote from "../EmployeeHome/SingleNote";
-import EmptyNote from "../EmployeeHome/EmptyNote";
+import Default from '../../assets/no-image.png';
+import Spinner from '../Spinner.js/Spinner';
+import SingleNote from '../EmployeeHome/SingleNote';
+import EmptyNote from '../EmployeeHome/EmptyNote';
 // import "../EmployeeHome/EmployeeProjectView.scss";
-import "./NotesView.scss";
-import axiosInstance from "../../helpers/axiosInstance";
-import { useParams } from "react-router-dom";
-import CreateNewNote from "./CreateNewNote";
-import DeleteProjectModal from "../Modal/DeleteProjectModal";
-import uuid from "react-uuid";
-import { MdDelete } from "react-icons/md";
-import { BiEdit } from "react-icons/bi";
+import './NotesView.scss';
+import axiosInstance from '../../helpers/axiosInstance';
+import { useParams } from 'react-router-dom';
+import CreateNewNote from './CreateNewNote';
+import DeleteProjectModal from '../Modal/DeleteProjectModal';
+import uuid from 'react-uuid';
+import { MdDelete } from 'react-icons/md';
+import { BiEdit } from 'react-icons/bi';
 
 const fetchProject = async (id) => {
   const response = await axiosInstance.get(
-    "/projects/" +
+    '/projects/' +
       id +
-      "?populate=logo&populate=employees.profilePhoto&populate=project_manager.profilePhoto"
+      '?populate=logo&populate=employees.profilePhoto&populate=project_manager.profilePhoto'
   );
   return response.data;
 };
 
 const fetchCategories = async () => {
-  const response = await axiosInstance.get("/categories");
+  const response = await axiosInstance.get('/categories');
   return response.data.data;
 };
 
@@ -40,23 +40,23 @@ const fetchAllNotes = async (id, categoryName, nameFilter, SortValue) => {
 };
 
 const NotesView = (props) => {
-  const [categoryName, setCategoryName] = useState("");
-  const [nameFilter, setNameFilter] = useState("");
-  const [sortValue, setSortValue] = useState("DESC");
+  const [categoryName, setCategoryName] = useState('');
+  const [nameFilter, setNameFilter] = useState('');
+  const [sortValue, setSortValue] = useState('DESC');
   const [changeViewState, setChangeViewState] = useState(false);
   // const [showModal, setShowModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState('');
 
   const styleHeader = {
-    borderBottom: "2px solid #987197",
+    borderBottom: '2px solid #987197',
   };
 
   const styleSection = {
-    borderLeft: "2px solid #987197",
-    borderRight: "2px solid #987197",
-    borderBottom: "2px solid #987197",
-    boxShadow: "inset 0 0 10px rgba(0,0,0,0.3)",
+    borderLeft: '2px solid #987197',
+    borderRight: '2px solid #987197',
+    borderBottom: '2px solid #987197',
+    boxShadow: 'inset 0 0 10px rgba(0,0,0,0.3)',
   };
 
   const handleTab = (index) => {
@@ -75,12 +75,12 @@ const NotesView = (props) => {
 
   const { id } = useParams();
 
-  const { data, status } = useQuery(["project"], () => fetchProject(id), {
+  const { data, status } = useQuery(['project'], () => fetchProject(id), {
     keepPreviousData: true,
   });
 
   const { data: categories, status: categoriesStatus } = useQuery(
-    ["categoryPm"],
+    ['categoryPm'],
     () => fetchCategories()
   );
 
@@ -89,7 +89,7 @@ const NotesView = (props) => {
     status: notesStatus,
     refetch,
   } = useQuery(
-    ["notesPm", sortValue, nameFilter, categoryName],
+    ['notesPm', sortValue, nameFilter, categoryName],
     () => fetchAllNotes(id, categoryName, nameFilter, sortValue),
     { keepPreviousData: true }
   );
@@ -125,7 +125,7 @@ const NotesView = (props) => {
               <Image
                 src={
                   data?.data?.attributes.logo.data?.attributes.url
-                    ? "https://pm-app-bek.herokuapp.com" +
+                    ? 'https://pm-app-bek.herokuapp.com' +
                       data?.data?.attributes.logo.data?.attributes.url
                     : Default
                 }
@@ -133,7 +133,7 @@ const NotesView = (props) => {
             </div>
             <div className="project-details">
               <div className="project-details__head">
-                {" "}
+                {' '}
                 <div>{data?.data.attributes.name}</div>
               </div>
 
@@ -148,7 +148,7 @@ const NotesView = (props) => {
                 src={
                   data?.data?.attributes.project_manager.data?.attributes
                     .profilePhoto.data?.attributes.url
-                    ? "https://pm-app-bek.herokuapp.com" +
+                    ? 'https://pm-app-bek.herokuapp.com' +
                       data?.data?.attributes.project_manager.data?.attributes
                         .profilePhoto.data?.attributes.url
                     : Default
@@ -167,7 +167,7 @@ const NotesView = (props) => {
                   <Image
                     src={
                       employee.attributes.profilePhoto.data
-                        ? "https://pm-app-bek.herokuapp.com" +
+                        ? 'https://pm-app-bek.herokuapp.com' +
                           employee.attributes.profilePhoto.data.attributes.url
                         : Default
                     }
@@ -193,11 +193,10 @@ const NotesView = (props) => {
               />
             </div>
             <div className="edit-delete-conteiner__delete">
-              {" "}
+              {' '}
               <div
                 onClick={(e) => {
                   setIsOpen(true);
-                  console.log("kliknuto na delete project");
                 }}
               >
                 Delete
@@ -215,16 +214,13 @@ const NotesView = (props) => {
       {!changeViewState ? (
         <>
           <div className="notes-view">
-            <div
-              className="notes-view__conteiner"
-              // style={activeTab ? style : null}
-            >
+            <div className="notes-view__conteiner">
               <header style={activeTab ? styleHeader : null}>
                 {categories?.map((category, index) => {
                   return (
                     <div
                       className={
-                        activeTab === `category-${index}` ? "active" : ""
+                        activeTab === `category-${index}` ? 'active' : ''
                       }
                       onClick={() => {
                         setCategoryName(category.attributes.name);
@@ -242,20 +238,20 @@ const NotesView = (props) => {
                     <input
                       value={nameFilter}
                       onChange={searchByName}
-                      type={"text"}
+                      type={'text'}
                       placeholder="Search"
                     />
                   </div>
                   <div>
-                    {" "}
+                    {' '}
                     <select
                       onChange={(e) => setSortValue(e.target.value)}
                       name="value"
                       id="value-select"
                     >
-                      <option value={"ASC"}>Sort by:</option>
-                      <option value={"ASC"}>Oldest</option>
-                      <option value={"DESC"}>Newest</option>
+                      <option value={'ASC'}>Sort by:</option>
+                      <option value={'ASC'}>Oldest</option>
+                      <option value={'DESC'}>Newest</option>
                     </select>
                   </div>
                   <div>

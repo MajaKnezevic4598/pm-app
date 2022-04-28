@@ -1,6 +1,5 @@
-import "./SingleEmployee.scss";
-// import { MdDeleteForever } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
+import './SingleEmployee.scss';
+import { MdDelete } from 'react-icons/md';
 
 const SingleEmployee = ({
   name,

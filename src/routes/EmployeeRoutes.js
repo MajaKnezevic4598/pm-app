@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Account from '../components/Account/Account';
 import EmployeeHome from '../components/EmployeeHome/EmployeeHome';

@@ -1,6 +1,5 @@
 import './SingleProjectCard.scss';
 import img from '../../assets/av.png';
-import { MdOpenInNew } from 'react-icons/md';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -53,18 +52,7 @@ const SingleProjectCard = ({
         <h3>{manager}</h3>
         <div className="manager-details">Manager details:</div>
       </div>
-      <div className="card__employee-info">
-        {employees} employees
-        {/* <MdOpenInNew
-          className="card__employee-info"
-          onClick={(e) => {
-            e.stopPropagation();
-            console.log("kliknuto");
-            navigate(`/${projectId}/notes/edit-project`);
-          }}
-        /> */}
-        {/* <p>{employees} employees</p> */}
-      </div>
+      <div className="card__employee-info">{employees} employees</div>
     </div>
   );
 };

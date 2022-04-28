@@ -1,52 +1,36 @@
-import { useState, useContext } from "react";
-import { ModalContext } from "../../context/ModalContext";
-import BackdropModal from "../Backdrop/BackdropModul";
-// import Backdrop from "../Backdrop/Backdrop";
-import "./DeleteProjectModal.scss";
-import { useNavigate } from "react-router";
-
-// const { loggedIn } = useContext(AuthContext);
+import { useContext } from 'react';
+import { ModalContext } from '../../context/ModalContext';
+import BackdropModal from '../Backdrop/BackdropModul';
+import './DeleteProjectModal.scss';
+import { useNavigate } from 'react-router';
 
 const DeleteProjectModal = (props) => {
-  // const [input, setInput] = useState("");
-
   const toCheck = `${props.projectManager}/${props.projectName}`;
   const navigate = useNavigate();
 
   const { isOpen, setIsOpen, input, setInput, closeModal, deleteProject } =
     useContext(ModalContext);
-  console.log(isOpen);
 
   const handleChange = (e) => {
     setInput(e.target.value);
   };
 
-  //ne moze da se menja state na unmouted component, stavicu da state bude prazan nakon submitovanja,
-
   return (
     <>
       <BackdropModal show={isOpen} />
 
-      <div
-        // className={"modal"}
-        className={isOpen ? "modal open" : "modal close"}
-        // isOpentyle={{
-        //   transform: `${isOpen}` ? "translateY(0)" : "translateY(-100vh)",
-        //   opacity: `${isOpen}` ? "1" : "0",
-        // }}
-      >
+      <div className={isOpen ? 'modal open' : 'modal close'}>
         <div className="modal__text">
           Are you sure you wanto to delete project <span>{`${isOpen}`}</span>
           <span
             style={{
-              fontWeight: "bold",
+              fontWeight: 'bold',
             }}
           >
-            {" "}
+            {' '}
             {props.projectName}
           </span>
-          ?{/* <br /> This action cannot be undone. */}
-          <div>Enter following data do delete the project:</div>
+          ?<div>Enter following data do delete the project:</div>
           <div>
             <span>{props.projectManager}</span>/<span>{props.projectName}</span>
           </div>
@@ -66,7 +50,7 @@ const DeleteProjectModal = (props) => {
             disabled={toCheck !== input}
             onClick={() => {
               deleteProject(props.projectId);
-              navigate("/");
+              navigate('/');
             }}
           >
             DELETE
