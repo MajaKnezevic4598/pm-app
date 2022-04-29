@@ -127,10 +127,12 @@ const NotesView = (props) => {
 
   const { id } = useParams();
 
-  const { data, status } = useQuery(["project"], () => fetchProject(id), {
-    keepPreviousData: false,
-    cacheTime: 0,
-  });
+  // const { data, status } = useQuery(["project"], () => fetchProject(id), {
+  //   keepPreviousData: false,
+  //   cacheTime: 0,
+  // });
+
+  const { data, status } = useQuery([`project-${id}`], () => fetchProject(id));
 
   const { data: categories, status: categoriesStatus } = useQuery(
     ["categoryPm"],
