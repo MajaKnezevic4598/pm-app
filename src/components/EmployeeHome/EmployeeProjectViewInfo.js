@@ -1,12 +1,64 @@
-import React from 'react';
+import React, { useRef, useState } from "react";
 
-import Default from '../../assets/no-image.png';
-import './EmployeeProjectView.scss';
-import './EmployeeProjectViewInfo.scss';
-import EmployeeNote from './EmployeeNote';
-import EmptyNote from './EmptyNote';
+import Default from "../../assets/no-image.png";
+import "./EmployeeProjectView.scss";
+import "./EmployeeProjectViewInfo.scss";
+import EmployeeNote from "./EmployeeNote";
+import EmptyNote from "./EmptyNote";
+import { BsFillCaretLeftFill, BsFillCaretRightFill } from "react-icons/bs";
+import uuid from "react-uuid";
+import { useNavigate } from "react-router";
 
 const EmployeeProjectViewInfo = (props) => {
+  const [activeTab, setActiveTab] = useState("");
+
+  const [scrollX, setscrollX] = useState(0);
+  const [scrolEnd, setscrolEnd] = useState(false);
+
+  let scrl = useRef(null);
+
+  const styleHeader = {
+    borderBottom: "2px solid #62929E",
+  };
+
+  const styleSection = {
+    borderLeft: "2px solid #62929E",
+    borderRight: "2px solid #62929E",
+    borderBottom: "2px solid #62929E",
+    boxShadow: "inset 0 0 10px rgba(0,0,0,0.3)",
+  };
+
+  const slide = (shift) => {
+    scrl.current.scrollLeft += shift;
+    setscrollX(scrollX + shift);
+
+    if (
+      Math.floor(scrl.current.scrollWidth - scrl.current.scrollLeft) <=
+      scrl.current.offsetWidth
+    ) {
+      setscrolEnd(true);
+    } else {
+      setscrolEnd(false);
+    }
+  };
+
+  const scrollCheck = () => {
+    setscrollX(scrl.current.scrollLeft);
+    if (
+      Math.floor(scrl.current.scrollWidth - scrl.current.scrollLeft) <=
+      scrl.current.offsetWidth
+    ) {
+      setscrolEnd(true);
+    } else {
+      setscrolEnd(false);
+    }
+  };
+
+  const handleTab = (index) => {
+    setActiveTab(`category-${index}`);
+  };
+  const navigate = useNavigate();
+
   const Image = React.memo(function Image({ src }) {
     return (
       <img
@@ -29,7 +81,7 @@ const EmployeeProjectViewInfo = (props) => {
               <Image
                 src={
                   props.logo
-                    ? 'https://pm-app-bek.herokuapp.com' + props.logo
+                    ? "https://pm-app-bek.herokuapp.com" + props.logo
                     : Default
                 }
               />
@@ -45,7 +97,7 @@ const EmployeeProjectViewInfo = (props) => {
               <Image
                 src={
                   props.projectManagerPhoto
-                    ? 'https://pm-app-bek.herokuapp.com' +
+                    ? "https://pm-app-bek.herokuapp.com" +
                       props.projectManagerPhoto
                     : Default
                 }
@@ -59,7 +111,7 @@ const EmployeeProjectViewInfo = (props) => {
                 <Image
                   src={
                     employee.attributes.profilePhoto.data
-                      ? 'https://pm-app-bek.herokuapp.com' +
+                      ? "https://pm-app-bek.herokuapp.com" +
                         employee.attributes.profilePhoto.data.attributes.url
                       : Default
                   }
@@ -68,7 +120,85 @@ const EmployeeProjectViewInfo = (props) => {
             })}
           </div>
         </div>
-        <div className="employee-info__content">
+        <div className="notes-view">
+          <div className="notes-view__conteiner">
+            <div className="header-conteiner">
+              {scrollX !== 0 && (
+                <button className="prev" onClick={() => slide(-100)}>
+                  <BsFillCaretLeftFill className="left-arrow" />
+                </button>
+              )}
+              <header
+                style={activeTab ? styleHeader : null}
+                ref={scrl}
+                onScroll={scrollCheck}
+              >
+                {props.categories?.map((category, index) => {
+                  return (
+                    <div
+                      className={
+                        activeTab === `category-${index}` ? "active1" : ""
+                      }
+                      onClick={() => {
+                        props.setCategoryName(category.attributes.name);
+                        handleTab(index);
+                      }}
+                    >
+                      {category.attributes.name}
+                    </div>
+                  );
+                })}
+              </header>
+              {!scrolEnd && (
+                <button className="next" onClick={() => slide(+100)}>
+                  <BsFillCaretRightFill className="right-arrow" />
+                </button>
+              )}
+            </div>
+
+            <section style={activeTab ? styleSection : null}>
+              <div className="add-search-filter">
+                <div>
+                  <input
+                    value={props.nameFilter}
+                    onChange={props.searchByName}
+                    type={"text"}
+                    placeholder="Search"
+                  />
+                </div>
+                <div>
+                  {" "}
+                  <select
+                    onChange={(e) => props.setSortValue(e.target.value)}
+                    name="value"
+                    id="value-select"
+                  >
+                    <option value={"ASC"}>Sort by:</option>
+                    <option value={"ASC"}>Oldest</option>
+                    <option value={"DESC"}>Newest</option>
+                  </select>
+                </div>
+              </div>
+              <div className="empty-note">
+                {props.notes?.length < 1 ? <EmptyNote /> : null}
+                {props.notes?.map((note) => {
+                  return (
+                    <EmployeeNote
+                      name={note.attributes.title}
+                      description={note.attributes.description}
+                      photo={
+                        note.attributes.profile.data?.attributes.profilePhoto
+                          .data?.attributes.url
+                      }
+                      pmName={note.attributes.profile.data?.attributes.name}
+                    />
+                  );
+                })}
+              </div>
+            </section>
+          </div>
+        </div>
+        {/* <div className="employee-info__content">
           <header style={{ display: 'flex', overflowX: 'scroll' }}>
             {props.categories?.map((category) => {
               return (
@@ -156,7 +286,7 @@ const EmployeeProjectViewInfo = (props) => {
               })}
             </div>
           </section>
-        </div>
+        </div> */}
       </div>
     </>
   );

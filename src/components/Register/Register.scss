@@ -1,4 +1,4 @@
-@import '../../styles/variables';
+@import "../../styles/variables";
 
 .register {
   height: 100vh;
@@ -35,9 +35,9 @@
 
     &__text {
       padding-left: 2rem;
-      padding-top: 4rem;
+      padding-top: 0;
 
-      @media screen and (max-width:380px) {
+      @media screen and (max-width: 380px) {
         padding-top: 0rem;
         padding-left: 1rem;
       }
@@ -111,7 +111,7 @@
     }
   }
 
-  input[type='file'] {
+  input[type="file"] {
     color: $inputFileText;
     width: 100%;
     font-size: 0.9rem;
