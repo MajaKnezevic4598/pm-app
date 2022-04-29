@@ -38,7 +38,7 @@ const EmployeeProjectView = (props) => {
 
   const { id } = useParams();
 
-  const { data, status } = useQuery(['singleProjects'], () =>
+  const { data, status } = useQuery([`singleProjects-${id}`], () =>
     fetchProjects(id)
   );
 

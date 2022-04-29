@@ -1,16 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from 'react';
 
-import Default from "../../assets/no-image.png";
-import "./EmployeeProjectView.scss";
-import "./EmployeeProjectViewInfo.scss";
-import EmployeeNote from "./EmployeeNote";
-import EmptyNote from "./EmptyNote";
-import { BsFillCaretLeftFill, BsFillCaretRightFill } from "react-icons/bs";
-import uuid from "react-uuid";
-import { useNavigate } from "react-router";
+import Default from '../../assets/no-image.png';
+import './EmployeeProjectView.scss';
+import './EmployeeProjectViewInfo.scss';
+import EmployeeNote from './EmployeeNote';
+import EmptyNote from './EmptyNote';
+import { BsFillCaretLeftFill, BsFillCaretRightFill } from 'react-icons/bs';
+import uuid from 'react-uuid';
+import { useNavigate } from 'react-router';
 
 const EmployeeProjectViewInfo = (props) => {
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState('');
 
   const [scrollX, setscrollX] = useState(0);
   const [scrolEnd, setscrolEnd] = useState(false);
@@ -18,14 +18,14 @@ const EmployeeProjectViewInfo = (props) => {
   let scrl = useRef(null);
 
   const styleHeader = {
-    borderBottom: "2px solid #62929E",
+    borderBottom: '2px solid #62929E',
   };
 
   const styleSection = {
-    borderLeft: "2px solid #62929E",
-    borderRight: "2px solid #62929E",
-    borderBottom: "2px solid #62929E",
-    boxShadow: "inset 0 0 10px rgba(0,0,0,0.3)",
+    borderLeft: '2px solid #62929E',
+    borderRight: '2px solid #62929E',
+    borderBottom: '2px solid #62929E',
+    boxShadow: 'inset 0 0 10px rgba(0,0,0,0.3)',
   };
 
   const slide = (shift) => {
@@ -59,6 +59,21 @@ const EmployeeProjectViewInfo = (props) => {
   };
   const navigate = useNavigate();
 
+  const getEmployeesPhotos = useCallback(() => {
+    return props.employees.map((employee) => {
+      return (
+        <Image
+          src={
+            employee.attributes.profilePhoto.data
+              ? 'https://pm-app-bek.herokuapp.com' +
+                employee.attributes.profilePhoto.data.attributes.url
+              : Default
+          }
+        />
+      );
+    });
+  }, [props.employees]);
+
   const Image = React.memo(function Image({ src }) {
     return (
       <img
@@ -81,7 +96,7 @@ const EmployeeProjectViewInfo = (props) => {
               <Image
                 src={
                   props.logo
-                    ? "https://pm-app-bek.herokuapp.com" + props.logo
+                    ? 'https://pm-app-bek.herokuapp.com' + props.logo
                     : Default
                 }
               />
@@ -97,7 +112,7 @@ const EmployeeProjectViewInfo = (props) => {
               <Image
                 src={
                   props.projectManagerPhoto
-                    ? "https://pm-app-bek.herokuapp.com" +
+                    ? 'https://pm-app-bek.herokuapp.com' +
                       props.projectManagerPhoto
                     : Default
                 }
@@ -106,18 +121,7 @@ const EmployeeProjectViewInfo = (props) => {
           </div>
           <div className="emp__description__toright">
             <p>Employees</p>
-            {props.employees.map((employee) => {
-              return (
-                <Image
-                  src={
-                    employee.attributes.profilePhoto.data
-                      ? "https://pm-app-bek.herokuapp.com" +
-                        employee.attributes.profilePhoto.data.attributes.url
-                      : Default
-                  }
-                />
-              );
-            })}
+            {getEmployeesPhotos()}
           </div>
         </div>
         <div className="notes-view">
@@ -137,7 +141,7 @@ const EmployeeProjectViewInfo = (props) => {
                   return (
                     <div
                       className={
-                        activeTab === `category-${index}` ? "active1" : ""
+                        activeTab === `category-${index}` ? 'active1' : ''
                       }
                       onClick={() => {
                         props.setCategoryName(category.attributes.name);
@@ -162,20 +166,20 @@ const EmployeeProjectViewInfo = (props) => {
                   <input
                     value={props.nameFilter}
                     onChange={props.searchByName}
-                    type={"text"}
+                    type={'text'}
                     placeholder="Search"
                   />
                 </div>
                 <div>
-                  {" "}
+                  {' '}
                   <select
                     onChange={(e) => props.setSortValue(e.target.value)}
                     name="value"
                     id="value-select"
                   >
-                    <option value={"ASC"}>Sort by:</option>
-                    <option value={"ASC"}>Oldest</option>
-                    <option value={"DESC"}>Newest</option>
+                    <option value={'ASC'}>Sort by:</option>
+                    <option value={'ASC'}>Oldest</option>
+                    <option value={'DESC'}>Newest</option>
                   </select>
                 </div>
               </div>
