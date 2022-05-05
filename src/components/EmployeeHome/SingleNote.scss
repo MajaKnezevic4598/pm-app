@@ -8,48 +8,50 @@
 
 $box-shadow-small-card: -2px -2px 5px rgba(255, 255, 255, 0.45),
   2px 2px 5px rgba(32, 58, 104, 0.3);
+$border-radius-sm: 4px;
 
 @mixin detailsCard {
   position: absolute;
-  top: -2vh;
+  top: 1px;
   left: 50%;
   transform: translate(-50%, 0);
   font-size: 1.8vh;
   padding: 1vh;
-  box-shadow: $box-shadow-small-card;
-  font-weight: 600;
+  padding-bottom: 0.5vh;
+  font-weight: bold;
   letter-spacing: 0.1vw;
   border-radius: 2px;
   white-space: nowrap;
+  color: $darkPrimary;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@mixin smallCard {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 4vh 1vh 2vh 1.5vh;
+  border-radius: $border-radius-sm;
+  background-color: darken($lightGrayPrimary, $amount: 5%);
 }
 
 .note {
   width: 24vw;
 
   &__content {
-    background-color: #dde1e7;
-    box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
-      3px 3px 6px rgba(94, 104, 121, 0.3);
+    background-color: $lightGrayPrimary;
     border-radius: 4px;
     margin: 4vh 0;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-
-    // justify-content: flex-start;
     padding: 3vh;
 
     &:hover {
-      //   border: 1px solid rgb(192, 192, 192);
-      box-shadow: -6px -6px 9px rgba(255, 255, 255, 0.45),
-        6px 6px 9px rgba(94, 104, 121, 0.3);
       cursor: pointer;
-      transform: scale(1.01);
+      border: 1px solid rgba(0, 0, 0, 0.1);
     }
-
-    // @include mobile {
-    //   width: 80%;
-    // }
   }
 
   .right-buttons {
@@ -74,12 +76,7 @@ $box-shadow-small-card: -2px -2px 5px rgba(255, 255, 255, 0.45),
       font-size: 2.8vh;
       margin-right: 1vw;
       color: $darkPrimary;
-      //   &.red {
-      //     color: #f88379;
-      //     &:hover {
-      //       color: darken(#f88379, 5%);
-      //     }
-      //   }
+
       &:hover {
         color: lighten($darkPrimary, 10%);
       }
@@ -87,50 +84,32 @@ $box-shadow-small-card: -2px -2px 5px rgba(255, 255, 255, 0.45),
   }
 
   &__head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-
-    // border: 1px solid black;
-    width: 100%;
-    margin-bottom: 3vh;
-    padding: 2.5vh 1vh;
-    box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
-      3px 3px 6px rgba(94, 104, 121, 0.3);
-    border-radius: 4px;
-    position: relative;
+    @include smallCard;
+    margin-bottom: 2vh;
     & > div {
       @include detailsCard;
     }
 
     .title {
-      font-size: 2.2vh;
       font-weight: bold;
       color: $darkPrimary;
       margin-right: auto;
+      margin-top: 1.4vh;
     }
   }
 
   &__description {
-    width: 100%;
-    // border: 1px solid black;
-    margin-top: 1vh;
+    @include smallCard;
     margin-bottom: 2vh;
-    padding: 2vh 1vh;
-    box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
-      3px 3px 6px rgba(94, 104, 121, 0.3);
-    border-radius: 4px;
-    max-height: 20vh;
-    // overflow-x: auto;
-    text-overflow: ellipsis;
-    position: relative;
 
     & > div:first-of-type {
       p {
         max-height: 16vh;
         overflow-y: auto;
 
-        margin: 1vh 0;
+        // margin: 1vh 0;
+        margin-top: 1.5vh;
+
         font-size: 2vh;
       }
     }
@@ -140,21 +119,13 @@ $box-shadow-small-card: -2px -2px 5px rgba(255, 255, 255, 0.45),
   }
 
   &__footer {
-    display: flex;
-    // border: 1px solid black;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2vh 1vh;
-    box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.45),
-      3px 3px 6px rgba(94, 104, 121, 0.3);
-    border-radius: 4px;
-    position: relative;
-    margin-top: 2vh;
+    @include smallCard;
+    margin-bottom: 2vh;
     .footer-img {
-      width: 5vh;
-      height: 5vh;
+      width: 7vh;
+      height: 7vh;
       border-radius: 50%;
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      margin-right: 1vw;
     }
     .footer-pmName {
       font-size: 2.2vh;
@@ -166,18 +137,10 @@ $box-shadow-small-card: -2px -2px 5px rgba(255, 255, 255, 0.45),
     }
   }
 
-  //   &__image {
-  //     width: 32px;
-  //     height: 32px;
-  //     object-fit: cover;
-  //     border-radius: 50%;
-  //     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  //     cursor: pointer;
-  //   }
+  .note-docs {
+    @include smallCard;
+  }
 
-  //   &__name {
-  //     padding-left: 8px;
-  //   }
   @media screen and (max-width: 750px) {
     width: 33vw;
   }

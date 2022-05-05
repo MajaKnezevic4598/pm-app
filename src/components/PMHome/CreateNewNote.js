@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 
-import axiosInstance from '../../helpers/axiosInstance';
-import './CreateNewNote.scss';
-import { BiArrowBack } from 'react-icons/bi';
+import axiosInstance from "../../helpers/axiosInstance";
+import "./CreateNewNote.scss";
+import { BiArrowBack } from "react-icons/bi";
 
 const CreateNewNote = (props) => {
-  const [noteTitle, setNoteTitle] = useState('');
-  const [noteDescription, setNoteDescription] = useState('');
+  const [noteTitle, setNoteTitle] = useState("");
+  const [noteDescription, setNoteDescription] = useState("");
   const [category, setCategory] = useState(null);
-  const profileId = localStorage.getItem('profileId');
-  const [files, setFiles] = useState();
+  const profileId = localStorage.getItem("profileId");
+  const [files, setFiles] = useState([]);
 
   const uploadImage = async (id) => {
     const formData = new FormData();
 
-    formData.append('files', files[0]);
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
 
     axiosInstance
-      .post('/upload', formData)
+      .post("/upload", formData)
       .then((response) => {
-        axiosInstance.put('/notes/' + id, {
+        console.log(response);
+        console.log("ovo je response iz upload imagea");
+        axiosInstance.put("/notes/" + id, {
           data: {
             files: response.data,
           },
@@ -36,7 +40,7 @@ const CreateNewNote = (props) => {
       return;
     }
 
-    const notesData = await axiosInstance.post('/notes', {
+    const notesData = await axiosInstance.post("/notes", {
       data: {
         title: noteTitle,
         description: noteDescription,
@@ -51,6 +55,9 @@ const CreateNewNote = (props) => {
     }
     props.setChangeView(false);
   };
+  useEffect(() => {
+    console.log(files);
+  }, [files]);
   return (
     <div className="new-note">
       <div className="new-note__header">
@@ -58,7 +65,7 @@ const CreateNewNote = (props) => {
           className="new-note__header__back"
           onClick={() => props.setChangeView(false)}
         >
-          <BiArrowBack style={{ paddingTop: '4px' }} />
+          <BiArrowBack style={{ paddingTop: "4px" }} />
           Back
         </div>
         <div className="new-note__header__title">Create a new Note</div>
@@ -83,7 +90,7 @@ const CreateNewNote = (props) => {
             id="description"
             placeholder="Note Description..."
             className="note-input"
-            style={{ resize: 'none' }}
+            style={{ resize: "none" }}
             onChange={(e) => setNoteDescription(e.target.value)}
           />
           <select
@@ -103,8 +110,13 @@ const CreateNewNote = (props) => {
           <input
             id="file-upload"
             type="file"
-            style={{ display: 'none' }}
-            onChange={(e) => setFiles(e.target.files)}
+            style={{ display: "none" }}
+            multiple
+            onChange={(e) =>
+              setFiles((prev) => {
+                return [...prev, ...e.target.files];
+              })
+            }
           />
           <label htmlFor="file-upload" className="btn-upload">
             UPLOAD FILE
