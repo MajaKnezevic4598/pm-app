@@ -9,11 +9,18 @@ import { useNavigate } from "react-router-dom";
 import "./SingleNote.scss";
 import Modal from "../Modal/Modal";
 import uuid from "react-uuid";
+import { GrDocumentPdf } from "react-icons/gr";
+
+import { FiImage } from "react-icons/fi";
+import { BsFileEarmarkWord } from "react-icons/bs";
+import { BsFileEarmarkPdf } from "react-icons/bs";
+import { FaRegFileExcel } from "react-icons/fa";
 
 const SingleNote = (props) => {
   const navigate = useNavigate();
   const [isModalOn, setIsModalOn] = useState(false);
   const [docs, setDocs] = useState([]);
+  const [other, setOther] = useState();
 
   const toggleDeleteModal = async () => {
     setIsModalOn(true);
@@ -39,14 +46,41 @@ const SingleNote = (props) => {
       setDocs((prev) => {
         return [...prev, `${data[i].attributes.ext}`];
       });
-      console.log(docs);
     }
   };
+
+  const otherExtensions = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (
+        arr[i] !== ".pdf" &&
+        arr[i] !== ".png" &&
+        arr[i] !== ".jpg" &&
+        arr[i] !== ".jpeg" &&
+        arr[i] !== ".exe"
+      ) {
+        return true;
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (docs.length !== 0) {
+      console.log(otherExtensions(docs));
+      console.log("proverava da li je true ili false");
+      setOther(otherExtensions(docs));
+    }
+  });
+
   useEffect(() => {
     if (props.files) {
+      console.log(props.files);
       checkExtension(props.files);
     }
   }, [props?.files]);
+
+  useEffect(() => {
+    console.log(docs);
+  }, [docs]);
 
   return (
     <div className="note">
@@ -83,7 +117,30 @@ const SingleNote = (props) => {
           <div className="footer-details">Project manager:</div>
         </div>
         <div className="note-docs">
-          {docs.length > 0 && docs.map((doc) => <div key={uuid()}>{doc}</div>)}
+          {docs.length !== 0 &&
+            docs.map((doc) => {
+              return (
+                <div>
+                  {(function () {
+                    switch (doc) {
+                      case ".pdf":
+                        return <BsFileEarmarkPdf />;
+                      case ".jpg":
+                      case ".jpeg":
+                      case ".png":
+                        return <FiImage />;
+                      case ".docx":
+                        return <BsFileEarmarkWord />;
+                      case ".exe":
+                        return <FaRegFileExcel />;
+                      default:
+                        return null;
+                    }
+                  })()}
+                </div>
+              );
+            })}
+          {other && <div> + more</div>}
         </div>
       </div>
       <Modal

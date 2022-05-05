@@ -125,6 +125,10 @@ const NotesView = (props) => {
     }
   }, [changeViewState]);
 
+  // useEffect(() => {
+  //   refetch();
+  // }, []);
+
   const { id } = useParams();
 
   // const { data, status } = useQuery(["project"], () => fetchProject(id), {
