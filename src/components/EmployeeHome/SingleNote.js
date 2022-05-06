@@ -82,6 +82,23 @@ const SingleNote = (props) => {
     console.log(docs);
   }, [docs]);
 
+  const renderFiles = (params) => {
+    switch (params) {
+      case ".pdf":
+        return <BsFileEarmarkPdf />;
+      case ".jpg":
+      case ".jpeg":
+      case ".png":
+        return <FiImage />;
+      case ".docx":
+        return <BsFileEarmarkWord />;
+      case ".exe":
+        return <FaRegFileExcel />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="note">
       <div className="note__content">
@@ -116,12 +133,21 @@ const SingleNote = (props) => {
           <p className="footer-pmName">{props.pmName}</p>
           <div className="footer-details">Project manager:</div>
         </div>
-        <div className="note-docs">
+        <div
+          className="note-docs"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (props.files) {
+              navigate(`/${props.id}/notes/notes-docs`);
+            } 
+          }}
+        >
           {docs.length !== 0 &&
             docs.map((doc) => {
               return (
                 <div>
-                  {(function () {
+                  {renderFiles(doc)}
+                  {/* {(function () {
                     switch (doc) {
                       case ".pdf":
                         return <BsFileEarmarkPdf />;
@@ -136,7 +162,7 @@ const SingleNote = (props) => {
                       default:
                         return null;
                     }
-                  })()}
+                  })()} */}
                 </div>
               );
             })}
