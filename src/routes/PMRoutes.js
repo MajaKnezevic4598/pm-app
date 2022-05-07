@@ -8,6 +8,7 @@ import NotesView from "../components/PMHome/NotesView";
 import EditNote from "../components/PMHome/EditNote";
 import EditProject from "../components/PMHome/EditProject";
 import NoteDocs from "../components/PMHome/NoteDocs";
+import PDFFile from "../components/PMHome/PDFFile";
 
 const PMRoutes = (props) => {
   return (
@@ -27,6 +28,10 @@ const PMRoutes = (props) => {
           <Route path="/edit-note/:id" element={<EditNote />} />
           <Route path="/:id/notes/edit-project" element={<EditProject />} />
           <Route path="/:id/notes/notes-docs" element={<NoteDocs />} />
+          <Route
+            path="/:id/notes/notes-docs/uploads/:filePath"
+            element={<PDFFile />}
+          />
         </Routes>
       </BrowserRouter>
     </>
