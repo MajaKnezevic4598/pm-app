@@ -1,7 +1,7 @@
-import './SingleProjectCard.scss';
-import img from '../../assets/av.png';
+import "./SingleProjectCard.scss";
+import img from "../../assets/av.png";
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const SingleProjectCard = ({
   manager,
@@ -35,7 +35,7 @@ const SingleProjectCard = ({
         ) : (
           <img src={img} className="card__project-logo" alt="projectLogo" />
         )}
-        <h2>{prName}</h2>
+        <p>{prName}</p>
         <div className="project-details">Project details:</div>
       </div>
       <div className="card__prmanger-info">
@@ -49,7 +49,7 @@ const SingleProjectCard = ({
           <img src={img} alt="default" className="project-manager-image" />
         )}
 
-        <h3>{manager}</h3>
+        <p>{manager}</p>
         <div className="manager-details">Manager details:</div>
       </div>
       <div className="card__employee-info">{employees} employees</div>
