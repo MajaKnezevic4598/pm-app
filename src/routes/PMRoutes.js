@@ -9,6 +9,8 @@ import EditNote from "../components/PMHome/EditNote";
 import EditProject from "../components/PMHome/EditProject";
 import NoteDocs from "../components/PMHome/NoteDocs";
 import PDFFile from "../components/PMHome/PDFFile";
+// import Galery from "../components/PMHome/Galery";
+import Galery from "../components/PMHome/Galery";
 
 const PMRoutes = (props) => {
   return (
@@ -31,6 +33,10 @@ const PMRoutes = (props) => {
           <Route
             path="/:id/notes/notes-docs/uploads/:filePath"
             element={<PDFFile />}
+          />
+          <Route
+            path="/:id/notes/notes-docs/uploads/:filePath/galery/uploads/:thumbnail"
+            element={<Galery />}
           />
         </Routes>
       </BrowserRouter>

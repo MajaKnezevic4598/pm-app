@@ -4,7 +4,6 @@ import { Viewer } from "@react-pdf-viewer/core";
 // Import the styles
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import { useParams } from "react-router";
-import { useEffect } from "react";
 
 const PDFFile = () => {
   const { id, filePath } = useParams();

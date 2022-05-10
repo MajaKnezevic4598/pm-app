@@ -41,7 +41,7 @@ const SingleNote = (props) => {
 
   const checkExtension = (data) => {
     for (let i = 0; i < data.length; i++) {
-      console.log(data[i].attributes.ext);
+      // console.log(data[i].attributes.ext);
       // setDocs([...docs, `${data[i].attributes.ext}`]);
       setDocs((prev) => {
         return [...prev, `${data[i].attributes.ext}`];
@@ -65,22 +65,17 @@ const SingleNote = (props) => {
 
   useEffect(() => {
     if (docs.length !== 0) {
-      console.log(otherExtensions(docs));
-      console.log("proverava da li je true ili false");
+      // console.log(otherExtensions(docs));
+      // console.log("proverava da li je true ili false");
       setOther(otherExtensions(docs));
     }
   });
 
   useEffect(() => {
     if (props.files) {
-      console.log(props.files);
       checkExtension(props.files);
     }
   }, [props?.files]);
-
-  useEffect(() => {
-    console.log(docs);
-  }, [docs]);
 
   const renderFiles = (params) => {
     switch (params) {
@@ -139,32 +134,12 @@ const SingleNote = (props) => {
             e.stopPropagation();
             if (props.files) {
               navigate(`/${props.id}/notes/notes-docs`);
-            } 
+            }
           }}
         >
           {docs.length !== 0 &&
             docs.map((doc) => {
-              return (
-                <div>
-                  {renderFiles(doc)}
-                  {/* {(function () {
-                    switch (doc) {
-                      case ".pdf":
-                        return <BsFileEarmarkPdf />;
-                      case ".jpg":
-                      case ".jpeg":
-                      case ".png":
-                        return <FiImage />;
-                      case ".docx":
-                        return <BsFileEarmarkWord />;
-                      case ".exe":
-                        return <FaRegFileExcel />;
-                      default:
-                        return null;
-                    }
-                  })()} */}
-                </div>
-              );
+              return <div>{renderFiles(doc)}</div>;
             })}
           {other && <div> + more</div>}
         </div>

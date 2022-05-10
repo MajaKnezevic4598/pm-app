@@ -1,0 +1,15 @@
+@import "../../styles/variables";
+
+.docs-conteiner {
+  margin: 5vh auto;
+  width: 65vw;
+  //   border: 1px solid black;
+  border-radius: 4px;
+  padding: 1rem;
+  background-color: $lightGrayPrimary;
+
+  &__header {
+    border: 1px solid black;
+    display: flex;
+  }
+}

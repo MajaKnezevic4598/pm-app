@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import axiosInstance from "../../helpers/axiosInstance";
 import { useEffect, useState } from "react";
-
+import "./NoteDocs.scss";
 import NoteDocsTable from "./NoteDocsTable";
 
 const fetchNoteDocs = async (id) => {
@@ -28,7 +28,11 @@ const NoteDocs = () => {
   }, [data]);
 
   return (
-    <div>
+    <div className="docs-conteiner">
+      <div className="docs-conteiner__header">
+        <h4>Document name:</h4>
+        <h4>Document type</h4>
+      </div>
       {data?.attributes &&
         data?.attributes?.files?.data?.map((d) => {
           return (
@@ -37,6 +41,13 @@ const NoteDocs = () => {
               filePath={d.attributes.url}
               fileExtension={d.attributes.ext}
               id={id}
+              //   thumbnail={d.attributes.formats.thumbnail.url}
+              //d.attributes.formats.thumbnail.url
+              thumbnail={
+                d.attributes.formats?.thumbnail.url
+                  ? d.attributes.formats?.thumbnail.url
+                  : ""
+              }
             />
           );
         })}

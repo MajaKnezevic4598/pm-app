@@ -111,7 +111,6 @@ const NotesView = (props) => {
   const navigate = useNavigate();
 
   const { setIsOpen, isOpen } = useContext(ModalContext);
-  console.log(isOpen);
 
   // useEffect(() => {
   //   // console.log(data);
@@ -124,10 +123,6 @@ const NotesView = (props) => {
       refetch();
     }
   }, [changeViewState]);
-
-  // useEffect(() => {
-  //   refetch();
-  // }, []);
 
   const { id } = useParams();
 
@@ -149,8 +144,9 @@ const NotesView = (props) => {
     refetch,
   } = useQuery(
     ["notesPm", sortValue, nameFilter, categoryName],
-    () => fetchAllNotes(id, categoryName, nameFilter, sortValue),
-    { keepPreviousData: true }
+    () => fetchAllNotes(id, categoryName, nameFilter, sortValue)
+
+    // { keepPreviousData: true }
   );
 
   // useEffect(() => {
