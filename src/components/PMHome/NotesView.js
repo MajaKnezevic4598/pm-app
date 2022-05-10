@@ -52,7 +52,6 @@ const NotesView = (props) => {
   const [nameFilter, setNameFilter] = useState("");
   const [sortValue, setSortValue] = useState("DESC");
   const [changeViewState, setChangeViewState] = useState();
-  // const [showModal, setShowModal] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [activeTab, setActiveTab] = useState("");
 
@@ -61,6 +60,8 @@ const NotesView = (props) => {
 
   let scrl = useRef(null);
 
+
+  
   useEffect(() => {
     if (scrolEnd) {
       console.log("scrollEnd is true");
@@ -68,6 +69,8 @@ const NotesView = (props) => {
     }
   }, [scrolEnd]);
 
+
+  
   const styleHeader = {
     borderBottom: "2px solid #987197",
   };
@@ -112,11 +115,7 @@ const NotesView = (props) => {
 
   const { setIsOpen, isOpen } = useContext(ModalContext);
 
-  // useEffect(() => {
-  //   // console.log(data);
-  //   console.log(props.notes);
-  //   console.log(changeViewState);
-  // }, [changeViewState]);
+  
 
   useEffect(() => {
     if (changeViewState === false) {
@@ -126,11 +125,6 @@ const NotesView = (props) => {
 
   const { id } = useParams();
 
-  // const { data, status } = useQuery(["project"], () => fetchProject(id), {
-  //   keepPreviousData: false,
-  //   cacheTime: 0,
-  // });
-
   const { data, status } = useQuery([`project-${id}`], () => fetchProject(id));
 
   const { data: categories, status: categoriesStatus } = useQuery(
@@ -138,15 +132,26 @@ const NotesView = (props) => {
     () => fetchCategories()
   );
 
+  useEffect(() => {
+    if (categories) {
+      setCategoryName(categories[0].attributes.name);
+      handleTab(0);
+    }
+  }, [categories]);
+
   const {
     data: notes,
     status: notesStatus,
     refetch,
   } = useQuery(
+
     ["notesPm", sortValue, nameFilter, categoryName],
     () => fetchAllNotes(id, categoryName, nameFilter, sortValue)
 
     // { keepPreviousData: true }
+
+   
+    
   );
 
   // useEffect(() => {
