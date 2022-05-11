@@ -57,10 +57,17 @@ const EditNote = (props) => {
       formData.append('files', files[i]);
     }
 
+    const noteFiles = await axiosInstance.get(`/notes/${id}?populate=*`);
+
+    console.log(noteFiles);
+
     const uploadData = await axiosInstance.post('/upload', formData);
     await axiosInstance.put('/notes/' + id, {
       data: {
-        files: uploadData.data,
+        files: [
+          ...noteFiles.data.data.attributes.files.data,
+          ...uploadData.data,
+        ],
       },
     });
     setIsLoading(false);
@@ -77,9 +84,11 @@ const EditNote = (props) => {
         category: category,
       },
     });
+    console.log(notesData);
     if (files && notesData) {
       await uploadFiles(notesData.data.data.id);
     }
+    setIsLoading(false);
   };
 
   if (isLoading) {
