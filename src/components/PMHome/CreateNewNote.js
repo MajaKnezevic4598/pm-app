@@ -1,46 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import axiosInstance from "../../helpers/axiosInstance";
-import "./CreateNewNote.scss";
-import { BiArrowBack } from "react-icons/bi";
+import axiosInstance from '../../helpers/axiosInstance';
+import './CreateNewNote.scss';
+import { BiArrowBack } from 'react-icons/bi';
+import Spinner from '../Spinner.js/Spinner';
 
 const CreateNewNote = (props) => {
-  const [noteTitle, setNoteTitle] = useState("");
-  const [noteDescription, setNoteDescription] = useState("");
+  const [noteTitle, setNoteTitle] = useState('');
+  const [noteDescription, setNoteDescription] = useState('');
   const [category, setCategory] = useState(null);
-  const profileId = localStorage.getItem("profileId");
+  const profileId = localStorage.getItem('profileId');
+  const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState([]);
 
-  const uploadImage = async (id) => {
+  const uploadFiles = async (id) => {
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
+      formData.append('files', files[i]);
     }
 
-    axiosInstance
-      .post("/upload", formData)
-      .then((response) => {
-        console.log(response);
-        console.log("ovo je response iz upload imagea");
-        axiosInstance.put("/notes/" + id, {
-          data: {
-            files: response.data,
-          },
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const uploadData = await axiosInstance.post('/upload', formData);
+    await axiosInstance.put('/notes/' + id, {
+      data: {
+        files: uploadData.data,
+      },
+    });
+    props.setChangeView(false);
+    setIsLoading(false);
   };
 
   const saveNote = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     if (!category || !noteDescription || !noteTitle) {
       return;
     }
 
-    const notesData = await axiosInstance.post("/notes", {
+    const notesData = await axiosInstance.post('/notes', {
       data: {
         title: noteTitle,
         description: noteDescription,
@@ -51,13 +48,14 @@ const CreateNewNote = (props) => {
     });
 
     if (files && notesData) {
-      await uploadImage(notesData.data.data.id);
+      await uploadFiles(notesData.data.data.id);
     }
-    props.setChangeView(false);
   };
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="new-note">
       <div className="new-note__header">
@@ -65,7 +63,7 @@ const CreateNewNote = (props) => {
           className="new-note__header__back"
           onClick={() => props.setChangeView(false)}
         >
-          <BiArrowBack style={{ paddingTop: "4px" }} />
+          <BiArrowBack style={{ paddingTop: '4px' }} />
           Back
         </div>
         <div className="new-note__header__title">Create a new Note</div>
@@ -90,7 +88,7 @@ const CreateNewNote = (props) => {
             id="description"
             placeholder="Note Description..."
             className="note-input"
-            style={{ resize: "none" }}
+            style={{ resize: 'none' }}
             onChange={(e) => setNoteDescription(e.target.value)}
           />
           <select
@@ -110,7 +108,7 @@ const CreateNewNote = (props) => {
           <input
             id="file-upload"
             type="file"
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
             multiple
             onChange={(e) =>
               setFiles((prev) => {
@@ -121,6 +119,9 @@ const CreateNewNote = (props) => {
           <label htmlFor="file-upload" className="btn-upload">
             UPLOAD FILE
           </label>
+          {files.map((file) => (
+            <div style={{ marginTop: '8px' }}>{file.name}</div>
+          ))}
           <button className="btn-submit" type="submit">
             SAVE NOTE
           </button>
