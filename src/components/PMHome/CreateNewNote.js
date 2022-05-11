@@ -3,15 +3,17 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../helpers/axiosInstance';
 import './CreateNewNote.scss';
 import { BiArrowBack } from 'react-icons/bi';
+import Spinner from '../Spinner.js/Spinner';
 
 const CreateNewNote = (props) => {
   const [noteTitle, setNoteTitle] = useState('');
   const [noteDescription, setNoteDescription] = useState('');
   const [category, setCategory] = useState(null);
   const profileId = localStorage.getItem('profileId');
+  const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState([]);
 
-  const uploadImage = async (id) => {
+  const uploadFiles = async (id) => {
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
@@ -25,10 +27,12 @@ const CreateNewNote = (props) => {
       },
     });
     props.setChangeView(false);
+    setIsLoading(false);
   };
 
   const saveNote = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     if (!category || !noteDescription || !noteTitle) {
       return;
     }
@@ -44,9 +48,13 @@ const CreateNewNote = (props) => {
     });
 
     if (files && notesData) {
-      await uploadImage(notesData.data.data.id);
+      await uploadFiles(notesData.data.data.id);
     }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="new-note">
@@ -111,6 +119,9 @@ const CreateNewNote = (props) => {
           <label htmlFor="file-upload" className="btn-upload">
             UPLOAD FILE
           </label>
+          {files.map((file) => (
+            <div style={{ marginTop: '8px' }}>{file.name}</div>
+          ))}
           <button className="btn-submit" type="submit">
             SAVE NOTE
           </button>
