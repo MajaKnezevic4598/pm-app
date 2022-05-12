@@ -30,6 +30,12 @@ const CreateNewNote = (props) => {
     setIsLoading(false);
   };
 
+  const deleteFile = (name) => {
+    const filesCopy = [...files];
+    const newFiles = filesCopy.filter((file) => file.name !== name);
+    setFiles([...newFiles]);
+  };
+
   const saveNote = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -119,8 +125,22 @@ const CreateNewNote = (props) => {
           <label htmlFor="file-upload" className="btn-upload">
             UPLOAD FILE
           </label>
-          {files.map((file) => (
-            <div style={{ marginTop: '8px' }}>{file.name}</div>
+          {files.map((file, id) => (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginTop: '8px',
+              }}
+            >
+              <div>{file.name}</div>
+              <span
+                style={{ marginLeft: '8px', cursor: 'pointer' }}
+                onClick={() => deleteFile(file.name)}
+              >
+                <i class="fas fa-trash-alt"></i>
+              </span>
+            </div>
           ))}
           <button className="btn-submit" type="submit">
             SAVE NOTE

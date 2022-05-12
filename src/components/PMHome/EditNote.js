@@ -74,6 +74,19 @@ const EditNote = (props) => {
     navigate(-1, { replace: true });
   };
 
+  const deleteFile = (name) => {
+    const filesCopy = [...files];
+    const newFiles = filesCopy.filter((file) => file.name !== name);
+    setFiles([...newFiles]);
+  };
+
+  const deleteOldFile = async (id) => {
+    await axiosInstance.delete('/upload/files/' + id);
+    const filesCopy = [...oldFiles];
+    const newFiles = filesCopy.filter((file) => file.id !== id);
+    setOldFiles([...newFiles]);
+  };
+
   const editNote = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -162,12 +175,39 @@ const EditNote = (props) => {
             UPLOAD FILE
           </label>
           {oldFiles?.map((file) => (
-            <div style={{ marginTop: '8px' }}>{file.attributes.name}</div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginTop: '8px',
+              }}
+            >
+              <div>{file.attributes.name}</div>
+              <span
+                style={{ marginLeft: '8px', cursor: 'pointer' }}
+                onClick={() => deleteOldFile(file.id)}
+              >
+                <i class="fas fa-trash-alt"></i>
+              </span>
+            </div>
           ))}
           {files?.map((file) => (
-            <div style={{ marginTop: '8px' }}>{file.name}</div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginTop: '8px',
+              }}
+            >
+              <div>{file.name}</div>
+              <span
+                style={{ marginLeft: '8px', cursor: 'pointer' }}
+                onClick={() => deleteFile(file.name)}
+              >
+                <i class="fas fa-trash-alt"></i>
+              </span>
+            </div>
           ))}
-          {console.log(files)}
           <button className="btn-submit" type="submit">
             EDIT
           </button>
