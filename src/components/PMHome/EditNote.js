@@ -107,7 +107,7 @@ const EditNote = (props) => {
       },
     });
     console.log(notesData);
-    if (files && notesData) {
+    if (files.length > 0 && notesData) {
       await uploadFiles(notesData.data.data.id);
     }
     setIsLoading(false);
