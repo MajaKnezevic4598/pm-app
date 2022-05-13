@@ -191,7 +191,13 @@ const EditNote = (props) => {
                 marginTop: '8px',
               }}
             >
-              <div>{file.attributes.name}</div>
+              <a
+                href={'https://pm-app-bek.herokuapp.com' + file.attributes.url}
+                download
+                target={'_blank'}
+              >
+                {file.attributes.name}
+              </a>
               <span
                 style={{ marginLeft: '8px', cursor: 'pointer' }}
                 onClick={() => deleteOldFile(file.id)}
