@@ -1,9 +1,9 @@
-import uuid from "react-uuid";
-import "./NoteDocsTable.scss";
-import GaleryTest from "./GaleryTest";
+import uuid from 'react-uuid';
+import './NoteDocsTable.scss';
+import GaleryTest from './GaleryTest';
 
-import { useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router';
+import { useState, useEffect } from 'react';
 
 const NoteDocsTable = ({
   fileName,
@@ -24,36 +24,73 @@ const NoteDocsTable = ({
   }, [images]);
 
   const openGalery = () => {
-    console.log("kliknula sam na galeriju");
+    console.log('kliknula sam na galeriju');
     setOpen(true);
   };
   const showFile = () => {
-    if (fileExtension === ".pdf") {
+    if (fileExtension === '.pdf') {
       navigate(`/${id}/notes/notes-docs${filePath}`);
     }
     if (
-      fileExtension === ".jpeg" ||
-      fileExtension === ".jpg" ||
-      fileExtension === ".png" ||
-      fileExtension === ".JPEG" ||
-      fileExtension === ".JPG"
+      fileExtension === '.jpeg' ||
+      fileExtension === '.jpg' ||
+      fileExtension === '.png' ||
+      fileExtension === '.JPEG' ||
+      fileExtension === '.JPG'
     ) {
-      console.log("ja sam pngaa");
+      console.log('ja sam pngaa');
 
-      console.log("niz slika");
+      console.log('niz slika');
       // navigate(`/${id}/notes/notes-docs${filePath}/galery${thumbnail}`);
     }
   };
+
+  function forceDownload(blob, filename) {
+    var a = document.createElement('a');
+    a.download = filename;
+    a.href = blob;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    //<a href={blob} download></a>
+  }
+
+  function downloadResource(url, filename) {
+    if (!filename) filename = url.split('\\').pop().split('/').pop();
+    fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        let blobUrl = window.URL.createObjectURL(blob);
+        forceDownload(blobUrl, filename);
+      })
+      .catch((e) => console.error(e));
+  }
+
   return (
     <div className="single-docs-conteiner" key={uuid()}>
-      <div onClick={showFile}>{fileName}</div>
-      <div>{fileExtension}</div>
+      <div onClick={showFile}>
+        <div>{fileName}</div>
+      </div>
+      <div
+        onClick={() =>
+          downloadResource('https://pm-app-bek.herokuapp.com' + filePath)
+        }
+        style={{ marginLeft: '8px' }}
+      >
+        {images ? '' : 'download'}
+      </div>
 
       {images ? (
         <div>
           {images.map((i) => {
             return (
-              <>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                }}
+              >
                 {!open && (
                   <div
                     onClick={() => {
@@ -63,6 +100,15 @@ const NoteDocsTable = ({
                     {i.attributes.name}
                   </div>
                 )}
+                <div
+                  onClick={() =>
+                    downloadResource(
+                      'https://pm-app-bek.herokuapp.com' + i.attributes.url
+                    )
+                  }
+                >
+                  Download
+                </div>
                 {/* <div
                   onClick={() => {
                     openGalery();
@@ -70,7 +116,7 @@ const NoteDocsTable = ({
                 >
                   {i.attributes.name}
                 </div> */}
-              </>
+              </div>
             );
           })}
           {open && <GaleryTest imagesToShow={images} />}
