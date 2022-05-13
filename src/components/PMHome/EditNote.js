@@ -113,6 +113,26 @@ const EditNote = (props) => {
     setIsLoading(false);
   };
 
+  function forceDownload(blob, filename) {
+    var a = document.createElement('a');
+    a.download = filename;
+    a.href = blob;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  function downloadResource(url, filename) {
+    if (!filename) filename = url.split('\\').pop().split('/').pop();
+    fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        let blobUrl = window.URL.createObjectURL(blob);
+        forceDownload(blobUrl, filename);
+      })
+      .catch((e) => console.error(e));
+  }
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -191,13 +211,15 @@ const EditNote = (props) => {
                 marginTop: '8px',
               }}
             >
-              <a
-                href={'https://pm-app-bek.herokuapp.com' + file.attributes.url}
-                download
-                target={'_blank'}
+              <div
+                onClick={() =>
+                  downloadResource(
+                    'https://pm-app-bek.herokuapp.com' + file.attributes.url
+                  )
+                }
               >
                 {file.attributes.name}
-              </a>
+              </div>
               <span
                 style={{ marginLeft: '8px', cursor: 'pointer' }}
                 onClick={() => deleteOldFile(file.id)}
