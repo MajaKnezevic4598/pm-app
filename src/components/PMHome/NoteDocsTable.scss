@@ -1,16 +1,17 @@
 @import "../../styles/variables";
 
 @mixin btn {
-  background-color: $purplePrimary;
+  background-color: lighten($darkPrimary, 20%);
   padding: 1vh 2vh;
   color: $whitePrimary;
   border-radius: 4px;
-  font-size: 1.6vh;
+  font-size: 2vh;
 }
 
 .single-docs-conteiner {
   width: 100%;
-  border: 1px solid black;
+  // border: 1px solid black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   display: flex;
   padding: 1vh;
   align-items: center;

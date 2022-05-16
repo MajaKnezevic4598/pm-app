@@ -1,6 +1,7 @@
 import { useState } from "react";
 import GaleryTest from "./GaleryTest";
 import "./NoteDocsTableImage.scss";
+import { FiDownload } from "react-icons/fi";
 
 const NoteDocsTableImage = ({ images }) => {
   const [open, setOpen] = useState(false);
@@ -34,17 +35,10 @@ const NoteDocsTableImage = ({ images }) => {
     <div>
       {" "}
       {images ? (
-        <div style={{ border: "1px solid blue" }}>
+        <div className="img-cont">
           {images.map((i) => {
             return (
-              <div
-                style={{
-                  border: "1px solid red",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  padding: "1vh",
-                }}
-              >
+              <div className="img-cont__cont">
                 {!open && (
                   <div
                     onClick={() => {
@@ -63,7 +57,7 @@ const NoteDocsTableImage = ({ images }) => {
                       )
                     }
                   >
-                    download
+                    <FiDownload />
                   </div>
                 )}
               </div>

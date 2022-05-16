@@ -4,6 +4,7 @@ import GaleryTest from "./GaleryTest";
 
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
+import { FiDownload } from "react-icons/fi";
 
 const NoteDocsTable = ({
   fileName,
@@ -78,38 +79,8 @@ const NoteDocsTable = ({
         className="download"
       >
         {/* {images ? "nisu slike" : "Download"} */}
-        download
+        <FiDownload />
       </div>
-
-      {/* {images ? (
-        <div className="img-conteiner" style={{ border: "1px solid blue" }}>
-          {images.map((i) => {
-            return (
-              <div className="img-item" style={{ border: "1px solid red" }}>
-                {!open && (
-                  <div
-                    onClick={() => {
-                      openGalery();
-                    }}
-                  >
-                    {i.attributes.name}
-                  </div>
-                )}
-                <div
-                  onClick={() =>
-                    downloadResource(
-                      "https://pm-app-bek.herokuapp.com" + i.attributes.url
-                    )
-                  }
-                >
-                  Download
-                </div>
-              </div>
-            );
-          })}
-          {open && <GaleryTest imagesToShow={images} />}
-        </div>
-      ) : null} */}
     </div>
   );
 };
