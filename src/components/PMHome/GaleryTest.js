@@ -7,7 +7,7 @@ const GaleryTest = (props) => {
   }, [props]);
 
   return (
-    <Gallery>
+    <Gallery withDownloadButton>
       {props.imagesToShow.map((images) => {
         return (
           <Item

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import "./NoteDocs.scss";
 import NoteDocsTable from "./NoteDocsTable";
 import GaleryTest from "./GaleryTest";
+import NoteDocsTableImage from "./NoteDocsTableImage";
 
 const fetchNoteDocs = async (id) => {
   try {
@@ -65,30 +66,6 @@ const NoteDocs = () => {
 
   return (
     <div className="docs-conteiner">
-      <div className="docs-conteiner__header">
-        <h4>Document name:</h4>
-        <h4>Document type</h4>
-      </div>
-      {/* {data?.attributes &&
-        data?.attributes?.files?.data?.map((d) => {
-          return (
-            <NoteDocsTable
-              // fileName={d.attributes.name}
-              // filePath={d.attributes.url}
-              // fileExtension={d.attributes.ext}
-              // id={id}
-              // //   thumbnail={d.attributes.formats.thumbnail.url}
-              // //d.attributes.formats.thumbnail.url
-              // thumbnail={
-              //   d.attributes.formats?.thumbnail.url
-              //     ? d.attributes.formats?.thumbnail.url
-              //     : ""
-              // }
-              docsData={d}
-            />
-          );
-        })} */}
-      {/* treba napraviti niz za fajlove koji nisu slika i za fajlove koji su slika */}
       {data?.attributes &&
         notImageArr.map((noImage) => {
           return (
@@ -100,7 +77,7 @@ const NoteDocs = () => {
             />
           );
         })}
-      {imageArr.length !== 0 && <NoteDocsTable images={imageArr} />}
+      {imageArr.length !== 0 && <NoteDocsTableImage images={imageArr} />}
     </div>
   );
 };

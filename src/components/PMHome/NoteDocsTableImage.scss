@@ -1,0 +1,13 @@
+@import "../../styles/variables";
+
+@mixin btn {
+  background-color: $purplePrimary;
+  padding: 1vh 2vh;
+  color: $whitePrimary;
+  border-radius: 4px;
+  font-size: 1.6vh;
+}
+
+.download {
+  @include btn;
+}

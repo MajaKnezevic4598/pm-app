@@ -47,6 +47,7 @@ $border-radius-sm: 4px;
     flex-direction: column;
     flex-wrap: wrap;
     padding: 3vh;
+    border: 1px solid $lightGrayPrimary;
 
     &:hover {
       cursor: pointer;
@@ -139,6 +140,11 @@ $border-radius-sm: 4px;
 
   .note-docs {
     @include smallCard;
+    .other {
+      font-size: 2.2vh;
+      font-weight: bold;
+      margin-left: 1vw;
+    }
   }
 
   @media screen and (max-width: 750px) {
