@@ -1,8 +1,35 @@
 @import "../../styles/variables";
 
+@mixin btn {
+  background-color: lighten($darkPrimary, 20%);
+  padding: 1vh 2vh;
+  color: $whitePrimary;
+  border-radius: 4px;
+  font-size: 2vh;
+}
+
 .single-docs-conteiner {
   width: 100%;
-  border: 1px solid black;
+  // border: 1px solid black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   display: flex;
-  padding: 1vh 0;
+  padding: 1vh;
+  align-items: center;
+  justify-content: space-between;
+  .img-conteiner {
+    width: 100%;
+    display: flex;
+
+    justify-content: space-between;
+
+    .img-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2vh;
+    }
+  }
+  .download {
+    @include btn;
+  }
 }

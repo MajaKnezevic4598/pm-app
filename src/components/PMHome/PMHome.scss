@@ -45,6 +45,9 @@
         box-shadow: 0 4px 8px -2px #000;
         margin-left: 2vw;
 
+        display: block;
+        text-align: center;
+
         &:hover {
           background: lighten($purplePrimary, 10%);
           cursor: pointer;

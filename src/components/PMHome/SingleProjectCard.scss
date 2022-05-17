@@ -74,6 +74,7 @@ $button-width: 6vw;
   justify-content: space-around;
   margin-right: 3.5vw;
   margin-bottom: 3.5vw;
+  border: 1px solid $card-bg-color;
 
   &__project-info {
     @include smallCard;
@@ -124,6 +125,18 @@ $button-width: 6vw;
   &:hover {
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .card {
+    width: 35vw;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .card {
+    width: 42vw;
   }
 }
 

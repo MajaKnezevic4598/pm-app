@@ -1,0 +1,26 @@
+@import "../../styles/variables";
+
+@mixin btn {
+  background-color: lighten($darkPrimary, 20%);
+  padding: 1vh 2vh;
+  color: $whitePrimary;
+  border-radius: 4px;
+  font-size: 2vh;
+}
+
+.download {
+  @include btn;
+}
+
+.img-cont {
+  //   border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+
+  &__cont {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    padding: 1vh;
+  }
+}
